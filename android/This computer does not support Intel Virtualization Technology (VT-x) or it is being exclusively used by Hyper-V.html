@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>Failed to install Intel HAXM</title>
+</head>
+<style>
+    /* li{
+   list-style: none; 
+} */
+</style>
+<body style="padding-left:20px;padding-right:20px;">
+    <h4>问题描述</h4>
+
+    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp平时开发中一直是真机调试的，最近虽然刚出Android
+        9.0，但能早适配就不要等到明天动手，真机是碰不到只能先在模拟器上跑下，so点开Android Studio的SDK Manager各种下载，好不容易
+        创建好了模拟器，奈何运行时，闪一下就消失了。提示安装intel haxm，但是安装的时候总是失败，一直提示
+    </p>
+
+    <div style="background-color:gainsboro; padding: 10px;">
+        <ul>
+            <li>Failed to install Intel HAXM. For details, please check the installation log:
+                "C:\Users\dell\AppData\Local\Temp\haxm_log1.txt"</li>
+            <li>HAXM installation failed. To install HAXM follow the instructions found at:
+                https://software.intel.com/android/articles/installation-instructions-for-intel-hardware-accelerated-execution-manager-windows</li>
+            <li>Installer log is located at C:\Users\dell\AppData\Local\Temp\haxm_log1.txt</li>
+            <li>Installer log contents:</li>
+            <li>=== Logging started: 2019-01-03 15:03:31 ===</li>
+            <li>This computer does not support Intel Virtualization Technology (VT-x) or it is being exclusively used
+                by Hyper-V. HAXM cannot be installed.</li>
+            <li>Please ensure Hyper-V is disabled in Windows Features, or refer to the Intel HAXM documentation for
+                more information.</li>
+            <li>=== Logging stopped: 2019-01-03 15:03:31 ===</li>
+        </ul>
+    </div>
+    <p style="padding-left:0px">然后各种搜索，思路都是:</p>
+    <div style="background-color:gainsboro; padding: 10px;">
+        <ul>
+            <li style="list-style:square">启动时今BLOS开始虚拟选项</li>
+            <li style="list-style:square">进入计算机管理，关闭Hyper服务</li>
+            <li style="list-style:square">打开启用和关闭windows功能取消选中Hyper</li>
+        </ul>
+    </div>
+    <br>
+    <img style="width: 360px; align-self: center;" src="https://i.postimg.cc/sgtGV6sX/20190103114801.jpg">
+    <img style="width: 360px; align-self: center;" src="https://i.postimg.cc/sgtGV6sX/20190103114801.jpg">
+    <img style="width: 360px; align-self: center;" src="https://i.postimg.cc/sgtGV6sX/20190103114801.jpg">
+
+    <p>大部分到此就没有下文了，可能在win7、win8上没问题，或早期版本win10也没问题，可在我的win10怎么试都不行，终于找了篇国外的文章，多了一步，命令行</p>
+    <div style="background-color:gainsboro; padding: 10px;">
+        <ul>
+            <li style="list-style:square">Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All</li>
+        </ul>
+    </div>
+
+    <img src="" alt="">
+    <img src="" alt="">
+    <img src="" alt="">
+
+
+    <p>
+    </p>
+
+    <a href="https://www.isunshare.com/blog/how-to-disable-or-turn-off-hyper-v-in-windows-10-four-options/"></a>
+
+</body>
+
+</html>
