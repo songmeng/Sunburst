@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2015-06-29ViewPager顶部标题控件PagerSlidingTabStrip</title>
+</head>
+
+<body>
+        <p>&nbsp; &nbsp; &nbsp; 最近搞一个项目，要求做一个和网易新闻顶部菜单的滑动效果，如图：</p>
+        <p>&nbsp; &nbsp; &nbsp; <img src="https://raw.githubusercontent.com/songmeng/Sunburst/master/Images/android201905061.jpg"
+                alt=""></p>
+        <p>顶部标题中下面有个红色的矩形小条，左右滑动时会跟随手势动态滑动，效果很绚丽，唉，特效啊！</p>
+        <p>&nbsp; &nbsp; &nbsp; 自己搞了一上午无果，还是是github上找大神吧，最后发现了PagerSlidingTabStrip这个库，如下图：</p>
+        <p>&nbsp; &nbsp; &nbsp; <img
+                src="https://raw.githubusercontent.com/songmeng/Sunburst/master/Images/android201905062.gif" alt="" border="0">
+        </p>
+        <p>顶部就是用的PagerSlidingTabStrip下面是用ViewPager实现的，红色矩形条可以跟着屏幕的滑动而滑动，效果同样非常炫，最重要的是使用非常方便，引入library方式或者自己整理出来都可以，<span
+                style="line-height: 1.5;">很方便很实用，Github地址为</span>：<a
+                href="https://github.com/astuetz/PagerSlidingTabStrip"
+                target="_blank">https://github.com/astuetz/PagerSlidingTabStrip</a>&nbsp;万能的Github啊。具体怎么引入工程中使用就不多介绍了，大家都搞的定的，下面简单介绍下这个类库常用的方法和属性。
+        </p>
+        <p>&nbsp; &nbsp; PagerSlidingTabStrip常用属性如下，所有的属性都可以在xml中或者Activity中设置，可以通过get和set方法来设置属性：</p>
+        <ul class="task-list">
+            <li><code>pstsIndicatorColor</code>&nbsp;Color of the sliding indicator &nbsp;滑动条的颜色</li>
+            <li><code>pstsUnderlineColor</code>&nbsp;Color of the full-width line on the bottom of the view
+                &nbsp;滑动条所在的那个全宽线的颜色</li>
+            <li><code>pstsDividerColor</code>&nbsp;Color of the dividers between tabs &nbsp; 每个标签的分割线的颜色</li>
+            <li><code>pstsIndicatorHeight</code>Height of the sliding indicator &nbsp; &nbsp; &nbsp; 滑动条的高度</li>
+            <li><code>pstsUnderlineHeight</code>&nbsp;Height of the full-width line on the bottom of the view &nbsp;
+                &nbsp;滑动条所在的那个全宽线的高度</li>
+            <li><code>pstsDividerPadding</code>&nbsp;Top and bottom padding of the dividers &nbsp; 分割线底部和顶部的填充宽度</li>
+            <li><code>pstsTabPaddingLeftRight</code>&nbsp;Left and right padding of each tab &nbsp; 每个标签左右填充宽度</li>
+            <li><code>pstsScrollOffset</code>&nbsp;Scroll offset of the selected tab</li>
+            <li><code>pstsTabBackground</code>&nbsp;Background drawable of each tab, should be a StateListDrawable
+                &nbsp;每个标签的背景，应该是一个StateListDrawable &nbsp;</li>
+            <li><code>pstsShouldExpand</code>&nbsp;If set to true, each tab is given the same weight, default false
+                &nbsp; 如果设置为true，每个标签是相同的控件，均匀平分整个屏幕，默认是false</li>
+            <li><code>pstsTextAllCaps</code>&nbsp;If true, all tab titles will be upper case, default true &nbsp;
+                如果为true，所有标签都是大写字母，默认为true</li>
+        </ul>
+        <p>&nbsp; &nbsp; &nbsp;简单介绍下用法，下载后在sample/文件夹下可运行的示例工程，可以参考着写</p>
+        <p><span style="line-height: 1.5;">&nbsp; &nbsp;
+                &nbsp;第一步、引入library作为本地包工程，在你的layout的xml布局文件中加入PagerSlidingTabStrip控件</span></p>
+        <pre name="code" class="java">&lt;com.demo.PagerSlidingTabStrip
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" /&gt;</pre>
+        <p>&nbsp; &nbsp; 第二步、在Activity的onCreate方法中绑定PagerSlidingTabStrip控件到ViewPager上</p>
+        <pre name="code"
+            class="java">//为ViewPager设置适配器<br>ViewPager.setAdapter(new MyAdapter(getSupportFragmentManager())); <br><br>//ViewPager绑定PagerSlidingTabStrip <br>PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tab_one); <br>tabs.setViewPager(pager);<br>注意：这里的ViewPager的适配器必须是继承的FragmentPagerAdapter，并重写getPageIconResId(int position)或者getPageTitle(int position)方法 </pre>
+        <p>&nbsp; &nbsp; &nbsp;第三步、设置onPageChangeListener监听方法</p>
+        <pre name="code" class="java"> tabs.setOnPageChangeListener(onPageChangeListener);</pre>
+</body>
+
+</html>

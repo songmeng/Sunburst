@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-06-10Android中的5种数据存储方式</title>
+</head>
+
+<body>
+    <h2><strong><span>Android中的5种数据存储方式：</span></strong></h2>
+    <div>1 使用SharedPreferences存储数据</div>
+    <div>2 文件存储数据</div>
+    <div>3 SQLite数据库存储数据</div>
+    <div>4 使用ContentProvider存储数据</div>
+    <div>5 网络存储数据</div>
+    <h2><strong>一</strong>.Sharedpreference简介</h2>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>&nbsp;为了保存软件的参数，或者是某些比较小型的数据，Android中我们可以使用Android为我么提供的SharedPreference类他是一个轻量级的储存类，特别适合用于保存软件参数使用SharedPreference保存数据，其背后是使用xml文件存放数据<br>文件存放在/data/data/&lt;-package
+            name-&gt;/shared_prefs目录下</span></p>
+    <p><span>1、获取<span>&nbsp;SharedPreferences</span>的一个是类对象</span></p>
+    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        &nbsp;<span>&nbsp;<strong>SharedPreferences pre =
+                getSharedPreferences("my_sharedprefs",Context.MODE_WORLD_READABLE);</strong></span></p>
+    <p>以上未获得<span>&nbsp;SharedPreferences</span>的一个实例对象，两个参数分表代表&nbsp; 存放数据的文件名和创建模式</p>
+    <p>（1）. 文件名。在这里要特别注意。因为在Android中已经确定了SharedPreferences
+        是以xml<br>形式保存，所以，在填写文件名参数时，不要给定”.xml”后缀，android会自动添加。只<br>要直接写上文件名，即可。它会直接被保存在/data/data/&lt;packagename&gt;/shared_prefs路<br>径下。它是采用键值对的形式保存参数。当你需要获得某个参数值时，按照参数的键索<br>引即可。<br>（2）.
+        第二个可以理解为创建模式和之前的文件存储的模式是一样的。<br><strong>Context.MODE_PRIVATE</strong><br><strong>Context.MODE_APPEND</strong><br><strong>Context.MODE_WORLD_READABLE</strong><br><strong>Context.MODE_WORLD_WRITEABL</strong>
+    </p>
+    <p>2、.向<span>&nbsp;SharedPreferences</span>实例对象文档中插入数据：</p>
+    <p>&nbsp;<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Editor&nbsp;&nbsp;
+            editor=sharedPreferences.edit();</strong></p>
+    <p><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp; editor.putString("data","NEwii");<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp;
+                &nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                editor.commit();</span></strong></p>
+    <p>此为获取<span>SharedPreferences一个可编辑对象实例，向实例中添加数据，最后使用Edior对象的commit()方法提交数据，数据就插入成功！</span></p>
+    <p><span>3、从SharedPreferences保存的数据文件中读出数据：</span></p>
+    <p><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                SharedPreferences&nbsp;sharedPreferences&nbsp;=&nbsp;getSharedPreferences(<span
+                    class="string">"itcast"</span>,&nbsp;Context.MODE_PRIVATE);&nbsp;&nbsp;&nbsp;<span
+                    class="comment"><br></span></span></strong></p>
+    <p><strong><span><span class="comment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    //getString()第二个参数为缺省值，如果preference中不存在该key，将返回缺省值&nbsp;&nbsp;</span>&nbsp;<br></span></strong>
+    </p>
+    <p><strong><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                String&nbsp;name&nbsp;=&nbsp;sharedPreferences.getString(<span class="string">"data"</span>,&nbsp;<span
+                    class="string">""</span>);</span></strong><strong>&nbsp;</strong></p>
+    <p><span class="keyword">4、使用Sharedpreferences实现自动登录</span></p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        使用&nbsp;&nbsp;&nbsp;<span>SharedPreferences</span>实现自动登录的原理比较简单，首先在启动登陆界面时候判断一下自动登录是否开启，如果开启那么从&nbsp;<span>SharedPreferences</span>中读取出账号、密码直接调用登陆逻辑进行登录；在开启自动登录时候可以设置
+        &nbsp;<span>SharedPreferences</span>&nbsp;中的标志&nbsp; flag的值为1 &nbsp; 关闭自动登录和默认情况下，可以设置flag为 0
+        ，在Activity中的onResume()方法中首先判断&nbsp; flag&nbsp; 的值&nbsp; 如果值 为1那么就取出账号密码进行自动登录！ &nbsp;</p>
+    <p>5、实用简单小例子</p>
+    <p>&nbsp; &nbsp; &nbsp; &nbsp;创建：</p>
+    <p><strong> SharedPreferences mySharedPreferences = getSharedPreferences("user",
+            Context.MODE_PRIVATE);</strong><br><strong> SharedPreferences.Editor editor =
+            mySharedPreferences.edit();</strong><br><strong> editor.putString("userId", name);</strong><br><strong>
+            editor.putString("password", passWord);</strong><br><strong> // 提交当前数据</strong><br><strong>
+            editor.commit();</strong></p>
+    <p>&nbsp; &nbsp; &nbsp; 删除：</p>
+    <p><strong> SharedPreferences mySharedPreferences = getSharedPreferences("user",
+            Context.MODE_PRIVATE);</strong><br><strong> SharedPreferences.Editor editor =
+            mySharedPreferences.edit();</strong><br><strong> editor.clear().commit();</strong></p>
+    <h2><strong>二、文件存储数据</strong></h2>
+    <div>关于文件存储，Activity提供了openFileOutput()方法可以用于把数据输出到文件中，具体的实现过程与在J2SE环境中保存数据到文件中是一样的。</div>
+    <div>文件可用来存放大量数据，如文本、图片、音频等。</div>
+    <div>默认位置：/data/data/&lt; &gt;/files/***.***。</div>
+    <div>代码示例：</div>
+    <div>&nbsp;</div>
+    <div><strong>public void save()</strong></div>
+    <div><strong>&nbsp;{</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; try {</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FileOutputStream
+            outStream=this.openFileOutput("a.txt",Context.MODE_WORLD_READABLE);</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            outStream.write(text.getText().toString().getBytes());</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; outStream.close();</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            Toast.makeText(MyActivity.this,"Saved",Toast.LENGTH_LONG).show();</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; } catch (FileNotFoundException e) {</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; }</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; catch (IOException e){</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return ;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; }</strong></div>
+    <div><strong>&nbsp;</strong></div>
+    <div><strong>&nbsp;}&nbsp;</strong></div>
+    <div>openFileOutput()方法的第一参数用于指定文件名称，不能包含路径分隔符“/” ，如果文件不存在，Android 会自动创建它。</div>
+    <div>创建的文件保存在/data/data//files目录，如： /data/data/cn.itcast.action/files/itcast.txt ，通过点击Eclipse菜单“Window”-“Show
+        View”-“Other”，在对话窗口中展开android文件夹，选择下面的File Explorer视图，然后在File Explorer视图中展开/data/data//files目录就可以看到该文件。
+    </div>
+    <div>openFileOutput()方法的第二参数用于指定操作模式，有四种模式，分别为：</div>
+    <div>Context.MODE_PRIVATE = 0</div>
+    <div>Context.MODE_APPEND = 32768</div>
+    <div>Context.MODE_WORLD_READABLE = 1</div>
+    <div>Context.MODE_WORLD_WRITEABLE = 2</div>
+    <div>
+        Context.MODE_PRIVATE：为默认操作模式，代表该文件是私有数据，只能被应用本身访问，在该模式下，写入的内容会覆盖原文件的内容，如果想把新写入的内容追加到原文件中。可以使用Context.MODE_APPEND
+    </div>
+    <div>Context.MODE_APPEND：模式会检查文件是否存在，存在就往文件追加内容，否则就创建新文件。</div>
+    <div>Context.MODE_WORLD_READABLE和Context.MODE_WORLD_WRITEABLE用来控制其他应用是否有权限读写该文件。</div>
+    <div>MODE_WORLD_READABLE：表示当前文件可以被其他应用读取；</div>
+    <div>MODE_WORLD_WRITEABLE：表示当前文件可以被其他应用写入。</div>
+    <div>如果希望文件被其他应用读和写，可以传入： openFileOutput("itcast.txt", Context.MODE_WORLD_READABLE +
+        Context.MODE_WORLD_WRITEABLE);
+        android有一套自己的安全模型，当应用程序(.apk)在安装时系统就会分配给他一个userid，当该应用要去访问其他资源比如文件的时候，就需要userid匹配。默认情况下，任何应用创建的文件，sharedpreferences，数据库都应该是私有的（位于/data/data//files），其他程序无法访问。
+    </div>
+    <div>除非在创建时指定了Context.MODE_WORLD_READABLE或者Context.MODE_WORLD_WRITEABLE ，只有这样其他程序才能正确访问。</div>
+    <div>读取文件示例：</div>
+    <div><strong>public void load(){</strong></div>
+    <div><strong>&nbsp; &nbsp; try {</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; FileInputStream inStream=this.openFileInput("a.txt");</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; ByteArrayOutputStream stream=new ByteArrayOutputStream();</strong>
+    </div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; byte[] buffer=new byte[1024];</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; int length=-1;</strong></div>
+    <div><strong>while((length=inStream.read(buffer))!=-1) &nbsp; {</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stream.write(buffer,0,length);</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; }</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; stream.close();</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; inStream.close();</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; text.setText(stream.toString());</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp;
+            Toast.makeText(MyActivity.this,"Loaded",Toast.LENGTH_LONG).show();</strong></div>
+    <div><strong>&nbsp; &nbsp; } catch (FileNotFoundException e) {</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; e.printStackTrace();</strong></div>
+    <div><strong>&nbsp; &nbsp; }</strong></div>
+    <div><strong>&nbsp; &nbsp; catch (IOException e){</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; return ;</strong></div>
+    <div><strong>&nbsp; &nbsp; }</strong></div>
+    <div><strong>} &nbsp;</strong></div>
+    <div>对于私有文件只能被创建该文件的应用访问，如果希望文件能被其他应用读和写，可以在创建文件时，指定Context.MODE_WORLD_READABLE和Context.MODE_WORLD_WRITEABLE权限。
+    </div>
+    <div>Activity还提供了getCacheDir()和getFilesDir()方法： getCacheDir()方法用于获取/data/data//cache目录
+        getFilesDir()方法用于获取/data/data//files目录。</div>
+    <div>把文件存入SDCard：</div>
+    <div>
+        使用Activity的openFileOutput()方法保存文件，文件是存放在手机空间上，一般手机的存储空间不是很大，存放些小文件还行，如果要存放像视频这样的大文件，是不可行的。对于像视频这样的大文件，我们可以把它存放在SDCard。
+    </div>
+    <div>SDCard是干什么的？你可以把它看作是移动硬盘或U盘。 在模拟器中使用SDCard，你需要先创建一张SDCard卡（当然不是真的SDCard，只是镜像文件）。</div>
+    <div>创建SDCard可以在Eclipse创建模拟器时随同创建，也可以使用DOS命令进行创建，如下： 在Dos窗口中进入android
+        SDK安装路径的tools目录，输入以下命令创建一张容量为2G的SDCard，文件后缀可以随便取，建议使用.img： mksdcard 2048M D:\AndroidTool\sdcard.img
+        在程序中访问SDCard，你需要申请访问SDCard的权限。</div>
+    <div>在AndroidManifest.xml中加入访问SDCard的权限如下:</div>
+    <div>&nbsp;&lt;!-- 在SDCard中创建与删除文件权限 --&gt;</div>
+    <div>&nbsp; &nbsp; &lt;uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/&gt;</div>
+    <div>&nbsp; &nbsp; &lt;!-- 往SDCard写入数据权限 --&gt;</div>
+    <div>&nbsp; &nbsp; &lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/&gt;&nbsp;</div>
+    <div>要往SDCard存放文件，程序必须先判断手机是否装有SDCard，并且可以进行读写。</div>
+    <div>注意：访问SDCard必须在AndroidManifest.xml中加入访问SDCard的权限。</div>
+    <div><strong>&nbsp;if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){&nbsp;</strong>
+    </div>
+    <div><strong>File sdCardDir = Environment.getExternalStorageDirectory();//获取SDCard目录 &nbsp; &nbsp; &nbsp;
+            &nbsp;&nbsp;</strong></div>
+    <div><strong>File saveFile = new File(sdCardDir, “a.txt”);</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; FileOutputStream outStream = new FileOutputStream(saveFile);</strong>
+    </div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; outStream.write("test".getBytes());</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; outStream.close();</strong></div>
+    <div><strong>}&nbsp;</strong></div>
+    <div>
+        ​Environment.getExternalStorageState()方法用于获取SDCard的状态，如果手机装有SDCard，并且可以进行读写，那么方法返回的状态等于Environment.MEDIA_MOUNTED。
+        &nbsp;</div>
+    <div>Environment.getExternalStorageDirectory()方法用于获取SDCard的目录，当然要获取SDCard的目录，你也可以这样写：</div>
+    <div><strong>File sdCardDir = new File("/sdcard"); //获取SDCard目录</strong></div>
+    <div><strong>File saveFile = new File(sdCardDir, "itcast.txt");</strong></div>
+    <div>//上面两句代码可以合成一句：</div>
+    <div><strong>File saveFile = new File("/sdcard/a.txt");</strong></div>
+    <div><strong>FileOutputStream outStream = new FileOutputStream(saveFile);</strong></div>
+    <div><strong>outStream.write("test".getBytes());</strong></div>
+    <div><strong>outStream.close();</strong></div>
+    <h2>三、 SQLite数据库存储数据</h2>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;SQLite是轻量级嵌入式数据库引擎，它支持 SQL
+        语言，并且只利用很少的内存就有很好的性能。此外它还是开源的，任何人都可以使用它。许多开源项目（(Mozilla, PHP, Python）都使用了 SQLite.SQLite 由以下几个组件组成：SQL
+        编译器、内核、后端以及附件。SQLite 通过利用虚拟机和虚拟数据库引擎（VDBE），使调试、修改和扩展 SQLite 的内核变得更加方便。</div>
+    <div>特点：</div>
+    <div>面向资源有限的设备，</div>
+    <div>没有服务器进程,</div>
+    <div>所有数据存放在同一文件中跨平台，</div>
+    <div>可自由复制。&nbsp;</div>
+    <div>SQLite 内部结构：</div>
+    <div>&nbsp; &nbsp; &nbsp; SQLite 基本上符合 SQL-92 标准，和其他的主要 SQL 数据库没什么区别。它的优点就是高效，Android&nbsp;运行时环境包含了完整的 SQLite。
+        &nbsp;</div>
+    <div>&nbsp; &nbsp; &nbsp; SQLite 和其他数据库最大的不同就是对数据类型的支持，创建一个表时，可以在 CREATE TABLE
+        语句中指定某列的数据类型，但是你可以把任何数据类型放入任何列中。当某个值插入数据库时，SQLite 将检查它的类型。如果该类型与关联的列不匹配，则 SQLite
+        会尝试将该值转换成该列的类型。如果不能转换，则该值将作为其本身具有的类型存储。比如可以把一个字符串（String）放入 INTEGER 列。SQLite 称这为“弱类型”（manifest typing.）。
+        此外，SQLite 不支持一些标准的 SQL 功能，特别是外键约束（FOREIGN KEY constrains），嵌套 transcaction 和 RIGHT OUTER JOIN 和 FULL OUTER
+        JOIN, 还有一些 ALTER TABLE 功能。 除了上述功能外，SQLite 是一个完整的 SQL&nbsp;系统，拥有完整的触发器，交易等等。</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;Android 集成了 SQLite 数据库 Android 在运行时（run-time）集成了 SQLite，所以每个 Android 应用程序都可以使用
+        SQLite 数据库。&nbsp;</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;对于熟悉 SQL 的开发人员来时，在 Android 开发中使用 SQLite 相当简单。但是，由于 JDBC 会消耗太多的系统资源，所以 JDBC
+        对于手机这种内存受限设备来说并不合适。因此，Android 提供了一些新的 API 来使用 SQLite 数据库，Android 开发中，程序员需要学使用这些 API。</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;数据库存储在 data/&lt; 项目文件夹 &gt;/databases/ 下。 Android 开发中使用 SQLite 数据库 Activites
+        可以通过 Content Provider 或者 Service 访问一个数据库。</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;下面会详细讲解如果创建数据库，添加数据和查询数据库。 创建数据库 Android 不自动提供数据库。在 Android 应用程序中使用
+        SQLite，必须自己创建数据库，然后创建表、索引，填充数据。</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;Android 提供了 SQLiteOpenHelper 帮助你创建一个数据库，你只要继承 SQLiteOpenHelper
+        类，就可以轻松的创建数据库。SQLiteOpenHelper 类根据开发应用程序的需要，封装了创建和更新数据库使用的逻辑。</div>
+    <div>&nbsp; &nbsp; &nbsp; &nbsp;SQLiteOpenHelper 的子类，至少需要实现三个方法：</div>
+    <div>1 构造函数，调用父类 SQLiteOpenHelper 的构造函数。这个方法需要四个参数：上下文环境（例如，一个 Activity），数据库名字，一个可选的游标工厂（通常是
+        Null），一个代表你正在使用的数据库模型版本的整数。</div>
+    <div>2 onCreate（）方法，它需要一个 SQLiteDatabase 对象作为参数，根据需要对这个对象填充表和初始化数据。</div>
+    <div>3 onUpgrage() 方法，它需要三个参数，一个 SQLiteDatabase 对象，一个旧的版本号和一个新的版本号，这样你就可以清楚如何把一个数据库从旧的模型转变到新的模型。</div>
+    <div>下面示例代码展示了如何继承 SQLiteOpenHelper 创建数据库：</div>
+    <div>&nbsp;</div>
+    <div><strong>public class DatabaseHelper extends SQLiteOpenHelper { &nbsp; &nbsp;</strong></div>
+    <div><strong>&nbsp; DatabaseHelper(Context context, String name, CursorFactory cursorFactory, int
+            version)&nbsp;</strong><strong>{ &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; super(context, name, cursorFactory, version); &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;} &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;@Override &nbsp; &nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;public void onCreate(SQLiteDatabase db) { &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// TODO 创建数据库后，对数据库的操作 &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;} &nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;@Override &nbsp; &nbsp;</strong></div>
+    <div><strong>&nbsp;public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { &nbsp;
+            &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// TODO 更改数据库版本的操作 &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;} &nbsp; &nbsp;&nbsp;</strong><strong>&nbsp;</strong></div>
+    <div><strong>&nbsp;@Override &nbsp; &nbsp;</strong></div>
+    <div><strong>&nbsp;public void onOpen(SQLiteDatabase db) { &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;super.onOpen(db); &nbsp; &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;// TODO 每次成功打开数据库后首先被执行 &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp;} &nbsp; &nbsp;&nbsp;</strong></div>
+    <div><strong>&nbsp;} &nbsp;</strong>&nbsp; &nbsp;</div>
+    <div>接下来讨论具体如何创建表、插入数据、删除表等等。调用 getReadableDatabase() 或 getWriteableDatabase() 方法，你可以得到 SQLiteDatabase
+        实例，具体调用那个方法，取决于你是否需要改变数据库的内容：</div>
+    <div><strong>&nbsp;db=(new DatabaseHelper(getContext())).getWritableDatabase();</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp;return (db == null) ? false : true; &nbsp;</strong></div>
+    <div>上面这段代码会返回一个 SQLiteDatabase 类的实例，使用这个对象，你就可以查询或者修改数据库。 当你完成了对数据库的操作（例如你的 Activity 已经关闭），需要调用 SQLiteDatabase
+        的 Close() 方法来释放掉数据库连接。 创建表和索引 为了创建表和索引，需要调用 SQLiteDatabase 的 execSQL() 方法来执行 DDL 语句。如果没有异常，这个方法没有返回值。&nbsp;
+    </div>
+    <div>例如，你可以执行如下代码：</div>
+    <div>db.execSQL("CREATE TABLE mytable (_id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, value REAL);"); &nbsp;
+    </div>
+    <div>这条语句会创建一个名为 mytable 的表，表有一个列名为 _id，并且是主键，这列的值是会自动增长的整数（例如，当你插入一行时，SQLite 会给这列自动赋值），另外还有两列：title( 字符 ) 和
+        value( 浮点数 )。 SQLite 会自动为主键列创建索引。 通常情况下，第一次创建数据库时创建了表和索引。</div>
+    <div>如果你不需要改变表的 schema，不需要删除表和索引 . 删除表和索引，需要使用 execSQL() 方法调用 DROP INDEX 和 DROP TABLE 语句。 给表添加数据
+        上面的代码，已经创建了数据库和表，现在需要给表添加数据。有两种方法可以给表添加数据。</div>
+    <div>像上面创建表一样，你可以使用 execSQL() 方法执行 INSERT, UPDATE, DELETE 等语句来更新表的数据。execSQL() 方法适用于所有不返回结果的 SQL 语句。</div>
+    <div>例如： db.execSQL("INSERT INTO widgets (name, inventory)"+ "VALUES ('Sprocket', 5)");</div>
+    <div>另一种方法是使用 SQLiteDatabase 对象的 insert(), update(), delete() 方法。这些方法把 SQL 语句的一部分作为参数。</div>
+    <div>示例如下：</div>
+    <div>ContentValues cv=new ContentValues();</div>
+    <div>cv.put(Constants.TITLE, "example title");</div>
+    <div>cv.put(Constants.VALUE, SensorManager.GRAVITY_DEATH_STAR_I);</div>
+    <div>db.insert("mytable", getNullColumnHack(), cv);</div>
+    <div>update（）方法有四个参数，分别是表名，表示列名和值的 ContentValues 对象，可选的 WHERE 条件和可选的填充 WHERE 语句的字符串，这些字符串会替换 WHERE 条件中的“？”标记。
+    </div>
+    <div>update() 根据条件，更新指定列的值，所以用 execSQL() 方法可以达到同样的目的。 WHERE 条件和其参数和用过的其他 SQL APIs 类似。</div>
+    <div>例如：</div>
+    <div>String[] parms=new String[] {"this is a string"};</div>
+    <div>db.update("widgets", replacements, "name=?", parms);</div>
+    <div>delete() 方法的使用和 update() 类似，使用表名，可选的 WHERE 条件和相应的填充 WHERE 条件的字符串。 查询数据库 类似 INSERT, UPDATE, DELETE，有两种方法使用
+        SELECT 从 SQLite 数据库检索数据。 &nbsp;</div>
+    <div>1 ．使用 rawQuery() 直接调用 SELECT 语句； 使用 query() 方法构建一个查询。</div>
+    <div>Raw Queries 正如 API 名字，rawQuery() 是最简单的解决方法。通过这个方法你就可以调用 SQL SELECT 语句。</div>
+    <div>例如： Cursor c=db.rawQuery( "SELECT name FROM sqlite_master WHERE type='table' AND name='mytable'", null);
+    </div>
+    <div>在上面例子中，我们查询 SQLite 系统表（sqlite_master）检查 table 表是否存在。返回值是一个 cursor 对象，这个对象的方法可以迭代查询结果。
+        如果查询是动态的，使用这个方法就会非常复杂。</div>
+    <div>例如，当你需要查询的列在程序编译的时候不能确定，这时候使用 query() 方法会方便很多。</div>
+    <div>Regular Queries query() 方法用 SELECT 语句段构建查询。SELECT 语句内容作为 query() 方法的参数，比如：要查询的表名，要获取的字段名，WHERE
+        条件，包含可选的位置参数，去替代 WHERE 条件中位置参数的值，GROUP BY 条件，HAVING 条件。 除了表名，其他参数可以是 null。所以，以前的代码段可以可写成：</div>
+    <div>String[] columns={"ID", "inventory"};&nbsp;</div>
+    <div>&nbsp;String[] parms={"snicklefritz"};&nbsp;</div>
+    <div>&nbsp;Cursor result=db.query("widgets", columns, "name=?",parms, null, null, null); &nbsp;&nbsp;</div>
+    <div>使用游标 &nbsp;</div>
+    <div>不管你如何执行查询，都会返回一个 Cursor，这是 Android 的 SQLite 数据库游标，</div>
+    <div>使用游标，你可以：</div>
+    <div>通过使用 getCount() 方法得到结果集中有多少记录；</div>
+    <div>通过 moveToFirst(), moveToNext(), 和 isAfterLast() 方法遍历所有记录；</div>
+    <div>通过 getColumnNames() 得到字段名；</div>
+    <div>通过 getColumnIndex() 转换成字段号；</div>
+    <div>通过 getString()，getInt() 等方法得到给定字段当前记录的值；</div>
+    <div>通过 requery() 方法重新执行查询得到游标；</div>
+    <div>通过 close() 方法释放游标资源；</div>
+    <div>例如，下面代码遍历 mytable 表：</div>
+    <div><strong>Cursor result=db.rawQuery("SELECT ID, name, inventory FROM mytable"); &nbsp; &nbsp;&nbsp;</strong>
+    </div>
+    <div><strong>result.moveToFirst();&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; while (!result.isAfterLast()) {&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; int id=result.getInt(0);&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; String name=result.getString(1);&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; int inventory=result.getInt(2);&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; // do something useful with these&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; &nbsp; result.moveToNext();&nbsp;</strong></div>
+    <div><strong>&nbsp; &nbsp; &nbsp; }&nbsp;</strong></div>
+    <div><strong>&nbsp;result.close(); &nbsp;&nbsp;</strong></div>
+    <div>在 Android 中使用 SQLite 数据库管理工具 在其他数据库上作开发，一般都使用工具来检查和处理数据库的内容，而不是仅仅使用数据库的 API。&nbsp;</div>
+    <div>使用 Android 模拟器，有两种可供选择的方法来管理数据库。</div>
+    <div>首先，模拟器绑定了 sqlite3 控制台程序，可以使用 adb shell 命令来调用他。只要你进入了模拟器的 shell，在数据库的路径执行 sqlite3 命令就可以了。</div>
+    <div>数据库文件一般存放在： /data/data/your.app.package/databases/your-db-name 如果你喜欢使用更友好的工具，你可以把数据库拷贝到你的开发机上，使用
+        SQLite-aware 客户端来操作它。这样的话，你在一个数据库的拷贝上操作，如果你想要你的修改能反映到设备上，你需要把数据库备份回去。</div>
+    <div>把数据库从设备上考出来，你可以使用 adb pull 命令（或者在 IDE 上做相应操作）。</div>
+    <div>存储一个修改过的数据库到设备上，使用 adb push 命令。 一个最方便的 SQLite 客户端是 FireFox SQLite Manager 扩展，它可以跨所有平台使用。</div>
+    <div>
+        <h2><strong>四、使用ContentProvider存储数据</strong></h2>
+        <p>Android这个系统和其他的操作系统还不太一样，我们需要记住的是，数据在Android当中是私有的，当然这些数据包括文件数据和数据库数据以及一些其他类型的数据。那这个时候有读者就会提出问题，难道两个程序之间就没有办法对于数据进行交换？Android这么优秀的系统不会让这种情况发生的。解决这个问题主要靠ContentProvider。一个Content
+            Provider类实现了一组标准的方法接口，从而能够让其他的应用保存或读取此Content Provider的各种数据类型。也就是说，一个程序可以通过实现一个Content
+            Provider的抽象接口将自己的数据暴露出去。外界根本看不到，也不用看到这个应用暴露的数据在应用当中是如何存储的，或者是用数据库存储还是用文件存储，还是通过网上获得，这些一切都不重要，重要的是外界可以通过这一套标准及统一的接口和程序里的数据打交道，可以读取程序的数据，也可以删除程序的数据，当然，中间也会涉及一些权限的问题。&nbsp;
+        </p>
+        <p>一个程序可以通过实现一个ContentProvider的抽象接口将自己的数据完全暴露出去，而且ContentProviders是以类似数据库中表的方式将数据暴露，也就是说ContentProvider就像一个“数据库”。那么外界获取其提供的数据，也就应该与从数据库中获取数据的操作基本一样，只不过是采用URI来表示外界需要访问的“数据库”。&nbsp;
+        </p>
+        <p>Content Provider提供了一种多应用间数据共享的方式，比如：联系人信息可以被多个应用程序访问。</p>
+        <p>Content Provider是个实现了一组用于提供其他应用程序存取数据的标准方法的类。 应用程序可以在Content Provider中执行如下操作: 查询数据 修改数据 添加数据 删除数据</p>
+        <p>标准的Content Provider: Android提供了一些已经在系统中实现的标准Content Provider，比如联系人信息，图片库等等，你可以用这些Content
+            Provider来访问设备上存储的联系人信息，图片等等。</p>
+        <p><strong>查询记录: &nbsp;</strong></p>
+        <p>在Content Provider中使用的查询字符串有别于标准的SQL查询。很多诸如select, add, delete, modify等操作我们都使用一种特殊的URI来进行，这种URI由3个部分组成，
+            “content://”, 代表数据的路径，和一个可选的标识数据的ID。</p>
+        <p>以下是一些示例URI:</p>
+        <p>content://media/internal/images 这个URI将返回设备上存储的所有图片</p>
+        <p>content://contacts/people/ 这个URI将返回设备上的所有联系人信息</p>
+        <p>content://contacts/people/45 这个URI返回单个结果（联系人信息中ID为45的联系人记录）</p>
+        <p>尽管这种查询字符串格式很常见，但是它看起来还是有点令人迷惑。为此，Android提供一系列的帮助类（在android.provider包下），里面包含了很多以类变量形式给出的查询字符串，这种方式更容易让我们理解一点，参见下例:
+        </p>
+        <p>MediaStore.Images.Media.INTERNAL_CONTENT_URI Contacts.People.CONTENT_URI</p>
+        <p>因此，如上面content://contacts/people/45这个URI就可以写成如下形式：</p>
+        <p>Uri person = ContentUris.withAppendedId(People.CONTENT_URI, 45);</p>
+        <p>然后执行数据查询: Cursor cur = managedQuery(person, null, null, null);</p>
+        <p>这个查询返回一个包含所有数据字段的游标，我们可以通过迭代这个游标来获取所有的数据：</p>
+
+
+
+
+        <span>package&nbsp;com.wissen.testApp;public&nbsp;class&nbsp;ContentProviderDemo&nbsp;extends&nbsp;Activity&nbsp;{</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;@Override</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.onCreate(savedInstanceState);</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.main);</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayRecords();</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;void&nbsp;displayRecords()&nbsp;{</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//该数组中包含了所有要返回的字段</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;columns[]&nbsp;=&nbsp;new&nbsp;String[]&nbsp;{&nbsp;People.NAME,&nbsp;People.NUMBER&nbsp;};</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;mContacts&nbsp;=&nbsp;People.CONTENT_URI;</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cursor&nbsp;cur&nbsp;=&nbsp;managedQuery(</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mContacts,</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;columns,&nbsp;&nbsp;//&nbsp;要返回的数据字段</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;WHERE子句</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;WHERE&nbsp;子句的参数</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;null&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Order-by子句</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(cur.moveToFirst())&nbsp;{</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;name&nbsp;=&nbsp;null;</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;phoneNo&nbsp;=&nbsp;null;</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do&nbsp;{</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;获取字段的值</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;=&nbsp;cur.getString(cur.getColumnIndex(People.NAME));</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phoneNo&nbsp;=&nbsp;cur.getString(cur.getColumnIndex(People.NUMBER));</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toast.makeText(this,&nbsp;name&nbsp;+&nbsp;”&nbsp;”&nbsp;+&nbsp;phoneNo,&nbsp;Toast.LENGTH_LONG).show();</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;while&nbsp;(cur.moveToNext());</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+        <p>}&nbsp;</p>
+        <p>上例示范了一个如何依次读取联系人信息表中的指定数据列name和number。&nbsp;</p>
+        <p><strong>修改记录: &nbsp;</strong></p>
+        <p>我们可以使用ContentResolver.update()方法来修改数据，我们来写一个修改数据的方法:</p>
+
+
+
+
+
+        <strong>&nbsp;
+            &nbsp;&nbsp;private&nbsp;void&nbsp;updateRecord(int&nbsp;recNo,&nbsp;String&nbsp;name)&nbsp;{</strong>
+        <p><strong>&nbsp; &nbsp;
+                Uri&nbsp;uri&nbsp;=&nbsp;ContentUris.withAppendedId(People.CONTENT_URI,&nbsp;recNo);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;ContentValues&nbsp;values&nbsp;=&nbsp;new&nbsp;ContentValues();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;values.put(People.NAME,&nbsp;name);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;getContentResolver().update(uri,&nbsp;values,&nbsp;null,&nbsp;null);</strong>
+        </p>
+        <p><strong>}</strong> &nbsp;</p>
+        <p>现在你可以调用上面的方法来更新指定记录： updateRecord(10, ”XYZ”); //更改第10条记录的name字段值为“XYZ” &nbsp;</p>
+        <p><strong>添加记录:</strong></p>
+        <p>要增加记录，我们可以调用ContentResolver.insert()方法，该方法接受一个要增加的记录的目标URI，以及一个包含了新记录值的Map对象，调用后的返回值是新记录的URI，包含记录号。</p>
+        <p>上面的例子中我们都是基于联系人信息簿这个标准的Content Provider，现在我们继续来创建一个insertRecord() 方法以对联系人信息簿中进行数据的添加：</p>
+
+
+
+
+
+        <strong>&nbsp;private&nbsp;void&nbsp;insertRecords(String&nbsp;name,&nbsp;String&nbsp;phoneNo)&nbsp;{</strong>
+        <p><strong>&nbsp; &nbsp;
+                ContentValues&nbsp;values&nbsp;=&nbsp;new&nbsp;ContentValues();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;values.put(People.NAME,&nbsp;name);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;uri&nbsp;=&nbsp;getContentResolver().insert(People.CONTENT_URI,&nbsp;values);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;Log.d(”ANDROID”,&nbsp;uri.toString());</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;numberUri&nbsp;=&nbsp;Uri.withAppendedPath(uri,&nbsp;People.Phones.CONTENT_DIRECTORY);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;values.clear();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;values.put(Contacts.Phones.TYPE,&nbsp;People.Phones.TYPE_MOBILE);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;values.put(People.NUMBER,&nbsp;phoneNo);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;getContentResolver().insert(numberUri,&nbsp;values);</strong>
+        </p>
+        <p><strong>}&nbsp;</strong>&nbsp;</p>
+        <p>这样我们就可以调用insertRecords(name, phoneNo)的方式来向联系人信息簿中添加联系人姓名和电话号码。 &nbsp;</p>
+        <p><strong>删除记录:</strong></p>
+        <p>Content Provider中的getContextResolver.delete()方法可以用来删除记录。</p>
+        <p>下面的记录用来删除设备上所有的联系人信息：</p>
+        <p>private void deleteRecords() {</p>
+        <p>Uri uri = People.CONTENT_URI;</p>
+        <p>getContentResolver().delete(uri, null, null);</p>
+        <p>}</p>
+        <p>你也可以指定WHERE条件语句来删除特定的记录：</p>
+        <p>getContentResolver().delete(uri, “NAME=” + “‘XYZ XYZ’”, null);</p>
+        <p>这将会删除name为‘XYZ XYZ’的记录。</p>
+        <p><strong>创建Content Provider: &nbsp;</strong></p>
+        <p>至此我们已经知道如何使用Content Provider了，现在让我们来看下如何自己创建一个Content Provider。</p>
+        <p>要创建我们自己的Content Provider的话，我们需要遵循以下几步：</p>
+        <p>1. 创建一个继承了ContentProvider父类的类</p>
+        <p>2. 定义一个名为CONTENT_URI，并且是public static final的Uri类型的类变量，你必须为其指定一个唯一的字符串值，最好的方案是以类的全名称，</p>
+        <p>如: public static final Uri CONTENT_URI = Uri.parse( “content://com.google.android.MyContentProvider”);
+        </p>
+        <p>3. 创建你的数据存储系统。大多数Content Provider使用Android文件系统或SQLite数据库来保持数据，但是你也可以以任何你想要的方式来存储。</p>
+        <p>4. 定义你要返回给客户端的数据列名。如果你正在使用Android数据库，则数据列的使用方式就和你以往所熟悉的其他数据库一样。但是，你必须为其定义一个叫_id的列，它用来表示每条记录的唯一性。</p>
+        <p>5. 如果你要存储字节型数据，比如位图文件等，那保存该数据的数据列其实是一个表示实际保存文件的URI字符串，客户端通过它来读取对应的文件数据，处理这种数据类型的Content
+            Provider需要实现一个名为_data的字段，_data字段列出了该文件在Android文件系统上的精确路径。这个字段不仅是供客户端使用，而且也可以供ContentResolver使用。客户端可以调用ContentResolver.openOutputStream()方法来处理该URI指向的文件资源，如果是ContentResolver本身的话，由于其持有的权限比客户端要高，所以它能直接访问该数据文件。
+        </p>
+        <p>6. 声明public static String型的变量，用于指定要从游标处返回的数据列。</p>
+        <p>7. 查询返回一个Cursor类型的对象。所有执行写操作的方法如insert(), update()
+            以及delete()都将被监听。我们可以通过使用ContentResover().notifyChange()方法来通知监听器关于数据更新的信息。</p>
+        <p>8. 在AndroidMenifest.xml中使用标签来设置Content Provider。</p>
+        <p>9. 如果你要处理的数据类型是一种比较新的类型，你就必须先定义一个新的MIME类型，以供ContentProvider.geType(url)来返回。</p>
+        <p>MIME类型有两种形式:</p>
+        <p>一种是为指定的单个记录的，还有一种是为多条记录的。这里给出一种常用的格式： vnd.android.cursor.item/vnd.yourcompanyname.contenttype
+            （单个记录的MIME类型） 比如, 一个请求列车信息的URI如content://com.example.transportationprovider/trains/122
+            可能就会返回typevnd.android.cursor.item/vnd.example.rail这样一个MIME类型。</p>
+        <p>vnd.android.cursor.dir/vnd.yourcompanyname.contenttype （多个记录的MIME类型） 比如,
+            一个请求所有列车信息的URI如content://com.example.transportationprovider/trains
+            可能就会返回vnd.android.cursor.dir/vnd.example.rail这样一个MIME 类型。</p>
+        <p>下列代码将创建一个Content Provider，它仅仅是存储用户名称并显示所有的用户名称（使用 SQLLite数据库存储这些数据）：<em id="__mceDel"
+                style="line-height: 1.5;">&nbsp;</em></p>
+
+
+
+
+
+        <strong>package&nbsp;com.wissen.testApp;public&nbsp;class&nbsp;MyUsers&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;final&nbsp;String&nbsp;AUTHORITY&nbsp;&nbsp;=&nbsp;“com.wissen.MyContentProvider”;</strong><br><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;BaseColumn类中已经包含了&nbsp;_id字段</strong><br><strong>&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;final&nbsp;class&nbsp;User&nbsp;implements&nbsp;BaseColumns&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;final&nbsp;Uri&nbsp;CONTENT_URI&nbsp;&nbsp;=&nbsp;Uri.parse(”content://com.wissen.MyContentProvider”);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;表数据列</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;final&nbsp;String&nbsp;&nbsp;USER_NAME&nbsp;&nbsp;=&nbsp;“USER_NAME”;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong>
+        <p><strong>} &nbsp;</strong></p>
+        <p>上面的类中定义了Content Provider的CONTENT_URI，以及数据列。下面我们将定义基于上面的类来定义实际的Content Provider类：&nbsp;</p>
+
+
+
+
+
+        <strong>package&nbsp;com.wissen.testApp.android;public&nbsp;class&nbsp;MyContentProvider&nbsp;extends&nbsp;ContentProvider&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;SQLiteDatabase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sqlDB;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;DatabaseHelper&nbsp;&nbsp;&nbsp;&nbsp;dbHelper;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;&nbsp;DATABASE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;“Users.db”;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATABASE_VERSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;TABLE_NAME&nbsp;&nbsp;&nbsp;=&nbsp;“User”;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;TAG&nbsp;=&nbsp;“MyContentProvider”;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;class&nbsp;DatabaseHelper&nbsp;extends&nbsp;SQLiteOpenHelper&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DatabaseHelper(Context&nbsp;context)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super(context,&nbsp;DATABASE_NAME,&nbsp;null,&nbsp;DATABASE_VERSION);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onCreate(SQLiteDatabase&nbsp;db)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//创建用于存储数据的表</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(”Create&nbsp;table&nbsp;”&nbsp;+&nbsp;TABLE_NAME&nbsp;+&nbsp;“(&nbsp;_id&nbsp;INTEGER&nbsp;PRIMARY&nbsp;KEY&nbsp;AUTOINCREMENT,&nbsp;USER_NAME&nbsp;TEXT);”);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onUpgrade(SQLiteDatabase&nbsp;db,&nbsp;int&nbsp;oldVersion,&nbsp;int&nbsp;newVersion)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;db.execSQL(”DROP&nbsp;TABLE&nbsp;IF&nbsp;EXISTS&nbsp;”&nbsp;+&nbsp;TABLE_NAME);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onCreate(db);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;int&nbsp;delete(Uri&nbsp;uri,&nbsp;String&nbsp;s,&nbsp;String[]&nbsp;as)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;String&nbsp;getType(Uri&nbsp;uri)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;null;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Uri&nbsp;insert(Uri&nbsp;uri,&nbsp;ContentValues&nbsp;contentvalues)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sqlDB&nbsp;=&nbsp;dbHelper.getWritableDatabase();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;long&nbsp;rowId&nbsp;=&nbsp;sqlDB.insert(TABLE_NAME,&nbsp;“”,&nbsp;contentvalues);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(rowId&nbsp;&gt;&nbsp;0)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;rowUri&nbsp;=&nbsp;ContentUris.appendId(MyUsers.User.CONTENT_URI.buildUpon(),&nbsp;rowId).build();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getContext().getContentResolver().notifyChange(rowUri,&nbsp;null);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;rowUri;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;SQLException(”Failed&nbsp;to&nbsp;insert&nbsp;row&nbsp;into&nbsp;”&nbsp;+&nbsp;uri);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;boolean&nbsp;onCreate()&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dbHelper&nbsp;=&nbsp;new&nbsp;DatabaseHelper(getContext());</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(dbHelper&nbsp;==&nbsp;null)&nbsp;?&nbsp;false&nbsp;:&nbsp;true;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;Cursor&nbsp;query(Uri&nbsp;uri,&nbsp;String[]&nbsp;projection,&nbsp;String&nbsp;selection,&nbsp;String[]&nbsp;selectionArgs,&nbsp;String&nbsp;sortOrder)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQLiteQueryBuilder&nbsp;qb&nbsp;=&nbsp;new&nbsp;SQLiteQueryBuilder();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SQLiteDatabase&nbsp;db&nbsp;=&nbsp;dbHelper.getReadableDatabase();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;qb.setTables(TABLE_NAME);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cursor&nbsp;c&nbsp;=&nbsp;qb.query(db,&nbsp;projection,&nbsp;selection,&nbsp;null,&nbsp;null,&nbsp;null,&nbsp;sortOrder);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c.setNotificationUri(getContext().getContentResolver(),&nbsp;uri);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;c;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;int&nbsp;update(Uri&nbsp;uri,&nbsp;ContentValues&nbsp;contentvalues,&nbsp;String&nbsp;s,&nbsp;String[]&nbsp;as)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong>
+        <p><strong>} &nbsp;</strong></p>
+        <p>一个名为MyContentProvider的Content Provider创建完成了，它用于从Sqlite数据库中添加和读取记录。&nbsp;</p>
+        <p>Content Provider的入口需要在AndroidManifest.xml中配置:</p>
+        <p>之后，让我们来使用这个定义好的Content Provider:&nbsp;</p>
+
+
+
+
+
+        <strong>package&nbsp;com.wissen.testApp;public&nbsp;class&nbsp;MyContentDemo&nbsp;extends&nbsp;Activity&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;void&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.onCreate(savedInstanceState);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;insertRecord(”MyUser”);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayRecords();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;void&nbsp;insertRecord(String&nbsp;userName)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ContentValues&nbsp;values&nbsp;=&nbsp;new&nbsp;ContentValues();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values.put(MyUsers.User.USER_NAME,&nbsp;userName);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getContentResolver().insert(MyUsers.User.CONTENT_URI,&nbsp;values);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;void&nbsp;displayRecords()&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;columns[]&nbsp;=&nbsp;new&nbsp;String[]&nbsp;{&nbsp;MyUsers.User._ID,&nbsp;MyUsers.User.USER_NAME&nbsp;};</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uri&nbsp;myUri&nbsp;=&nbsp;MyUsers.User.CONTENT_URI;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cursor&nbsp;cur&nbsp;=&nbsp;managedQuery(myUri,&nbsp;columns,null,&nbsp;null,&nbsp;null&nbsp;);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(cur.moveToFirst())&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;id&nbsp;=&nbsp;null;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;userName&nbsp;=&nbsp;null;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;=&nbsp;cur.getString(cur.getColumnIndex(MyUsers.User._ID));</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;userName&nbsp;=&nbsp;cur.getString(cur.getColumnIndex(MyUsers.User.USER_NAME));</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toast.makeText(this,&nbsp;id&nbsp;+&nbsp;”&nbsp;”&nbsp;+&nbsp;userName,&nbsp;Toast.LENGTH_LONG).show();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;while&nbsp;(cur.moveToNext());</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong>
+        <p><strong>}&nbsp;</strong></p>
+        <p>上面的类将先向数据库中添加一条用户数据，然后显示数据库中所有的用户数据。&nbsp;</p>
+        <h2><strong>五、 网络存储数据</strong></h2>
+        <p>前面介绍的几种存储都是将数据存储在本地设备上，除此之外，还有一种存储（获取）数据的方式，通过网络来实现数据的存储和获取。</p>
+        <p>我们可以调用WebService返回的数据或是解析HTTP协议实现网络数据交互。</p>
+        <p>具体需要熟悉java.net.*，Android.net.*这两个包的内容，在这就不赘述了，请大家参阅相关文档。</p>
+        <p>下面是一个通过地区名称查询该地区的天气预报，以POST发送的方式发送请求到webservicex.net站点，访问WebService.webservicex.net站点上提供查询天气预报的服务。</p>
+        <p>代码如下：</p>
+
+
+
+
+        <strong>public&nbsp;class&nbsp;MyAndroidWeatherActivity&nbsp;extends&nbsp;Activity&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;//定义需要获取的内容来源地址</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;SERVER_URL&nbsp;=&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"http://www.webservicex.net/WeatherForecast.asmx/GetWeatherByPlaceName";&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;/**&nbsp;Called&nbsp;when&nbsp;the&nbsp;activity&nbsp;is&nbsp;first&nbsp;created.&nbsp;*/</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;@Override</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;onCreate(Bundle&nbsp;savedInstanceState)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super.onCreate(savedInstanceState);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setContentView(R.layout.main);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpPost&nbsp;request&nbsp;=&nbsp;new&nbsp;HttpPost(SERVER_URL);&nbsp;//根据内容来源地址创建一个Http请求</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;添加一个变量&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;List&lt;NameValuePair&gt;&nbsp;params&nbsp;=&nbsp;new&nbsp;ArrayList&lt;NameValuePair&gt;();&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;设置一个地区名称</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;params.add(new&nbsp;BasicNameValuePair("PlaceName",&nbsp;"NewYork"));&nbsp;&nbsp;//添加必须的参数</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try&nbsp;{&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//设置参数的编码</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;request.setEntity(new&nbsp;UrlEncodedFormEntity(params,&nbsp;HTTP.UTF_8));&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//发送请求并获取反馈</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpResponse&nbsp;httpResponse&nbsp;=&nbsp;new&nbsp;DefaultHttpClient().execute(request);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;解析返回的内容</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(httpResponse.getStatusLine().getStatusCode()&nbsp;!=&nbsp;404){&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;result&nbsp;=&nbsp;EntityUtils.toString(httpResponse.getEntity());&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(result);</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;catch&nbsp;(Exception&nbsp;e)&nbsp;{</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;</strong><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;}</strong><br><strong>}</strong>
+        <p>&nbsp;别忘记了在配置文件中设置访问网络权限：</p>
+        <p><strong>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;&nbsp;</strong></p>
+
+
+    </div>
+
+
+</body>
+
+</html>

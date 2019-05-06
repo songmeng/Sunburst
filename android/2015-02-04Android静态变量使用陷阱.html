@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2015-02-04Android静态变量使用陷阱</title>
+</head>
+
+<body>
+        <p>&nbsp; &nbsp; &nbsp;
+            &nbsp;静态变量大家再熟悉不过了，本来没什么好重复的。事情起因是这样的，最近测试那边反应正在做的一个产品总是莫名其妙的显示不出某些数据，甚至闪退崩溃，仔细查了几遍发现没什么问题，最后百般周折发现在那部测试机上运行的时候才会出现这中问题。于是各种log，各种断点调试，最后发现都是报的java.lang.NullPointerException，发现是静态变量的问题，想想不至于啊...
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; bug原因，测试妹纸用的那部测试机常年用于测试，副职公用手机，里面大家装了各种应用，大概不下50多个应用，虽然手机是1G
+            RAM，但是也经不起这么造，可用内存极小。调试的时候发现夸张的时候，返回到前一个Activity，后面的马上就被回收了。虽然看起来是外因，但还是得改啊。总结：Android手机在可用内存及其小的时候，会回收everything，是everything当然包括static。
+        </p>
+        <p>&nbsp; &nbsp; &nbsp;
+            怎么解决呢，各种求解。Android是用Java开发，其静态变量的生命周期遵守Java的设计。static&nbsp;修饰的静态变量，使用很方便，在不同的类和包中都可以使用，在虚拟机中单独占用内存，没错，这些都是它们的优点，我们知道静态变量是在类被load的时候分配内存的，并且存在于方法区。当类被卸载的时候，静态变量被销毁。在PC机的客户端程序中，一个类被加载和卸载，可简单的等同于jvm进程的启动和结束。那么在Android中呢？用的Dalvik
+            vm也是一样的。不过Android不太突出的进程概念，所以对静态变量的生命周期就会感觉模糊，这种模糊对于值类型是无所谓的，如果是静态的对象引用，则与内存回收、内存泄漏这些问题有关，有必要加深研究和理解。静态变量在类被加载的时候分配内存。类在什么时候被加载？当我们启动一个app的时候，系统会创建一个进程，此进程会加载一个Dalvik
+            VM的实例，然后代码就运行在DVM之上，类的加载和卸载，垃圾回收等事情都由DVM负责。也就是说在进程启动的时候，类被加载，静态变量被分配内存。静态变量在类被卸载的时候销毁，类在什么时候被卸载？在进程结束的时候，一般情况下，所有的类都是默认的ClassLoader加载的，只要ClassLoader存在，类就不会被卸载，而默认的ClassLoader生命周期是与进程一致的。Android中的进程什么时候结束，这个是Android对进程和内存管理不同于PC的核心——如果资源足够，Android不会杀掉任何进程，另一个意思就是进程随时可能会被杀掉。而Android会在资源够的时候，重启被杀掉的进程。也就是说静态变量的值，如果不做处理，是不可靠的，可以说内存中的一切都不可靠。如果要可靠，还是得保存到Nand或SD卡中去，在重启的时候恢复回来。另一种情况就是不能把退出所有Activity等同于进程的退出，所以在用户点击图标启动应用的时候<strong>，</strong>以前存放于静态变量中的值，有可能还存在，因此要视具体情况给予清空操作。
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; 解决方案，两种思路：</p>
+        <p>&nbsp; &nbsp; &nbsp; 一、<span
+                style="line-height: 1.5;">根据Google官方的推荐以及百度到的各位大神的推荐，我们应该尽量使用继承自Application的自定义类，在我们继承的类中定义需要全局使用的变量，并通过getApplicationContext()来获取和保存相关的变量即可。</span>
+        </p>
+        <p>比如：</p>
+        <p>public class TestApplication extends Application {&nbsp;<br>　　private int curIndex;&nbsp;<br>　　public int
+            getCurIndex() {&nbsp;<br>　　return curIndex;&nbsp;<br>　　}&nbsp;<br>　　public void setCurIndex(int curIndex)
+            {&nbsp;<br>　　this.curIndex = curIndex;&nbsp;<br>　　}&nbsp;<br>　　@Override&nbsp;<br>　　public void onCreate()
+            {&nbsp;<br>　　super.onCreate();&nbsp;<br>　　}&nbsp;<br>　　@Override&nbsp;<br>　　public void onTerminate()
+            {&nbsp;<br>　　super.onTerminate();&nbsp;<br>　　}&nbsp;<br>　　}&nbsp;</p>
+        <p><br>使用方法：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;//保存变量&nbsp;<br>&nbsp; &nbsp; &nbsp; application.setCurIndex(5);&nbsp;<br>&nbsp;
+            &nbsp; &nbsp; //获取变量&nbsp;<br>&nbsp; &nbsp; &nbsp; application.getCurIndex();&nbsp;</p>
+        <p>&nbsp; &nbsp; &nbsp; TestApplication application = (TestApplication)
+            this.getApplicationContext();&nbsp;<br>&nbsp; &nbsp; &nbsp;
+            Application是与应用同时存在的，也就是应用在它就在，并不会被GC给莫名其妙的回收掉，因此，使用此方法更加安全的稳妥。本人最后采用的是这种方法，未发现问题。</p>
+        <p>&nbsp; &nbsp; &nbsp; 二、观点不太一样，甚至和第一种有点小冲突</p>
+        <p><span style="line-height: 1.5;">&nbsp; &nbsp; &nbsp;
+                Application也是一样不可靠，</span>Application其实是一个单例对象，也是放在内存中的，当进程被杀掉，就全清空了，只不过Android系统会帮重建Application，而我们存放在Application的数据自然就没有了，还是得自己处理。静态引用的对象不会被垃圾回收，只要静态变量没有被销毁也没有置null，其对象一直被保持引用，也即引用计数不可能是0，因此不会被垃圾回收。因此，单例对象在运行时不会被回收。
+        </p>
+        <p><em style="line-height: 1.5;">&nbsp; &nbsp; &nbsp; 相关资料：<a
+                    href="http://blog.csdn.net/ctcwri/article/details/8858414"
+                    target="_blank">http://blog.csdn.net/ctcwri/article/details/8858414</a></em></p>
+        <p>&nbsp;</p>
+        <p><em style="line-height: 1.5;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<a
+                    href="http://blog.csdn.net/weihan1314/article/details/8033052"
+                    target="_blank">http://blog.csdn.net/weihan1314/article/details/8033052</a></em></p>
+        <p>&nbsp;</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<a
+                href="http://www.2cto.com/kf/201205/133951.html"
+                target="_blank">http://www.2cto.com/kf/201205/133951.html</a></p>
+</body>
+
+</html>

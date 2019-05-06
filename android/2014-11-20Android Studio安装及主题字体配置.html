@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-11-20Android Studio安装及主题字体配置</title>
+</head>
+
+<body>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;在2013&nbsp;Google I/O&nbsp;大会上，谷歌推出了自家全新的安卓软件集成开发工具&nbsp;Android
+            Studio，这是&nbsp;Google&nbsp;基于&nbsp;IntelliJ IDEA 修改而来。</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;谷歌称&nbsp;Android Studio&nbsp;将会让开发者更快、更具生产力，它完全免费，跨平台支持 Win/Mac/Linux，是替代 Eclipse
+            的最佳安卓开发工具，想来还是有点小激动。关于Android Studio如何安装的文章网上搜一下还是有很多的，最近想升级为最新版的<strong>0.9.3
+                ，</strong>但因为网络访问和版本，时间问题，参照安装配置时还是出了不少问题，比如：安装完成后创建工程时卡住不动了，是因为联网下载gradle卡住了。</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;本人是直接将之前的0.8.2版本直接卸载了，又重新安装的截至目前（2014-11-20）最新版本<strong>Android Studio 0.9.3
+                ，</strong>下面介绍一种在我们国度网络环境下切实可行的Android Studio安装方法：</p>
+        <h2>1.下载所需的软件</h2>
+        <h3>&nbsp; &nbsp; &nbsp;1.1 下载AndroidStudio</h3>
+        <p>&nbsp; &nbsp; &nbsp; 下载AndroidStudio，下载页面：&nbsp;<a
+                href="http://developer.android.com/sdk/installing/studio.html">http://developer.android.com/sdk/installing/studio.html</a>
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;本人下载的是<strong>Android Studio 0.9.3&nbsp;<img
+                    src="https://images0.cnblogs.com/blog/490166/201411/201130002036078.jpg"
+                    alt=""></strong>，如果大家打不开这个网址的话可以去中国开源之类的论坛上搜下，都有提供最新版本的Android Atudio下载衔接</p>
+        <h3>&nbsp; &nbsp; &nbsp; 1.2 下载gradle</h3>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;下载gradle，下载页面：&nbsp;<a href="http://www.gradle.org/downloads"
+                target="_blank">http://www.gradle.org/downloads</a>&nbsp; &nbsp;，可以选择不同的版本下载</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; 当前最新版是2.2，针对Android Studio 0.9.3本人下载是版本2.1</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201411/201134467812493.jpg" alt=""></p>
+        <h2>2.安装Android Studio</h2>
+        <p>&nbsp; &nbsp; &nbsp; <strong><span
+                    style="font-size: 18px;">前提：在安装AndroidStudio之前请确保你已经安装了jdk并配置好了java环境</span></strong></p>
+        <h3>&nbsp; &nbsp; &nbsp;2.1安装AndroidStudio</h3>
+        <p><strong>&nbsp; &nbsp; &nbsp; 2.1.1.安装程序安装</strong></p>
+        <p>&nbsp; &nbsp; &nbsp; 安装时直接点击next即可，Android Studio会自动找到你jdk的路径。</p>
+        <p>&nbsp; &nbsp; &nbsp;<img
+                src="https://images0.cnblogs.com/blog/344395/201305/17183611-98dbdaf0b3504e22a9ea5ba0676a3bf9.png"
+                alt="">&nbsp; &nbsp; &nbsp;<img style="line-height: 1.5;"
+                src="https://images0.cnblogs.com/blog/344395/201305/17183626-a32288da28a04de9898e69d1aa952f30.png"
+                alt=""></p>
+        <h3>&nbsp; &nbsp; 2.1.2<strong>.压缩包安装</strong></h3>
+        <p><strong>&nbsp; &nbsp; &nbsp;</strong>如果是压缩包的话直接解压到安装目录即可。</p>
+        <p>&nbsp;</p>
+        <h2>3.配置gradle</h2>
+        <h3>&nbsp; &nbsp; &nbsp; 3.1 配置gradle</h3>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;将下载好的gradle压缩zip文件（不要解压）拷贝到
+            C:\Users\<strong>YourName</strong>\.gradle\wrapper\dists\gradle-2.1-all\27drb4udbjf4k88eh2ffdc0n55 目录下，如图：
+        </p>
+        <div>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201411/201322377502609.png" alt=""></div>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;</p>
+        <h2>4.运行Android Studio</h2>
+        <h3>&nbsp; &nbsp; &nbsp; &nbsp;4.1 打开AndroidStudio</h3>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; 根据自己的电脑配置，选择<strong>studio.exe</strong> 或者<strong>studio64.exe</strong>打开Android
+            Studio</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201411/201325522811879.png" alt=""></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;新建工程，稍等片刻，还需要下载些东西，就能看见Studio主页面了，显示版本Android Studio 0.9.3</p>
+        <p>&nbsp; &nbsp;&nbsp;<img src="https://images0.cnblogs.com/blog/490166/201411/201328413751753.jpg" alt=""></p>
+        <p>&nbsp;</p>
+        <h2>5.主题及字体设置</h2>
+        <h3>&nbsp; &nbsp; &nbsp;5.1 更改studio主题。修改默认配色方案</h3>
+        <p>&nbsp; &nbsp; &nbsp; 首先需要进入到andord studio 的IDE Setting界面，&nbsp;点击工具栏上的设置图标或者&nbsp;file-&gt;setting-&gt;&nbsp;
+            &nbsp; &nbsp;</p>
+        <p>&nbsp; &nbsp;&nbsp;<img class="magplus" title="点击查看原始大小图片"
+                src="http://dl2.iteye.com/upload/attachment/0084/7173/ce065552-51d2-3999-aaf2-a80f19e1c655.png" alt=""
+                width="700" height="54">&nbsp;<br>&nbsp;&nbsp;</p>
+        <p><span style="line-height: 1.5;">&nbsp; &nbsp; 在设置页面选择Editor-&gt;Editor&amp;Fonts，</span>在scheme name
+            下拉框选择Darcula，然后点击apply&nbsp;</p>
+        <p>&nbsp; &nbsp; <img class="magplus" title="点击查看原始大小图片"
+                src="http://dl2.iteye.com/upload/attachment/0084/7171/fcd43d76-0543-3b2d-be6d-ba038cb9ff3f.png" alt=""
+                width="699" height="443"></p>
+        <h3>&nbsp; &nbsp; &nbsp;5.2 studio的字体设置</h3>
+        <p>&nbsp; &nbsp; &nbsp;默认你选择的样式的字体是不可以修改的，你需要点击样式，旁边的Save as……按钮，名称随便自己起一个，然后就可以修改字体大小了</p>
+        <p>&nbsp;<br>&nbsp; &nbsp; &nbsp;<img class="magplus" title="点击查看原始大小图片"
+                src="http://dl2.iteye.com/upload/attachment/0084/7177/8837c90b-93bb-3fac-8848-69bd2208cf66.png" alt=""
+                width="699" height="443"></p>
+        <p>&nbsp; &nbsp; &nbsp; 在Apperance界面选项下，勾选Override defaults font by，下来框中选择你喜欢的字体</p>
+        <p>&nbsp; &nbsp; &nbsp;<img class="magplus" title="点击查看原始大小图片"
+                src="http://dl2.iteye.com/upload/attachment/0084/7175/a3ae9a7b-f098-3bb1-ba38-17387876d8f8.png" alt=""
+                width="699" height="443"></p>
+        <p>&nbsp; &nbsp; &nbsp;</p>
+        <p>&nbsp; &nbsp; <strong>关于Android SDK的下载和安装在这里就不多介绍了，好了，Android
+                Studio环境安装和简单的配置就完成了，下面就可以开始coding了......</strong></p>
+
+</body>
+
+</html>

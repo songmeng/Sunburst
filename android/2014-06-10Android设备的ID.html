@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-06-10Android设备的ID</title>
+</head>
+<body>
+
+        <td>
+                <p><span>Android</span><span>的开发者在一些特定情况下都需要知道手机中的唯一设备</span><span>ID</span><span>。</span><span>例如，跟踪应用程序的安装，生成用于复制保护的</span><span>DRM</span><span>时需要使用设备的唯一</span><span>ID</span><span>。</span><span>在本文档结尾处提供了作为参考的示例代码片段。</span></p>
+                <p align="left"><strong><span>范围</span></strong></p>
+                <p align="left"><span>本文提供有关如何读取各种</span><span>Android</span><span>设备的</span><span>&nbsp;ID</span><span>的介绍，用以使用标识号。</span><span>本文假定用户已经安装了</span><span>Android</span><span>以及开发应用程序必要的工具。</span><span>并且，本文假定用户已了解</span><span>Android</span><span>的基本知识。</span></p>
+                <p align="left"><strong><span>简介</span></strong><span>在搭载</span><span>Android</span><span>操作系统的设备中，已经存在好几种类型的设备标识号。</span><span>先前的所有</span><span>Android</span><span>设备都具有电话功能，因此查找每部设备硬件唯一的</span><span>IMEI</span><span>，</span><span>MEID</span><span>，或</span><span>ESN</span><span>也很容易。</span><span>但仅能使用</span><span>Wifi</span><span>的设备或音乐播放器没有电话硬件，所以没有这种类型的唯一标识号。本文阐述了如何读取不同</span><span>Android</span><span>设备的标识号。</span>检索Android设备ID各种方式</p>
+                <p align="left"><span>以下是</span><span>Android</span><span>设备不同类型的识别设备</span><span>ID</span><span>。</span></p>
+                <p align="left"><span>·&nbsp;</span><span>唯一编号（</span><span>IMEI</span><span>，</span><span>MEID</span><span>，</span><span>ESN</span><span>，</span><span>IMSI</span><span>）</span></p>
+                <p align="left"><span>·&nbsp;</span><span>MAC</span><span>地址</span></p>
+                <p align="left"><span>·&nbsp;</span><span>序列号</span></p>
+                <p align="left"><span>·&nbsp;</span><span>ANDROID_ID</span></p>
+                <p align="left"><strong><span>唯一编号（</span></strong><strong><span>IMEI</span></strong><strong><span>，</span></strong><strong><span>MEID</span></strong><strong><span>，</span></strong><strong><span>ESN</span></strong><strong><span>，</span></strong><strong><span>IMSI</span></strong><strong><span>）</span></strong></p>
+                <p align="left"><strong><span>说明</span></strong><span>在以前，当</span><span>Android</span><span>设备均作为电话使用时，寻找唯一标识号比较简单：</span><span>（）可用于找到（取决于网络技术）手机硬件唯一的</span><span>IMEI</span><span>，</span><span>MEID</span><span>，</span><span>ESN</span><span>和</span><span>IMSI</span><span>编号。</span></p>
+                <p>TelephonyManager.getDeviceId</p>
+                <p align="left"><strong><span>IMEI</span></strong><strong><span>，</span></strong><strong><span>MEID</span></strong><strong><span>，</span></strong><strong><span>ESN</span></strong><strong><span>，</span></strong><strong><span>IMSI</span></strong><strong><span>的定义如下：</span></strong></p>
+                <p align="left"><span>•IMEI</span><span>（国际移动设备识别码）</span><span>唯一编号，用于识别</span><span>&nbsp;GSM</span><span>，</span><span>WCDMA</span><span>手机以及一些卫星电话</span><span>（移动设备识别码）</span><span>全球唯一编号，用于识别</span><span>CDMA</span><span>移动电台设备的物理硬件，</span><span>MEID</span><span>出现的目的是取代</span><span>ESN</span><span>号段（电子序列号）</span><span>（电子序列号）</span><span>唯一编号，用于识别</span><span>CDMA</span><span>手机</span><span>（国际移动用户识别码）</span><span>与所有</span><span>GSM</span><span>和</span><span>UMTS</span><span>网络手机用户相关联的唯一识别编号</span><span>如需要检索设备的</span><span>ID</span><span>，在项目中要使用以下代码：</span></p>
+                <p>•MEID</p>
+                <p>•ESN</p>
+                <p>•IMSI</p>
+                <p align="left"><span><span>import android.telephony.TelephonyManager;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>import android.content.Context; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>String&nbsp;&nbsp; imeistring = null;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>String&nbsp;&nbsp; imsistring = null;&nbsp;&nbsp;&nbsp;</span></span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                <p align="left"><span><span>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; TelephonyManager&nbsp;&nbsp;&nbsp; telephonyManager; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; telephonyManager&nbsp;=</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( TelephonyManager )getSystemService( Context.TELEPHONY_SERVICE );</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /*</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * getDeviceId() function Returns the unique device ID.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * for example,the IMEI for GSM and the MEID or ESN for CDMA phones.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; imeistring = telephonyManager.getDeviceId();</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp; /*</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; * getSubscriberId() function Returns the unique subscriber ID,</span></span></p>
+                <p align="left"><span><span>&nbsp;* for example, the IMSI for a GSM phone.</span></span></p>
+                <p align="left"><span><span>&nbsp;*/</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp; imsistring = telephonyManager.getSubscriberId();&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>}</span></span></p>
+                <p align="left"><span>如要只读取手机的状态，则需添加</span><span>READ_PHONE_STATE</span><span>许可到</span><span>AndroidManifest.xml</span><span>文件中。</span></p>
+                <p align="left"><span><span>&lt;uses-permission</span></span></p>
+                <p>&nbsp; android:name="android.permission.READ_PHONE_STATE" &gt;</p>
+                <p>&lt;/uses-permission&gt;</p>
+                <p align="left"><strong><span>缺点</span></strong></p>
+                <p align="left"><span lang="EN">•Android</span><span>设备要具有电话功能</span></p>
+                <p>•<span>其工作不是很可靠</span></p>
+                <p>•<span>序列号</span></p>
+                <p>•<span>当其工作时，该值保留了设备的重置信息（</span><span lang="EN">“</span><span>恢复出厂设置</span><span lang="EN">”</span><span>），从而可以消除当客户删除自己设备上的信息，并把设备转另一个人时发生的错误。</span></p>
+                <p><strong><span>Mac</span></strong><strong><span>地址</span></strong></p>
+                <p align="left"><strong><span>说明</span></strong></p>
+                <p align="left"><span>可通过检索找到设备的</span><span>Wi - Fi</span><span>或蓝牙硬件的</span><span>Mac</span><span>地址。但是，不推荐使用</span><span>Mac</span><span>地址作为唯一的标识号。</span></p>
+                <p align="left"><strong><span>缺点</span></strong><span>设备要具备</span><span>Wi – Fi</span><span>功能（并非所有的设备都有</span><span>Wi – Fi</span><span>功能）</span><span>如果设备目前正在使用</span><span>Wi - Fi</span><span>，则不能报告</span><span>Mac</span><span>地址</span></p>
+                <p align="left"><strong><span>序列号</span></strong></p>
+                <p align="left"><span>从</span><span>Android 2.3</span><span>（</span><span>“</span><span>姜饼</span><span>”</span><span>）开始，</span><span>通过</span><span>android.os.Build.SERIAL</span><span>方法序列号可被使用。没有电话功能的设备也都需要上给出唯一的设备</span><span>ID;&nbsp;&nbsp;</span><span>某些手机也可以需要这样做。</span><span>序列号可以用于识别</span><span>MID</span><span>（移动互联网设备）或</span><span>PMP</span><span>（便携式媒体播放器），这两种设备都没有电话功能。</span><span>通过读取系统属性值</span><span>“ro.serialno”</span><span>的方法，可以使用序列号作为设备</span><span>ID&nbsp;</span><span>。</span><span>如检索序列号并作为设备</span><span>ID</span><span>使用，请参考下面的代码示例。</span></p>
+                <p align="left"><span><span>import java.lang.reflect.Method; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>String serialnum = null;&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>try {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p>&nbsp;Class&lt;?&gt; c = Class.forName("android.os.SystemProperties");&nbsp;</p>
+                <p>&nbsp;Method get = c.getMethod("get", String.class, String.class );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;serialnum = (String)(&nbsp;&nbsp; get.invoke(c, "ro.serialno", "unknown" )&nbsp; );&nbsp;&nbsp;&nbsp;</p>
+                <p>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>catch (Exception ignored)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>}</p>
+                <p align="left"><span><strong>缺点</strong></span></p>
+                <p align="left"><span><span>序列号无法在所有</span><span>Android</span><span>设备上使用。</span></span></p>
+                <p align="left"><span><strong><span>ANDROID_ID</span></strong></span></p>
+                <p align="left"><span><strong>说明</strong></span></p>
+                <p align="left"><span><span>更具体地说，</span><span>Settings.Secure.ANDROID_ID&nbsp;</span><span>是一串</span><span>64</span><span>位的编码（十六进制的字符串），是随机生成的设备的第一个引导，</span><span>其记录着一个固定值，</span><span>通过它可以知道设备的寿命（在设备恢复出厂设置后，</span><span>该值可能会改变）。</span><span>&nbsp;ANDROID_ID</span><span>也可视为作为唯一设备标识号的一个好选择。</span><span>如要检索用于设备</span><span>ID&nbsp;</span><span>的</span><span>ANDROID_ID</span><span>，请参阅下面的示例代码</span></span></p>
+                <p align="left"><span><span>String androidId = Settings.Secure.getString(getContentResolver(),Settings.Secure.ANDROID_ID);</span></span></p>
+                <p align="left"><span><strong>缺点</strong></span></p>
+                <p align="left"><span><span><span lang="EN">•&nbsp;</span><span>对于</span><span lang="EN">Android 2.2</span><span>（</span><span lang="EN">“Froyo”</span><span>）之前的设备不是</span><span lang="EN">100</span><span>％的可靠</span></span></span></p>
+                <p>•&nbsp;<span>此外，在主流制造商的畅销手机中至少存在一个众所周知的错误，每一个实例都具有相同的</span><span lang="EN">ANDROID_ID</span><span>。</span><span>&nbsp;</span></p>
+                <p align="left"><span><strong><span>结论</span></strong></span></p>
+                <p align="left"><span><span><span>对于绝大多数应用来说，只需识别特定的安装配置，而不需要识别物理设备。所幸是，这样做就省去了麻烦。</span></span></span></p>
+                <p><span>下面是部分使用设备</span><span lang="EN">ID</span><span>的最佳途径：</span></p>
+                <p>•<span>支持各种设备类型的另一种方法是使用</span><span lang="EN">getDeviceID</span><span>（）</span><span lang="EN">API</span><span>和</span><span lang="EN">ro.serialno</span><span>的组合</span></p>
+                <p>•<span>有许多值得参考的原因，来提醒开发者避免试图识别特定的设备。对于那些想做一下这方面尝试的用户，</span><span>&nbsp;</span><span>最好的办法可能是使用</span><span lang="EN">ANDROID_ID</span><span>，并在一些传统设备上做尝试。</span></p>
+                <p align="left"><span><strong><span>示例代码</span></strong></span></p>
+                <p align="left"><span><span>下面是用于追踪</span><span>Android</span><span>设置的示例代码</span></span></p>
+                <p align="left"><span><strong><span>类</span></strong><strong><span>: ReadDeviceID.java</span></strong></span></p>
+                <p align="left"><span><span>public class ReadDeviceID extends Activity {</span></span></p>
+                <p align="left"><span><span>&nbsp;Button bt;</span></span></p>
+                <p align="left"><span><span>&nbsp;TextView idView;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /** Called when the activity is first created. */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; @Override</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public void onCreate(Bundle savedInstanceState) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super.onCreate(savedInstanceState);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setContentView(R.layout.main);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bt=(Button)findViewById(R.id.button1);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; idView=(TextView)findViewById(R.id.textView1);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bt.setOnClickListener(new OnClickListener() {&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;@Override</span></span></p>
+                <p align="left"><span><span>&nbsp;public void onClick(View v) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp; String imeistring=null;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String imsistring=null;</span></span></p>
+                <p align="left"><span><span>&nbsp;TelephonyManager&nbsp;&nbsp; telephonyManager&nbsp;=&nbsp;</span></span></p>
+                <p align="left"><span><span>( TelephonyManager</span></span><span><span>)getSystemService( Context.TELEPHONY_SERVICE );</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</span></span></p>
+                <p align="left"><span><span>&nbsp;* getDeviceId() function Returns the unique device ID.</span></span></p>
+                <p align="left"><span><span>&nbsp;* for example,the IMEI for GSM and the MEID or ESN for CDMA phones.</span></span></p>
+                <p align="left"><span><span>&nbsp;*/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;imeistring = telephonyManager.getDeviceId();</span></span></p>
+                <p>&nbsp;idView.append("IMEI No : "+imeistring+"\n");&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * getSubscriberId() function Returns the unique subscriber ID,</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * for example, the IMSI for a GSM phone.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp; imsistring = telephonyManager.getSubscriberId();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp; idView.append("IMSI No : "+imsistring+"\n");</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*</p>
+                <p>&nbsp; * System Property ro.serialno returns the serial number as unique number</p>
+                <p>&nbsp; * Works for Android 2.3 and above&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp; */</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp; String hwID = android.os.SystemProperties.get("ro.serialno", "unknown");</p>
+                <p>&nbsp; idView.append( "hwID : " + hwID + "\n" );</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String serialnum = null;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp; try {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; Class&lt;?&gt; c = Class.forName("android.os.SystemProperties");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; Method get = c.getMethod("get", String.class, String.class );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; serialnum = (String)(&nbsp;&nbsp; get.invoke(c, "ro.serialno", "unknown" )&nbsp; );</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp; idView.append( "serial : " + serialnum + "\n" );</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;} catch (Exception ignored) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+                <p>&nbsp;String serialnum2 = null;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {</p>
+                <p>&nbsp;Class myclass = Class.forName( "android.os.SystemProperties" );</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Method[] methods = myclass.getMethods();</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Object[] params = new Object[] { new String( "ro.serialno" ) , new String(&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "Unknown" ) };&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;serialnum2 = (String)(methods[2].invoke( myclass, params ));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; idView.append( "serial2 : " + serialnum2 + "\n" );</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }catch (Exception ignored)</p>
+                <p>&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</p>
+                <p>&nbsp;}&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp; /*</p>
+                <p>&nbsp;&nbsp;&nbsp; * Settings.Secure.ANDROID_ID returns the unique DeviceID</p>
+                <p>&nbsp;&nbsp;&nbsp; * Works for Android 2.2 and above&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; */</p>
+                <p>&nbsp;String androidId = Settings.Secure.getString(getContentResolver(),&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Settings.Secure.ANDROID_ID);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; idView.append( "AndroidID : " + androidId + "\n" );&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+                <p>&nbsp;&nbsp;&nbsp; });</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; }</p>
+                <p>}</p>
+                <p align="left">&nbsp;</p>
+                <p align="left"><span><strong><span>类</span></strong><strong><span>: SystemProperties.java</span></strong></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>package android.os;</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>/**</span></span></p>
+                <p align="left"><span><span>&nbsp;* Gives access to the system properties store.&nbsp;The system properties</span></span></p>
+                <p align="left"><span><span>&nbsp;* store contains a list of string key-value pairs.</span></span></p>
+                <p align="left"><span><span>&nbsp;*</span></span></p>
+                <p align="left"><span><span>&nbsp;* {@hide}</span></span></p>
+                <p align="left"><span><span>&nbsp;*/</span></span></p>
+                <p align="left"><span><span>public class SystemProperties</span></span></p>
+                <p align="left"><span><span>{</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static final int PROP_NAME_MAX = 31;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static final int PROP_VALUE_MAX = 91;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native String native_get(String key);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native String native_get(String key, String def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native int native_get_int(String key, int def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native long native_get_long(String key, long def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native boolean native_get_boolean(String key, boolean def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; private static native void native_set(String key, String def);</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Get the value for the given key.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @return an empty string if the key isn't found</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static String get(String key) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return native_get(key);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Get the value for the given key.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @return if the key isn't found, return def if it isn't null, or an empty string otherwise</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static String get(String key, String def) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return native_get(key, def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Get the value for the given key, and return as an integer.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param key the key to lookup</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param def a default value to return</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @return the key parsed as an integer, or def if the key isn't found or</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cannot be parsed</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static int getInt(String key, int def) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return native_get_int(key, def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Get the value for the given key, and return as a long.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param key the key to lookup</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param def a default value to return</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @return the key parsed as a long, or def if the key isn't found or</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cannot be parsed</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static long getLong(String key, long def) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return native_get_long(key, def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Get the value for the given key, returned as a boolean.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Values 'n', 'no', '0', 'false' or 'off' are considered false.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Values 'y', 'yes', '1', 'true' or 'on' are considered true.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * (case insensitive).</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * If the key does not exist, or has any other value, then the default</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * result is returned.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param key the key to lookup</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @param def a default value to return</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @return the key parsed as a boolean, or def if the key isn't found or is</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; not able to be parsed as a boolean.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static boolean getBoolean(String key, boolean def) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return native_get_boolean(key, def);</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; }</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; /**</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * Set the value for the given key.</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the key exceeds 32 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; * @throws IllegalArgumentException if the value exceeds 92 characters</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp; */</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; public static void set(String key, String val) {</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (key.length() &gt; PROP_NAME_MAX) {</span></span></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("key.length &gt; " + PROP_NAME_MAX);</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (val != null &amp;&amp; val.length() &gt; PROP_VALUE_MAX) {</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throw new IllegalArgumentException("val.length &gt; " +</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PROP_VALUE_MAX);</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; native_set(key, val);</p>
+                <p>&nbsp;&nbsp;&nbsp; }</p>
+                <p>}</p>
+                <p align="left"><span><span>使用</span><strong><span>"ReadDeviceID"&nbsp;</span></strong><span>activity&nbsp;</span><span>创建</span><strong><span>"com.deviceid"</span></strong><span>项目。</span><span>将布局</span><span>"main.xml"</span><span>改写成下面的代码</span></span></p>
+                <p align="left"><span><span>&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span></p>
+                <p>&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:orientation="vertical"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_width="fill_parent"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_height="fill_parent"</p>
+                <p>&nbsp;&nbsp;&nbsp; &gt;</p>
+                <p>&lt;TextView&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_width="fill_parent"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_height="wrap_content"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:text="@string/hello"</p>
+                <p>&nbsp;&nbsp;&nbsp; /&gt;</p>
+                <p>&lt;Button</p>
+                <p>&nbsp;&nbsp;&nbsp; android:text="GetDeviceID"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:id="@+id/button1"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_width="wrap_content"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_height="wrap_content"&gt;</p>
+                <p>&lt;/Button&gt;</p>
+                <p>&lt;TextView&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; android:id="@+id/textView1"&nbsp;&nbsp;&nbsp;</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_width="fill_parent"</p>
+                <p>&nbsp;&nbsp;&nbsp; android:layout_height="wrap_content"&gt;</p>
+                <p>&lt;/TextView&gt;</p>
+                <p>&lt;/LinearLayout&gt;</p>
+                <p align="left"><span><span>在</span><strong><span>"AndroidManifest.xml"</span></strong><span>文件中添加</span><strong><span>"READ_PHONE_STATE"</span></strong><span>许可，</span><span>使应用程序可以登陆互联网。</span></span></p>
+                <p align="left"><span><span>&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span></p>
+                <p align="left"><span><span>&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package="com.deviceid"</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:versionCode="1"</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:versionName="1.0"&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; &lt;uses-sdk android:minSdkVersion="7" /&gt;</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; &lt;application android:icon="@drawable/icon" android:label="@string/app_name"&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;activity android:name=".ReadDeviceID"</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:label="@string/app_name"&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;intent-filter&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;action android:name="android.intent.action.MAIN" /&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;category android:name="android.intent.category.LAUNCHER" /&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/intent-filter&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/activity&gt;</span></span></p>
+                <p align="left"><span>&nbsp;</span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; &lt;/application&gt;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;</span></span></p>
+                <p align="left"><span><span>&nbsp;&nbsp;&nbsp; &lt;uses-permission</span></span></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; android:name="android.permission.READ_PHONE_STATE" &gt;</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/uses-permission&gt;</p>
+                <p>&nbsp;&nbsp;&nbsp;</p>
+                <p>&lt;/manifest&gt;</p>
+                <p align="left">&nbsp;</p>
+                </td>
+    
+</body>
+</html>

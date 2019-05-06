@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-10-10Android Dependencies小差号引起的问题</title>
+</head>
+<body>
+        <div id="cnblogs_post_body" class="blogpost-body"><p>&nbsp; &nbsp; &nbsp;问题是由于Android Dependencies小差号引起的，下午一搞Android的哥们在群里说最近导入的几个工程每个都是Android Dependencies报错，小差号，我先说解决方法：</p>
+            <p>&nbsp; &nbsp; &nbsp;方法一：自己新建工程，将整个工程重新建一遍。（事倍功半）</p>
+            <p>&nbsp; &nbsp; &nbsp;方法二：将Android Dependencies项直接remove掉，未作测试，有的说可以，有的说下次启动仍然报错。</p>
+            <p>&nbsp; &nbsp; &nbsp;方法三：引用你本地的 appcompat_v7<span style="color: #ff0000;">_x</span> &nbsp;Library工程,<span style="color: #ff0000;">_x<span style="color: #000000;">是默认生成的代号随便一个都行，如图：<br></span></span></p>
+            <p><span style="color: #ff0000;"><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img src="https://images0.cnblogs.com/blog/490166/201410/101522491085911.png" alt=""></span></span></p>
+            <p><span style="color: #ff0000;">&nbsp; &nbsp; &nbsp; <strong>注意将原工程中引用的appcompat_v7_x &nbsp;Remove掉</strong></span></p>
+            <p>&nbsp;</p>
+            <p><span style="color: #ff0000;"><span style="color: #000000;">&nbsp; &nbsp; &nbsp; 下面是对此问题的缘由介绍：</span></span></p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;记得是ADT至22.6.0版本之后，<strong><span style="color: #ff0000;">创建新的Android项目，会出现appcompat_v7的工程。而且是创建一个工程新的工程就会出现</span></strong>，特别腻歪。查资料说appcompat_v7是Google自己的一个兼容包，就是一个支持库，能让android2.1以上全使用android4.0版本的界面。（本来挺好的事，但每次生成个新工程这对开发者来说也太腻歪了，本来就捉襟见肘的工作目录）</p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;相信看到这里也就不难理解为什么会出现上面的问题，大家在上传或者相互拷贝工程的时候直接把工程拷了过去，都不习惯再把<span style="color: #ff0000;"><strong>appcompat_v7</strong></span>也拷贝过去，新导入工程时就会报错。相信这个对于新手或不太注意的程序猿来说很是腻歪的一件事。</p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;</p>
+            <p>&nbsp; &nbsp; &nbsp; 说到这里再多说点相关的东西。</p>
+            <p>&nbsp; &nbsp; &nbsp; Android Dependencies 是什么？</p>
+            <p>&nbsp;&nbsp; &nbsp; &nbsp;官方的解释是：Android Dependencies is a virtual folder where Eclipse shows what JAR files the project depends on. It's not a physical folder; you won't find it on your hard disk. And the folder is not checked in into Subversion.Do not delete that folder. You will destroy your project.<em id="__mceDel">To fix it, just revert to an older Subversion revision and check it in again.</em></p>
+            <p><em style="line-height: 1.5;"><em><em>&nbsp; &nbsp; &nbsp; </em></em></em>就这么简单几句话，不清不楚的，简单说：从ADT16开始，Android项目中多了一个名为“Android Dependencies” 的库应用文件夹，这是ADT的第三方库新的引用方式。当你需要引用第三方库时，只需在项目中新建一个名为"libs"的文件夹，然后将所有第三方包拷贝到该目录下。当eclipse启动时，ADT就会自动帮你完成库的引用，而不需要像以前一样自己Build Path，也不再需要Referenced Libraries了。</p>
+            <p>&nbsp; &nbsp; &nbsp; 这里又提到了<strong>libs</strong> ，<strong><span style="color: #ff0000;"> Referenced Libraries</span></strong> ，我们还可以想到<strong><span style="color: #ff0000;">Android Private Libraries<span style="color: #000000;">，</span></span></strong><span style="color: #ff0000;"><span style="color: #000000;">想下</span></span><span style="color: #ff0000;"><span style="color: #000000;">下引用library的方法就不难理解</span></span></p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;1.被引用的项目在“Android”选项里设置“Is Library”打钩</p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;2.引用项在“Android”选项里设置“add"被引用项</p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;3.android Dependencies会显示引用项目，依赖项目</p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;Android Private Libraries:表示放在libs里面的jar包引用，视为私有引用</p>
+            <p>&nbsp; &nbsp; &nbsp;&nbsp;Referenced Libraries:表示引用的外部jar包。</p>
+            <p>&nbsp; &nbsp; &nbsp; 另：&nbsp;</p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;如果引用项目和被引用项目用到同一个jar包，版本需要保持一致。</p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;Android Private Libraries和Referenced Libraries不能重复引用同一个jar包，两个都有时去掉一个。</p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;最近发现&nbsp;&nbsp;Android Private Libraries和Referenced Libraries可以重复引用同一个jar包，不知该当何解，以后有时间再研究,继续coding.....</p>
+            <p>&nbsp; &nbsp; &nbsp;</p>
+            <p>&nbsp;</p></div>
+
+    
+</body>
+</html>

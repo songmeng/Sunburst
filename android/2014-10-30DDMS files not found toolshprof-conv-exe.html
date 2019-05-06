@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-10-30DDMS files not found tools-hprof-conv-exe</title>
+</head>
+
+<body>
+    <p>最近在Eclipse下每次更新ADT和SDK后都报一些错误，比如</p>
+    <pre>DDMS files not found: D:\android-sdk-windows-1.6_r1\android-sdk-windows-1.6_r1\platform-tools\adb.exe<br>DDMS files not found: tools\hprof-conv.exe<br>......<br></pre>
+    <p>&nbsp; &nbsp;&nbsp;另外顺便吐槽一下，android
+        SDK上4.0以后sdk的文件夹大小增加的太快了，尤其这次更新android5.0，SDK文件夹直接由20G增加到了30G，这是要闹哪样啊，虽然现在硬盘便宜了，也不待这样啊</p>
+    <img src="https://images0.cnblogs.com/blog/490166/201410/301037055038451.jpg" alt="">
+
+    <p>解决方法：在
+        android-sdk-windows\android-sdk-windows-1.6_r1\tools目录下的tools目录找找adb这个文件，然后把它复制到android-sdk-windows\android-sdk-windows-1.6_r1\platform-tools这里就号了<br>其它错误同理
+    </p>
+
+    <p>DDMS files not found: tools\hprof-conv.exe </p>
+    <p><img src="https://images0.cnblogs.com/blog/490166/201410/301041255509672.jpg" alt=""></p>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2013-09-04zXing使用小结</title>
+</head>
+
+<body>
+        <p>&nbsp; &nbsp; &nbsp;
+            在android上二维码、条形码扫描，google官方为我们提供了zXing，几乎android涉及到扫描的都是用这个开源项目实现的，也有在android上使用zBar的，和其他用过的交流得知zBar在扫描二维码时优于zXing，在条形码上zXing更胜一筹，ios一般使用zBar。
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; 今天主要说下使用zXing时遇到的问题，关于如何使用网上相关文章很多就不再重复，直接主题：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;1.zXing与TabHost一块使用时</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;2.横屏变竖屏问题</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;3.一种实现方法引起的思考</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;第一个问题，只能长长的叹一口气，想起那些日子为了这个问题......，谷歌官方解释如下：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp;<span>The&nbsp;app&nbsp;doesn't&nbsp;use&nbsp;a&nbsp;TabHost.&nbsp;If&nbsp;you&nbsp;are&nbsp;writing&nbsp;your&nbsp;own&nbsp;app,&nbsp;indeed,&nbsp;you&nbsp;may&nbsp;need&nbsp;to&nbsp;write&nbsp;different&nbsp;code!&nbsp;</span>
+        </p>
+        <p><span class="keyword">&nbsp; &nbsp; &nbsp; &nbsp;
+                &nbsp;this</span><span>&nbsp;part&nbsp;is&nbsp;not&nbsp;a&nbsp;library&nbsp;that&nbsp;is&nbsp;supposed&nbsp;to&nbsp;work&nbsp;in&nbsp;other&nbsp;contexts.&nbsp;</span>
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;关于这个我也就不多说什么了，多直白的话：要想在TabHost下使用，自己写。。。。。。</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp;第二个问题，百度一下会有很多教程，按照教程的确能实现横屏变竖屏，本以为事情就是这么顺利，直到那天某某总扫一张巨密集的名片二维码，奏是出不来，所以横屏变竖屏会有一个问题，扫描的灵敏度受损。后来记得是在stackoverflow看到一篇文章横屏变竖屏，看年代比较久远，对比后猜测国内各种横屏变竖屏的方法应该是仿照这个总结，仔细看作者是针对自己的HTC手机改的，对其他机型是否完全适合值得怀疑。下面是overflow上相关问题的几张截图
+        </p>
+        <p><img src="https://images0.cnblogs.com/blog/490166/201309/04163347-48bda459960c43959bb75086baae454d.jpg"
+                alt="" width="722" height="200"></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp;横屏变竖屏</p>
+        <p><img src="https://images0.cnblogs.com/blog/490166/201309/04163358-c5a8a0bf36164c85894f6c67a8728e61.jpg"
+                alt=""></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;灵明度</p>
+        <p><img src="https://images0.cnblogs.com/blog/490166/201309/04163410-143a9033be274f9ca1eb0d249b9af261.jpg"
+                alt="" width="841" height="198"></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 横屏竖屏扫面框和焦点框对比</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 感觉这个最起码要将源码研究透彻之后，才能保证在灵敏度不受损的情况下横屏变竖屏。</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 第三个问题，只是感觉这种方式实现的很新颖，是在看一款叫我查查的软件时发现的，其实是一种假的竖屏，不过感觉体验非常好：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201309/04164437-b27a9769f7994d8c895d3d6a94cd5da1.png"
+                alt="" width="178" height="273">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201309/04164532-35e031054ff846f28b557b8d7d77ebef.png"
+                alt="" width="185" height="273"></p>
+        <p>&nbsp; &nbsp; &nbsp; 左边的图是正常状态下，其实当你强行在屏幕上从右向左（对程序而言是自上而下）滑动时标题栏会出现，说明当前其实是横屏的，只是将界面设计成了竖屏的样子，感觉很不错。</p>
+        <p>&nbsp; &nbsp; &nbsp; 期望有更好的方法出现，美观，实用，不影响性能。</p>
+        <p>&nbsp; &nbsp; &nbsp; 下面是相关两篇文章的地址：</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;<a
+                href="http://stackoverflow.com/questions/17608302/zxing-lib-not-smoothly-detecting-qrcode-in-portrait-mode">http://stackoverflow.com/questions/17608302/zxing-lib-not-smoothly-detecting-qrcode-in-portrait-mode</a>
+        </p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;<a
+                href="http://stackoverflow.com/questions/16252791/zxing-camera-in-portrait-mode-on-android?rq=1">http://stackoverflow.com/questions/16252791/zxing-camera-in-portrait-mode-on-android?rq=1</a>
+        </p>
+        <p>&nbsp;</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;最后小感慨下，昨天上午，唉，这是不是意味着一个王朝的覆灭......</p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img
+                src="https://images0.cnblogs.com/blog/490166/201309/04165245-4ac2f286ed4d438b90ec524fb3e78c31.jpg"
+                alt=""></p>
+
+</body>
+
+</html>

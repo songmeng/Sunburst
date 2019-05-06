@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-07-24WebView使用</title>
+</head>
+
+<body>
+    <h2>
+        WebView使用
+    </h2>
+    <div class="postbody">
+        <div id="cnblogs_post_body" class="blogpost-body">
+            <p>　<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html">WebView</a></strong></code>是View的一个子类，可以让你在activity中显示网页。
+            </p>
+            <p>　　可以在布局文件中写入WebView：比如下面这个写了一个填满整个屏幕的WebView：　</p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+        &lt;WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+        /&gt;</pre>
+                </div>
+            </div>
+            <p>　　加载一个网页，使用<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#loadUrl(java.lang.String)">loadUrl()</a></strong></code>：
+            </p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>WebView myWebView = (WebView) findViewById(R.id.webview);
+        myWebView.loadUrl(<a href="http://www.example.com/">http://www.example.com</a>);</pre>
+                </div>
+            </div>
+            <p>　　<strong>注意要在manifest中加上访问网络的权限：</strong></p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>&lt;manifest ... &gt; 
+            &lt;uses-permission android:name="android.permission.INTERNET" /&gt; 
+            ... 
+        &lt;/manifest&gt;</pre>
+                </div>
+            </div>
+            <h2>设置WebView要显示的网页</h2>
+            <p>　　设置WevView要显示的网页方法有很多：</p>
+            <p>　　<strong>互联网页面直接用：</strong>　</p>
+            <div class="cnblogs_code">
+                <pre>myWebView.loadUrl(“http://www.google.com“);</pre>
+            </div>
+            <p>&nbsp;</p>
+            <p>　　<strong>本地文件用：</strong></p>
+            <div class="cnblogs_code">
+                <pre>myWebView.loadUrl(“file:///android_asset/XX.html“);  </pre>
+            </div>
+            <p>　　本地文件存放在：assets文件中。</p>
+            <p>　　<strong>还可以直接载入html的字符串</strong>，如：</p>
+            <div class="cnblogs_code">
+                <pre>String htmlString = "&lt;h1&gt;Title&lt;/h1&gt;&lt;p&gt;This is HTML text&lt;br /&gt;&lt;i&gt;Formatted in italics&lt;/i&gt;&lt;br /&gt;Anothor Line&lt;/p&gt;";
+        // 载入这个html页面
+        myWebView.loadData(htmlString, "text/html", "utf-8");</pre>
+            </div>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <h2>在WebView中使用JavaScript</h2>
+            <p>　　如果你想要载入的页面中用了JavaScript，你<strong>必须</strong>为你的WebView使能JavaScript。</p>
+            <p>　　一旦使能之后，你也可以自己创建接口在你的应用和JavaScript代码间进行交互。</p>
+            <p><strong>使能JavaScript</strong></p>
+            <p>　　可以通过<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#getSettings()">getSettings()</a></strong></code>获得<a
+                    href="http://developer.android.com/reference/android/webkit/WebSettings.html">WebSettings</a>，然后用<code><strong><a href="http://developer.android.com/reference/android/webkit/WebSettings.html#setJavaScriptEnabled(boolean)">setJavaScriptEnabled()</a></strong></code>使能JavaScript：
+            </p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>WebView myWebView = (WebView) findViewById(R.id.webview);
+        WebSettings webSettings = myWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);</pre>
+                </div>
+                <p align="left">&nbsp;</p>
+            </div>
+            <p>　　<a
+                    href="http://developer.android.com/reference/android/webkit/WebSettings.html">WebSettings</a>中提供了很多有用的设置。
+            </p>
+            <h2>处理页面浏览</h2>
+            <p>　　当用户点击了你的WebView中的一个链接，默认的行为是Android启动一个处理URL的应用，通常，默认的浏览器打开并下载目标URL。</p>
+            <p>　　但是，你可以在你的WebView中覆盖这一行为，使得连接仍在你的WebView中打开。</p>
+            <p>　　之后，根据在WebView中维护的网页浏览历史，你可以允许用户向前或向后浏览他们的网页。</p>
+            <p><strong>在WebView中打开所有链接</strong></p>
+            <p>　　要打开用户点击的链接，只需要用<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#setWebViewClient(android.webkit.WebViewClient)">setWebViewClient()</a>方法向你的WebView提供一个<code><strong><a href="http://developer.android.com/reference/android/webkit/WebViewClient.html">WebViewClient</a></strong></code>&nbsp;比如：
+            </p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>WebView myWebView = (WebView) findViewById(R.id.webview);
+        myWebView.setWebViewClient(new WebViewClient());</pre>
+                </div>
+            </div>
+            <p>　　此时就OK了， 就可以在你的WebView中打开链接了。</p>
+            <p><strong>关于打开链接位置的更多控制</strong></p>
+            <p>　　如果你对在哪里打开链接需要更多的控制，你可以创建自己的类，继承&nbsp;<code><strong><a href="http://developer.android.com/reference/android/webkit/WebViewClient.html">WebViewClient</a></strong></code>，然后覆写<code><strong><a href="http://developer.android.com/reference/android/webkit/WebViewClient.html#shouldOverrideUrlLoading(android.webkit.WebView, java.lang.String)">shouldOverrideUrlLoading()</a></strong></code>&nbsp;方法。
+            </p>
+            <p>　　比如下面这个：</p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>    private class MyWebViewClient extends WebViewClient
+            {
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url)
+                {
+        <br>　　　　　　　if(<span class="typ">Uri<span class="pun">.<span class="pln">parse<span class="pun">(<span class="pln">url<span class="pun">).<span class="pln">getHost<span class="pun">().<span class="pln">equals<span class="pun">(<span class="str"><a href="http://www.example.com/">www.example.com</a><span class="pun">))<br>            {
+                        // This is my web site, so do not override; let my WebView load
+                        // the page
+                        return false;
+                    }
+                    // Otherwise, the link is not for a page on my site, so launch
+                    // another Activity that handles URLs
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                }
+            }</span></span></span></span></span></span></span></span></span></span></span></span></pre>
+                </div>
+                <p align="left">&nbsp;</p>
+            </div>
+            <p>　　将特定的链接用自己的WebView打开，其他链接用浏览器（intent启动了默认的处理URL的Activity）。</p>
+            <p>　　定义完之后把这个类的对象传入<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#setWebViewClient(android.webkit.WebViewClient)">setWebViewClient()</a>方法即可。　
+            </p>
+            <div class="cnblogs_code">
+                <pre>WebView myWebView = (WebView) findViewById(R.id.webview);
+        myWebView.setWebViewClient(new MyWebViewClient());</pre>
+            </div>
+            <p>&nbsp;</p>
+            <p><strong>　　实践验证：</strong>在直接设置<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#setWebViewClient(android.webkit.WebViewClient)">setWebViewClient</a>(new
+                WebViewClient());时验证正确，即所有链接都是在WebView中打开。</p>
+            <p>　　在设置为自定义的WebViewClient子类对象时，发现链接仍然都是从默认浏览器中打开。</p>
+            <p>&nbsp;</p>
+            <p><strong>浏览网页历史回退</strong></p>
+            <p>　　当你的WebView覆写了URL载入的行为，它会自动地对访问过的网页积累一个历史，你可以利用&nbsp;<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#goBack()">goBack()</a></strong></code>&nbsp;和&nbsp;<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#goForward()">goForward()</a></strong></code>方法在这个历史中前进或后退。
+            </p>
+            <p>　　比如说使用后退键进行网页后退：</p>
+            <div>
+                <div class="cnblogs_code">
+                    <pre>    /**
+             * 按键响应，在WebView中查看网页时，按返回键的时候按浏览历史退回,如果不做此项处理则整个WebView返回退出
+             */
+            @Override
+            public boolean onKeyDown(int keyCode, KeyEvent event)
+            {
+                // Check if the key event was the Back button and if there's history
+                if ((keyCode == KeyEvent.KEYCODE_BACK) &amp;&amp; myWebView.canGoBack())
+                {
+                    // 返回键退回
+                    myWebView.goBack();
+                    return true;
+                }
+                // If it wasn't the Back key or there's no web page history, bubble up
+                // to the default
+                // system behavior (probably exit the activity)
+                return super.onKeyDown(keyCode, event);
+            }</pre>
+                </div>
+                <p align="left">&nbsp;</p>
+            </div>
+            <p>　　<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#canGoBack()"><strong>canGoBack()</strong></a>&nbsp;方法在网页可以后退时返回true。
+            </p>
+            <p>　　类似的，<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#canGoForward()">canGoForward()</a>方法可以检查是否有可以前进的历史记录。
+            </p>
+            <p>　　如果你不执行这种检查，一旦&nbsp;<a
+                    href="http://developer.android.com/reference/android/webkit/WebView.html#goBack()"><strong>goBack()</strong></a>&nbsp;和&nbsp;<code><strong><a href="http://developer.android.com/reference/android/webkit/WebView.html#goForward()">goForward()</a></strong></code>方法到达历史记录顶端，它们将什么也不做。
+            </p>
+            <p>　　如果不加这种设置，在用户按下Back键时，如果是WebView显示网页，则会将WebView作为整体返回。</p>
+            <p>&nbsp;</p>
+            <p>一份Demo示例：</p>
+            <div class="cnblogs_Highlighter sh-gutter">
+                <div>
+                    <div id="highlighter_529650" class="syntaxhighlighter  java">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="gutter">
+                                        <div class="line number1 index0 alt2">1</div>
+                                        <div class="line number2 index1 alt1">2</div>
+                                        <div class="line number3 index2 alt2">3</div>
+                                        <div class="line number4 index3 alt1">4</div>
+                                        <div class="line number5 index4 alt2">5</div>
+                                        <div class="line number6 index5 alt1">6</div>
+                                        <div class="line number7 index6 alt2">7</div>
+                                        <div class="line number8 index7 alt1">8</div>
+                                        <div class="line number9 index8 alt2">9</div>
+                                        <div class="line number10 index9 alt1">10</div>
+                                        <div class="line number11 index10 alt2">11</div>
+                                        <div class="line number12 index11 alt1">12</div>
+                                        <div class="line number13 index12 alt2">13</div>
+                                        <div class="line number14 index13 alt1">14</div>
+                                        <div class="line number15 index14 alt2">15</div>
+                                        <div class="line number16 index15 alt1">16</div>
+                                        <div class="line number17 index16 alt2">17</div>
+                                        <div class="line number18 index17 alt1">18</div>
+                                        <div class="line number19 index18 alt2">19</div>
+                                        <div class="line number20 index19 alt1">20</div>
+                                        <div class="line number21 index20 alt2">21</div>
+                                        <div class="line number22 index21 alt1">22</div>
+                                        <div class="line number23 index22 alt2">23</div>
+                                    </td>
+                                    <td class="code">
+                                        <div class="container">
+                                            <div class="line number1 index0 alt2"><code
+                                                    class="java keyword">private</code> <code
+                                                    class="java keyword">void</code> <code
+                                                    class="java plain">setWebView() {</code></div>
+                                            <div class="line number2 index1 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.setWebViewClient(</code><code
+                                                    class="java keyword">new</code> <code
+                                                    class="java plain">WebViewClient() {</code></div>
+                                            <div class="line number3 index2 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java color1">@Override</code></div>
+                                            <div class="line number4 index3 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java keyword">public</code> <code
+                                                    class="java keyword">void</code> <code
+                                                    class="java plain">onPageFinished(WebView view, String url) {</code>
+                                            </div>
+                                            <div class="line number5 index4 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java comments">// TODO Auto-generated method stub</code>
+                                            </div>
+                                            <div class="line number6 index5 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.setVisibility(View.VISIBLE);</code>
+                                            </div>
+                                            <div class="line number7 index6 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.getSettings().setBuiltInZoomControls(</code><code
+                                                    class="java keyword">true</code><code class="java plain">);</code>
+                                            </div>
+                                            <div class="line number8 index7 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.getSettings().setJavaScriptEnabled(</code><code
+                                                    class="java keyword">true</code><code class="java plain">); </code>
+                                            </div>
+                                            <div class="line number9 index8 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.getSettings().setDefaultZoom(ZoomDensity.FAR);</code>
+                                            </div>
+                                            <div class="line number10 index9 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.getSettings().setSupportZoom(</code><code
+                                                    class="java keyword">true</code><code class="java plain">);</code>
+                                            </div>
+                                            <div class="line number11 index10 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.setInitialScale(</code><code
+                                                    class="java value">100</code><code class="java plain">);</code>
+                                            </div>
+                                            <div class="line number12 index11 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">}</code></div>
+                                            <div class="line number13 index12 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">});&nbsp;&nbsp;&nbsp;&nbsp; </code></div>
+                                            <div class="line number14 index13 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.loadUrl(</code><code
+                                                    class="java string">"http://www.xxx.com"</code><code
+                                                    class="java plain">);</code></div>
+                                            <div class="line number15 index14 alt2"><code class="java plain">}</code>
+                                            </div>
+                                            <div class="line number16 index15 alt1"><code
+                                                    class="java spaces">&nbsp;</code><code
+                                                    class="java color1">@Override</code></div>
+                                            <div class="line number17 index16 alt2"><code
+                                                    class="java spaces">&nbsp;</code><code
+                                                    class="java keyword">public</code> <code
+                                                    class="java keyword">boolean</code> <code
+                                                    class="java plain">onKeyDown(</code><code
+                                                    class="java keyword">int</code> <code
+                                                    class="java plain">keyCode, KeyEvent event) {</code></div>
+                                            <div class="line number18 index17 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;</code><code
+                                                    class="java keyword">if</code> <code
+                                                    class="java plain">(keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; mWebView.canGoBack()) {</code>
+                                            </div>
+                                            <div class="line number19 index18 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java plain">mWebView.goBack();</code><code
+                                                    class="java comments">// 返回前一个页面</code></div>
+                                            <div class="line number20 index19 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;&nbsp;</code><code
+                                                    class="java keyword">return</code> <code
+                                                    class="java keyword">true</code><code class="java plain">;</code>
+                                            </div>
+                                            <div class="line number21 index20 alt2"><code
+                                                    class="java spaces">&nbsp;&nbsp;</code><code
+                                                    class="java plain">}</code></div>
+                                            <div class="line number22 index21 alt1"><code
+                                                    class="java spaces">&nbsp;&nbsp;</code><code
+                                                    class="java keyword">return</code> <code
+                                                    class="java keyword">super</code><code
+                                                    class="java plain">.onKeyDown(keyCode, event);</code></div>
+                                            <div class="line number23 index22 alt2"><code
+                                                    class="java spaces">&nbsp;</code><code class="java plain">}</code>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+</body>
+
+</html>

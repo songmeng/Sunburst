@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-07-24Android开发常用工具汇总</title>
+</head>
+
+<body>
+    <h2><strong>一、数据库小工具Sqlite Developer&nbsp;</strong></h2>
+    <p>&nbsp; &nbsp;
+        &nbsp;SQLite，是一款轻型的数据库，是遵守ACID的关系型数据库管理系统，它的设计目标是嵌入式的，而且目前已经在很多嵌入式产品中使用了它，它占用资源非常的低，在嵌入式设备中，可能只需要几百K的内存就够了。它能够支持Windows/Linux/Unix等等主流的操作系统，同时能够跟很多程序语言相结合，比如
+        Tcl、C#、PHP、Java等，还有ODBC接口，同样比起Mysql、PostgreSQL这两款开源世界著名的数据库管理系统来讲，它的处理速度比他们都快。SQLite第一个Alpha版本诞生于2000年5月。
+        至今已经有14个年头，SQLite也迎来了一个版本 SQLite 3已经发布。</p>
+    <p>功能特点</p>
+    <p>&nbsp;&nbsp; 表结构设计，数据维护，ddl生成，加密数据库支持，sqlite2,3支持 ；收费，有试用期</p>
+    <p>下载地址：</p>
+    <p><a href="http://www.sqlitedeveloper.com/">http://www.sqlitedeveloper.com</a>/</p>
+    <p>&nbsp;</p>
+    <p>当前流行的破解方法：</p>
+    <p>1、运行里输入regedit,打开注册表</p>
+    <p><a href="http://static.oschina.net/uploads/space/2013/0513/103759_Rq2U_577601.jpg" target="_blank"><img
+                src="http://static.oschina.net/uploads/space/2013/0513/103759_Rq2U_577601.jpg" alt=""></a></p>
+    <p>2、编辑-&gt;查找，输入sqlite</p>
+    <p><a href="http://static.oschina.net/uploads/space/2013/0513/103949_t9h0_577601.jpg" target="_blank"><img
+                src="http://static.oschina.net/uploads/space/2013/0513/103949_t9h0_577601.jpg" alt=""></a></p>
+    <p>查找结果如下</p>
+    <p><a href="http://static.oschina.net/uploads/space/2013/0513/104108_iMiX_577601.jpg" target="_blank"><img
+                src="http://static.oschina.net/uploads/space/2013/0513/104108_iMiX_577601.jpg" alt=""></a></p>
+    <p>3、直接删除SqliteDev节点就可以了，重新打开Sqlite Developer就可以用了，当然还是试用的，下次试用期过了再这样操作下就完了</p>
+    <div id="pname">
+        <h2><strong>二、Eclipse下Subversion（svn工具）</strong></h2>
+        <p><strong>&nbsp; &nbsp;&nbsp;</strong></p>
+        <h3>&nbsp; &nbsp; subversion资源</h3>
+        <ul>
+            <li>subversion官方网站：<a title="http://subversion.tigris.org/"
+                    href="http://subversion.tigris.org/">http://subversion.tigris.org/</a></li>
+            <li>subclipse官方网站：<a href="http://subclipse.tigris.org/">http://subclipse.tigris.org/</a></li>
+            <li>tortoiseSVN官方网站：<a href="http://tortoisesvn.tigris.org/">http://tortoisesvn.tigris.org/</a>&nbsp;</li>
+        </ul>
+        <p>&nbsp; &nbsp; &nbsp;安装方法网上介绍很多可以度娘。</p>
+        <h2><strong>三、<strong>Android未使用的资源文件查找工具</strong><br></strong></h2>
+        <p>在开发以及版本更新的过程中，经常会在项目中产生很多未使用或者冗余的资源文件，推荐一个小工具可以在发布时检测多余的资源文件，进而精简APK文件大小。</p>
+        <p>http://code.google.com/p/android-unused-resources/</p>
+        <p>将AndroidUnusedResources1.6.2.jar文件放入工程的根目录，在命令行运行命令”java -jar AndroidUnusedResources.jar”, 就可以多余的资源文件列出。</p>
+        <h2><strong>四、onekey-decompile-apk&nbsp;一步到位反编译apk的工具<br></strong></h2>
+        <h2>详细介绍</h2>
+        <h2>&nbsp; &nbsp;&nbsp;<a
+                href="https://code.google.com/p/onekey-decompile-apk/">https://code.google.com/p/onekey-decompile-apk/</a>&nbsp;
+        </h2>
+        <h2>功能</h2>
+        <ol>
+            <li>集成apktool/dex2jar/jd-gui</li>
+            <li>只需执行一步即可反编译出apk所有文件(资源文件和jar等等)</li>
+            <li>打开jd-gui反编译jar文件</li>
+
+        </ol>
+        <h2><a name="使用方法"></a>使用用方法</h2>
+        <ol>
+            <ol>
+                <li>在Downloads中下载onekey-decompile-apk.zip, 解压缩到类似D:\downloads\onekey-decompile-apk</li>
+                <li>将apk文件放到onekey-decompile-apk目录下</li>
+                <li>将apk文件拖拽到<tt>_onekey-decompile-apk.bat</tt>上</li>
+                <li>执行完成后</li>
+                <ul>
+                    <li>会在onekey-decompile-apk目录下生成和apk同名的目录(放置了apktools反编译出来的东西)</li>
+                    <li>会在onekey-decompile-apk目录下生成和apk同名的jar文件(dex2jar反编译出来的class)</li>
+
+                </ul>
+    </div>
+
+</body>
+
+</html>

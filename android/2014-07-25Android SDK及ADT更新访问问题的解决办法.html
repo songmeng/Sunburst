@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2014-07-25Android SDK及ADT更新访问问题的解决办法</title>
+</head>
+<body>
+
+        <div id="cnblogs_post_body" class="blogpost-body"><p><span style="font-size: 18pt;"><strong>一、访问问题</strong></span><br>Eclipse使用SDK Manager更新时总是出现问题</p>
+            <p><span style="color: #ff0000;">Failed to fetch URL https://dl-ssl.google.com/android/repository/repository-6.xml, </span></p>
+            <p><span style="color: #ff0000;">reason: Connection to https://dl-ssl.google.com refused</span></p>
+            <p><span style="color: #ff0000;">Failed to fetch URL http://dl-ssl.google.com/android/repository/addons_list-1.xml,</span></p>
+            <p><span style="color: #ff0000;"> reason: Connection to http://dl-ssl.google.com refused</span></p>
+            <p><span style="color: #ff0000;">Failed to fetch URL https://dl-ssl.google.com/android/repository/addons_list-1.xml, </span></p>
+            <p><span style="color: #ff0000;">.........</span></p>
+            <p>&nbsp;</p>
+            <p>解决办法：</p>
+            <p>打开SDK Manager下Tools-&gt;Options，选中“Force https://… sources to be fetched using http://…”，强制使用http协议</p>
+            <p><img src="https://images0.cnblogs.com/i/490166/201407/251919003077109.png" alt=""></p>
+            <p>&nbsp;</p>
+            <p>选取之后，有的可以更新出列表来。如果还是不能，定位到目录<span style="line-height: 1.5;">：C:\WINDOWS\system32\drivers\etc下 ，</span><span style="line-height: 1.5;">会看到hosts文件。</span></p>
+            <p><span style="line-height: 1.5;">如果看不到，打开隐藏文件，如果仍然看不到如下图： &nbsp;</span></p>
+            <p><span style="line-height: 1.5;"><img src="https://images0.cnblogs.com/i/490166/201407/251921180419365.png" alt=""></span></p>
+            <p><span style="line-height: 1.5;">文件夹选项中，把对勾去掉就可以了</span></p>
+            <p><span style="line-height: 1.5;">&nbsp; &nbsp;<img src="https://images0.cnblogs.com/i/490166/201407/251923458225184.png" alt="">&nbsp; &nbsp;&nbsp;<img src="https://images0.cnblogs.com/i/490166/201407/251924521197263.png" alt=""></span></p>
+            <p>&nbsp;</p>
+            <p><span style="line-height: 1.5;">hosts文件，右击打开方式选择记事本。在里面把下面文字复制进去，内容如下（</span><span style="color: #ff0000;"><em style="line-height: 1.5;"><strong>是在原本的内容后面粘贴，而不是覆盖</strong></em></span><span style="line-height: 1.5;">）：</span></p>
+            <p>#Google主页</p>
+            <p>203.208.46.146 www.google.com</p>
+            <p>#这行是为了方便打开Android开发官网 现在好像不VPN也可以打开</p>
+            <p>74.125.113.121 developer.android.com</p>
+            <p>#更新的内容从以下地址下载</p>
+            <p>203.208.46.146 dl.google.com</p>
+            <p>203.208.46.146 dl-ssl.google.com</p>
+            <p>效果如图</p>
+            <p><img src="https://images0.cnblogs.com/i/490166/201407/251926474326433.png" alt=""></p>
+            <p>&nbsp;</p>
+            <p><span style="line-height: 1.5;">接着就会看到加载出列表了，如果发现没有，重新打开SDK Manager，就会发现列表加载出来了，主要是下载速度很给力，和直接下的龟速不是一个级别</span></p>
+            <p><span style="line-height: 1.5;">&nbsp;<img src="https://images0.cnblogs.com/i/490166/201407/251929169475923.png" alt=""></span></p>
+            <p>&nbsp;</p>
+            <p><span style="font-size: 18pt;">&nbsp;二<strong>、ADT版本问题</strong></span></p>
+            <p>然后下面的麻烦事是每次更新后一启动Eclipse都会提示：<strong><span style="color: #ff0000;">This Android SDK requires Android Developer Toolkit version *.*.* or above</span></strong></p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="https://images0.cnblogs.com/i/490166/201407/251910170729927.png" alt=""></p>
+            <p>这是由于选择更新后，在<strong>android_sdk_windows/tools/lib</strong>下的&nbsp;<strong>plugin.prop文件</strong>里被变更为<br><br># begin plugin.prop<br>plugin.version=<span style="color: #ff0000;"><strong>23.0.0</strong></span><br># end plugin.prop<br>解决方法找到文件plugin.prop如图：</p>
+            <p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="https://images0.cnblogs.com/i/490166/201407/251914448699314.png" alt=""><br>修改plugin.version=<strong><span style="color: #ff0000;">22.6.3</span></strong>保存，再重启一下Eclipse就可以了。</p>
+            <p>&nbsp;</p></div>
+    
+</body>
+</html>

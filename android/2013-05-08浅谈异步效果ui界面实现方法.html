@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浅谈异步效果ui界面实现方法</title>
+</head>
+
+<body>
+        <h2>
+                浅谈异步效果ui界面实现方法
+            </h2>
+            <div id="cnblogs_post_body" class="blogpost-body">
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; 文如题浅谈，真的是浅浅的谈下，之前异步的UI效果一直喜欢用<span class="typ">ProgressDialog来实现，效果不错如图：</span></p>
+        <img src="https://images0.cnblogs.com/blog/490166/201305/08164737-10240fe6947c45adb2349b36fbf98d1a.png" alt="" width="274" height="414">
+        <p><span class="pln">&nbsp; &nbsp;周围变为半透明，其实现方法为</span></p>
+        <pre style="background:snow"><span style="color: #000000;">  
+                    ProgressDialog progressDialog;
+                        @Override
+                        publicvoid onCreate(Bundle savedInstanceState){
+                            </span><span style="color: #0000ff;">super</span><span style="color: #000000;">.onCreate(savedInstanceState);
+                            setContentView(R.layout.main);
+                      
+                              progressDialog </span>=newProgressDialog(<span style="color: #0000ff;">this</span><span style="color: #000000;">);
+                              progressDialog.setMessage(</span>""<span style="color: #000000;">);
+                              progressDialog.setTitle(</span>""<span style="color: #000000;">);
+                              progressDialog.show();
+                          
+                        }
+                        </span>
+        </pre>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;当事件完成后，调用dismiss()方法，这种方法感觉有两个不好的地方</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; 1.点击半透明区域，在4.0以上系统progressbar会消失，这个通过加一行代码到还是能解决</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; 2.点击返回键会消失，可悲的是其实异步请求还在继续。</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;也许说的这两点有点牵强，毕竟都可以通过设置来避免，比如监听返回键等。</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp;后来发现另一种方法，其实也特别好，无论是用户体验还是实现上，如下图：</p>
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp;<img
+                        src="https://images0.cnblogs.com/blog/490166/201305/08170040-a27dfa95d68e48128f3d1da0f762494e.png"
+                        alt=""></p>
+                <p>实现方法其实不言而喻，在布局中添加Progressbar，在请求数据时设置&nbsp;setVisible(VIew.Visible)
+                    &nbsp;属性为Visible，当请求完毕时设置为.setVisible(VIew.Gone)，这样既不影响用户使用，也不会因为操作不当而带来不好的体验。</p>
+                <p>&nbsp;</p>
+            </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2015-04-03SVN在Android Studio中的配置</title>
+</head>
+
+<body>
+
+        <p id="ArticleBox">&nbsp; &nbsp; &nbsp; 在AndroidStudio中开发版本控制，除了Git就是SVN，和Eclipse不同Android
+            Studio没有提供单独的插件，只能和SVN客户端关联使用，和Eclipse安装有很大区别，下面介绍个在AndroidStudio中SVN的安装和配置方法。</p>
+        <h3>一、SVN的安装</h3>
+        <p>&nbsp; &nbsp; &nbsp; Eclipse都是直接安装插件就可以了，AndroidStudio不行，只能通过关联SVN客户端，需要特别注意的是安装SVN时必须安装command line
+            功能，只有安装带有 command line 功能的 SVN 客户端，AndroidStudio才能使用。安装SVN时需要用户自定义选择 command line ，默认是不会自动安装的，如下图：</p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031041327955765.jpg" alt=""></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;需要选择安装&nbsp;command line &nbsp;功能</p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031041565922461.jpg" alt=""></p>
+        <h3>二、AndroidStudio中的配置</h3>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; SVN安装完成后，打开 AndroidStudio &nbsp;中的 setting 配置面板，找到Version
+            Control--》SubVersion如下图：</p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031047347326224.jpg" alt=""></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;配置SVN的路径，Use Command Line Client 选择浏览到你本地安装 TortoiseSVN 的 svn.exe 文件路径，如下图：
+        </p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031049356077662.jpg" alt=""></p>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp;需要注意输入框最右侧有个浏览的按钮，有可能显示不出来</p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031052284518391.jpg" alt=""><img
+                src="https://images0.cnblogs.com/blog2015/490166/201504/031052418109109.jpg" alt=""></p>
+        <p>&nbsp;</p>
+        <h3>三、 SubVersion的简单使用</h3>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; 顶部菜单中 CVS项中有个 Import into Version Control，点击就可以使用SVN了</p>
+        <p><img src="https://images0.cnblogs.com/blog2015/490166/201504/031056442952831.jpg" alt=""></p>
+
+</body>
+
+</html>
