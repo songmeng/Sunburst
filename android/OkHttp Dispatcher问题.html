@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OkHttp Dispatcher问题</title>
+</head>
+
+<body>
+    <h4>OkHttp Dispatcher问题</h4>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前几天使用 retrofit + okHttp
+        时出现一个问题，大致情况是使用okHttp上传视频文件app闪退,错误如下：</p>
+    <figure class="highlight java">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre>
+                    </td>
+                    <td class="code" style="width: 453px;">
+                        <pre
+                            style="width: 453px;"><span class="line"> </span><br><span class="line">FATAL EXCEPTION: OkHttp Dispatcher</span><br><span class="line"></span><br><span class="line">Process: com.joyvinfo.evision.help, PID: <span class="number">26206</span></span><br><span class="line">java.lang.OutOfMemoryError: Failed to allocate a <span class="number">144207294</span> <span class="keyword">byte</span> allocation with <span class="number">16765168</span> free bytes and <span class="number">109</span>MB until OOM</span><br><span class="line">   at java.lang.StringFactory.newStringFromBytes(StringFactory.java:<span class="number">79</span>)</span><br><span class="line">   at java.lang.StringFactory.newStringFromBytes(StringFactory.java:<span class="number">207</span>)</span><br><span class="line">   at okio.Buffer.readString(Buffer.java:<span class="number">616</span>)</span><br><span class="line">   at okio.Buffer.readString(Buffer.java:<span class="number">599</span>)</span><br><span class="line">   at okhttp3.logging.HttpLoggingInterceptor.intercept(HttpLoggingInterceptor.java:<span class="number">199</span>)</span><br><span class="line">   at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:<span class="number">92</span>)</span><br><span class="line">   at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.java:<span class="number">67</span>)</span><br><span class="line">   at okhttp3.RealCall.getResponseWithInterceptorChain(RealCall.java:<span class="number">170</span>)</span><br><span class="line">   at okhttp3.RealCall.access$<span class="number">100</span>(RealCall.java:<span class="number">33</span>)</span><br><span class="line">   at okhttp3.RealCall$AsyncCall.execute(RealCall.java:<span class="number">120</span>)</span><br><span class="line">   at okhttp3.internal.NamedRunnable.run(NamedRunnable.java:<span class="number">32</span>)</span><br><span class="line">   at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1113</span>)</span><br><span class="line">   at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">588</span>)</span><br></pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </figure>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始因为下面还有 <font color="#ff3333">OutOfMemoryError</font>
+        的错，怀疑是视频有问题检查，视频文件正常大小有110M，虽然大点但不应该有问题，后来定位到自定义的okHttpClient配置的log拦截器处报错:</p>
+    <figure class="highlight java">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre>
+                    </td>
+                    <td class="code" style="width: 453px;">
+                        <pre
+                            style="width: 453px;"><span class="line">    </span><br><span class="line"><span class="comment">//新建log拦截器</span></span><br><span class="line"></span><br><span class="line">        HttpLoggingInterceptor loggingInterceptor=<span class="keyword">new</span> HttpLoggingInterceptor(<span class="keyword">new</span> HttpLoggingInterceptor.Logger() {</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>{</span><br><span class="line">                <span class="keyword">try</span> {</span><br><span class="line">                    L.w(<span class="string">"屏幕修复api"</span>,<span class="string">" "</span>+message); <span class="comment">//报错处</span></span><br><span class="line">                } <span class="keyword">catch</span> (Exception e) {</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                    L.w(<span class="string">"屏幕修复api  Exception"</span>,e.toString());</span><br><span class="line">                }</span><br><span class="line"></span><br><span class="line">            }</span><br><span class="line">        });</span><br></pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </figure>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try{}catch()是调试的时候加的，即使加上try{}catch()仍然报错，所以说HttpLoggingInterceptor内部的错，于是各种查资料，类似情况还真有比较普遍原因是:
+    </p>
+    <figure class="highlight java">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="gutter">
+                        <pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre>
+                    </td>
+                    <td class="code" style="width: 460px;">
+                        <pre
+                            style="width: 460px;"><span class="line">String data=response.body().string();</span><br><span class="line"><span class="comment">//.string()方法使用次数超过了一次。没错，你只能使用一次，至于原因看下面的源码分析。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//所以讲Log.d(“xx”,response.body().string());果断的注释掉吧。</span></span><br></pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </figure>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;感觉上面的错误只是方法调用有问题，不是真正的原因，继续查找,最后在Github
+        okHttp的源码issues中找到这个<a href="https://github.com/square/okhttp/issues/1049" target="_blank" rel="noopener">cancel
+            a async call will cause FATAL EXCEPTION #1049</a>,源码作者之一在issues下说：We are seeing
+        this issue too when we call cancel operation.当 <font color="#ff3333">call cancel operation</font>
+        时会发生这个错误，至此问题算是清楚了。</p>
+    <p>总结：我的代码引起这个错的原因不值一提，是在上传文件时同时传有其他参数，那个参数不符合服务器要求，所以服务器不接收request（文件、参数1、参数2…），那么app这边就会 <font color="#ff3333">
+            call cancel operation</font> 引起了app闪退，算是okhttp的一个bug，作者最后也说了：I was hoping if we could
+        either catch that exception properly, or find a way to neglect that issue
+        ?所以这个bug不会被catch到，我们更拿不到这个错误，也就无法处理，app就直接闪退了。</p>
+
+
+</body>
+
+</html>
