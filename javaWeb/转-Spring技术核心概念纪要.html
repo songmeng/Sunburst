@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>转-spring技术核心概念纪要</title>
+</head>
+
+<body>
+
+    <p>转自：<a
+            href="http://www.cnblogs.com/littleatp/p/5807268.html#">http://www.cnblogs.com/littleatp/p/5807268.html#</a>
+    </p>
+
+    <div style="background-color: #7c7f7c1c; font-size: small; padding: 5px">
+
+        <div style="float: left; padding-right: 15px">
+            <img src="https://images.cnblogs.com/cnblogs_com/littleatp/1241412/o_qrcode_for_gh_b2cf486409a0_258.jpg"
+                style="width: 120px; height: 120px">
+        </div>
+
+        <div style="padding-top: 15px">
+            <p>
+                作者：
+                <a href="http://www.cnblogs.com/littleatp/">zale</a>
+            </p>
+            <p>
+                出处：
+                <a href="http://www.cnblogs.com/littleatp/">http://www.cnblogs.com/littleatp/</a>, 如果喜欢我的文章，请<b
+                    style="font-size: medium">关注我的公众号</b>
+            </p>
+
+            <p>
+                本文版权归作者和博客园共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出
+                <a href="#" style="color: #0; font-size: medium">原文链接</a>
+                &nbsp;如有问题， 可留言咨询.
+            </p>
+
+        </div>
+        <div style="clear: both"></div>
+
+    </div>
+
+
+
+    <div id="cnblogs_post_body" class="blogpost-body">
+        <h1>一、背景</h1>
+        <p>springframework 从最初的2.5版本发展至今，期间已经发生了非常多的修正及优化。许多新特性及模块的出现，使得整个框架体系显得越趋庞大，同时也带来了学习及理解上的困难。</p>
+        <p>本文阐述了一些要点，并配合一些代码样例，这有助于快速理解 spring 框架。</p>
+        <h1>二、spring架构</h1>
+        <p><a href="http://wiki.jikexueyuan.com/project/spring/images/arch1.png"><img
+                    src="http://wiki.jikexueyuan.com/project/spring/images/arch1.png" alt="" width="408"
+                    height="354"></a></p>
+        <h2>核心容器层</h2>
+        <h3>Core 模块</h3>
+        <p>提供了框架的基本组成部分，包括 IoC 及依赖注入功能。</p>
+        <h3>Bean 模块</h3>
+        <p>实现 Bean 管理，包括自动装配机制等功能； 其中BeanFactory是一个工厂模式的实现。</p>
+        <h3>Context 模块</h3>
+        <p>建立在 Core 和 Bean 模块基础上，通常用于访问配置及定义的任何对象。ApplicationContext 是上下文模块的重要接口。</p>
+        <h3>SpEL 模块</h3>
+        <p>表达式语言模块提供了运行时进行查询及操作一个对象的表达式机制。</p>
+        <h2>数据访问/集成</h2>
+        <h3>JDBC 模块</h3>
+        <p>用于替代繁琐的 JDBC API 的抽象层。</p>
+        <h3>ORM 模块</h3>
+        <p>对象关系数据库映射抽象层，可集成JPA，JDO，Hibernate，iBatis。</p>
+        <h3>OXM 模块</h3>
+        <p>XML消息绑定抽象层，支持JAXB，Castor，XMLBeans，JiBX，XStream。</p>
+        <h3>JMS 模块</h3>
+        <p>Java消息服务模块，实现消息生产-消费之类的功能。</p>
+        <h3>Transaction 模块</h3>
+        <p>事务模块为各种 POJO 支持编程式和声明式事务管理。</p>
+        <h2>Web应用</h2>
+        <h3>Web 模块</h3>
+        <p>Web MVC 提供了基于&nbsp;<strong>模型-视图-控制器</strong>&nbsp;的基础web应用框架。</p>
+        <h3>servlet 模块</h3>
+        <p>实现了统一的监听器以及和面向web应用的上下文，用以初始化 IoC 容器。</p>
+        <h3>Web-Portlet</h3>
+        <p>实现在 portlet 环境中实现 MVC。</p>
+        <h3>Web-Socket 模块</h3>
+        <p>为 WebSocket连接 提供支持。</p>
+        <h2>其他模块</h2>
+        <h3>AOP 模块</h3>
+        <p>提供了面向切面的编程实现，允许开发者通过定义方法拦截器及切入点对代码进行无耦合集成，它实现了关注点分离。</p>
+        <h3>Aspects 模块</h3>
+        <p>提供了与 AspectJ 的集成，这是一个功能强大且成熟的面向切面编程（AOP）框架。</p>
+        <h3>Instrumentation 模块</h3>
+        <p>实现instrumentation支持，一般用以应用服务器的监测。</p>
+        <h3>Messaging 模块</h3>
+        <p>为STOMP 提供了支持，STOMP协议是一种简单的文本定向消息协议，是 WebSocket 的子协议。</p>
+        <h2>测试</h2>
+        <p>支持 JUnit 、TestNG 框架的集成</p>
+        <hr>
+        <h1>三、基础工程</h1>
+        <p>后续的工作将基于样例工程展开，首先需要准备JDK、Java IDE如Eclipse、Maven环境，此类工作较为简单，在此不作赘述。</p>
+        <ol>
+            <li>创建Maven项目；</li>
+            <li>配置Spring依赖；</li>
+        </ol>
+        <div class="cnblogs_code">
+            <pre><span style="color: #0000ff;">&lt;</span><span style="color: #800000;">dependency</span><span style="color: #0000ff;">&gt;</span>
+            
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">groupId</span><span style="color: #0000ff;">&gt;</span>org.springframework<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">groupId</span><span style="color: #0000ff;">&gt;</span>
+            
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">artifactId</span><span style="color: #0000ff;">&gt;</span>spring-context<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">artifactId</span><span style="color: #0000ff;">&gt;</span>
+            
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">version</span><span style="color: #0000ff;">&gt;</span>4.3.2.RELEASE<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">version</span><span style="color: #0000ff;">&gt;</span>
+            
+            <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">dependency</span><span style="color: #0000ff;">&gt;</span></pre>
+        </div>
+        <p>&nbsp;</p>
+        <p>&nbsp; &nbsp; 3. 编写配置文件及测试代码；</p>
+        <p><strong>core-beans.xml</strong></p>
+        <div class="cnblogs_code">
+            <pre><span style="color: #0000ff;">&lt;?</span><span style="color: #ff00ff;">xml version="1.0" encoding="UTF-8"</span><span style="color: #0000ff;">?&gt;</span>
+            
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">beans </span><span style="color: #ff0000;">xmlns</span><span style="color: #0000ff;">="http://www.springframework.org/schema/beans"</span><span style="color: #ff0000;">
+            xmlns:xsi</span><span style="color: #0000ff;">="http://www.w3.org/2001/XMLSchema-instance"</span><span style="color: #ff0000;">
+            xsi:schemaLocation</span><span style="color: #0000ff;">="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"</span><span style="color: #0000ff;">&gt;</span>
+            
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">bean </span><span style="color: #ff0000;">id</span><span style="color: #0000ff;">="randomID"</span><span style="color: #ff0000;"> class</span><span style="color: #0000ff;">="org.springfoo.core.bean.RandomID"</span><span style="color: #ff0000;"> scope</span><span style="color: #0000ff;">="prototype"</span><span style="color: #ff0000;"> 
+                init-method</span><span style="color: #0000ff;">="init"</span><span style="color: #ff0000;"> destroy-method</span><span style="color: #0000ff;">="destroy"</span><span style="color: #0000ff;">&gt;</span>
+                <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">bean</span><span style="color: #0000ff;">&gt;</span>
+            
+                <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">bean </span><span style="color: #ff0000;">id</span><span style="color: #0000ff;">="message"</span><span style="color: #ff0000;"> class</span><span style="color: #0000ff;">="org.springfoo.core.bean.Message"</span><span style="color: #ff0000;"> scope</span><span style="color: #0000ff;">="prototype"</span><span style="color: #0000ff;">&gt;</span>
+                    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">property </span><span style="color: #ff0000;">name</span><span style="color: #0000ff;">="content"</span><span style="color: #ff0000;"> value</span><span style="color: #0000ff;">="Hello sam"</span> <span style="color: #0000ff;">/&gt;</span>
+                    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">property </span><span style="color: #ff0000;">name</span><span style="color: #0000ff;">="sender"</span><span style="color: #ff0000;"> value</span><span style="color: #0000ff;">="bob"</span> <span style="color: #0000ff;">/&gt;</span>
+                    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">property </span><span style="color: #ff0000;">name</span><span style="color: #0000ff;">="reciever"</span><span style="color: #ff0000;"> value</span><span style="color: #0000ff;">="sam"</span> <span style="color: #0000ff;">/&gt;</span>
+                <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">bean</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">beans</span><span style="color: #0000ff;">&gt;</span></pre>
+        </div>
+        <pre><code>&nbsp;</code></pre>
+        <p><strong>POJO定义</strong></p>
+        <div class="cnblogs_code">
+            <pre><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> Message {
+            
+                </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> String content;
+            
+                </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> String sender;
+            
+                </span><span style="color: #0000ff;">private</span><span style="color: #000000;"> String reciever;
+            
+                </span><span style="color: #0000ff;">public</span><span style="color: #000000;"> String getContent() {
+                    </span><span style="color: #0000ff;">return</span><span style="color: #000000;"> content;
+                }
+            
+                </span><span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> setContent(String content) {
+                    </span><span style="color: #0000ff;">this</span>.content =<span style="color: #000000;"> content;
+                }
+                ...</span></pre>
+        </div>
+        <p>&nbsp;</p>
+        <p><strong>测试代码</strong></p>
+        <div class="cnblogs_code">
+            <pre><span style="color: #0000ff;">private</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> tryAppContext() {
+                ApplicationContext context </span>= <span style="color: #0000ff;">new</span> ClassPathXmlApplicationContext("core-beans.xml"<span style="color: #000000;">);
+            
+                Message message </span>= context.getBean(Message.<span style="color: #0000ff;">class</span><span style="color: #000000;">);
+                System.out.println(message);
+            }</span></pre>
+        </div>
+        <p>&nbsp;</p>
+        <hr>
+        <h1>四、IOC 容器</h1>
+        <p><a href="http://wiki.jikexueyuan.com/project/spring/images/ioc1.jpg"><img
+                    src="http://wiki.jikexueyuan.com/project/spring/images/ioc1.jpg" alt="" width="493"
+                    height="363"></a></p>
+        <p><strong>IOC</strong>&nbsp;即控制反转，将对象的生命周期管理、关系依赖通过容器实现，实现解耦。</p>
+        <p>ApplicationContext是最关键的入口，其包括几种实现：</p>
+        <ol>
+            <li>
+                <p>FileSystemXmlApplicationContext，从 XML 文件中加载被定义的 bean对象，基于文件系统路径加载配置；</p>
+            </li>
+            <li>
+                <p>ClassPathXmlApplicationContext，从 XML 文件中加载被定义的 bean对象，基于类路径加载配置；</p>
+            </li>
+            <li>
+                <p>WebXmlApplicationContext，从 XML 文件中加载被定义的 bean对象，基于 web 应用程序范围加载配置；</p>
+            </li>
+        </ol>
+        <h1>五、Bean 管理</h1>
+        <h2>5.1 作用域</h2>
+        <h3>singleton</h3>
+        <p>每一个 Spring IoC 容器中保持一个单一实例(默认)。</p>
+        <h3>prototype</h3>
+        <p>bean 的实例可为任意数量。</p>
+        <h3>request</h3>
+        <p>该作用域将 bean 的定义限制为 HTTP 请求。只在 web-aware Spring ApplicationContext 的上下文中有效。</p>
+        <h3>session</h3>
+        <p>该作用域将 bean 的定义限制为 HTTP 会话。 只在web-aware Spring ApplicationContext的上下文中有效。</p>
+        <h3>global-session</h3>
+        <p>该作用域将 bean 的定义限制为全局 HTTP 会话。只在 web-aware Spring ApplicationContext 的上下文中有效。</p>
+        <h2>5.2 生命周期</h2>
+        <p>Bean 的初始化及销毁对应 init 及 destroy 两个行为，可通过实现 InitializingBean/DisposableBean 接口观察对象的初始化及销毁时机。</p>
+        <p>代码片段：</p>
+        <div class="cnblogs_code">
+            <pre>public void afterPropertiesSet() throws<span> Exception {
+                System.out.println(this + "-- properties set"<span>);
+            }
+            
+            public void<span> init() {
+                System.out.println(this + "-- init"<span>);
+            }
+            
+            public void<span> destroy() {
+                System.out.println(this + "-- destroy"<span>);
+            }</span></span></span></span></span></span></pre>
+        </div>
+        <p>&nbsp;</p>
+        <p>为了使spring获得 destroy 行为的监视机会，需要注册JVM关闭回调：</p>
+        <div class="cnblogs_code">
+            <pre>context.registerShutdownHook();</pre>
+        </div>
+        <p>&nbsp;</p>
+        <p><strong>init/destroy拦截</strong></p>
+        <p>实现 BeanPostProcessor 接口，并注册到配置文件</p>
+        <div class="cnblogs_code">
+            <pre>&lt;bean class="xxx.MyBeanPostProcessor" /&gt;</pre>
+        </div>
+        <p>&nbsp;</p>
+        <h2>5.3 bean模板</h2>
+        <p>通常可将一组属性归集为bean模板以实现复用</p>
+        <div class="cnblogs_code">
+            <pre>&lt;!-- template --&gt;
+            &lt;bean id="template" abstract="true"&gt;
+                &lt;property name="support" value="true" /&gt;
+                &lt;property name="count" value="10" /&gt;
+            &lt;/bean&gt;
+            
+            &lt;bean id="tplbean" class="org.springfoo.core.bean.TplBean" parent="template"&gt;
+                &lt;property name="message" value="I'm inheritted from template" /&gt;
+            &lt;/bean&gt;</pre>
+        </div>
+        <p><strong>POJO 定义</strong></p>
+        <div class="cnblogs_code">
+            <pre>public class<span> TplBean {
+            
+                private<span> String message;
+                private boolean<span> support;
+                private<span> Integer count;
+                ...</span></span></span></span></pre>
+        </div>
+        <p>&nbsp;</p>
+        <hr>
+        <h1>六、依赖注入</h1>
+        <h2>6.1 简单例子</h2>
+        <ol>
+            <li>
+                <p>People 包含 Hand/Foot/Body;</p>
+            </li>
+            <li>
+                <p>Hand/Foot 通过构造参数注入；</p>
+            </li>
+            <li>
+                <p>Body通过属性参数注入;</p>
+            </li>
+        </ol>
+        <p><strong>beans.xml</strong></p>
+        <div class="cnblogs_code">
+            <pre>&lt;bean id="people" class="org.springfoo.di.bean.People" scope="prototype"&gt;
+                &lt;constructor-arg ref="foot"/&gt;
+                &lt;constructor-arg ref="hand"/&gt;
+            
+                &lt;property name="body" ref="body"/&gt;
+            &lt;/bean&gt;
+            
+            
+            &lt;bean id="foot" class="org.springfoo.di.bean.Foot" scope="prototype"&gt;
+                &lt;property name="label" value="FOOT" /&gt;
+            &lt;/bean&gt;
+            &lt;bean id="hand" class="org.springfoo.di.bean.Hand" scope="prototype"&gt;
+                &lt;property name="label" value="HAND" /&gt;
+            &lt;/bean&gt;
+            &lt;bean id="body" class="org.springfoo.di.bean.Body" scope="prototype"&gt;
+                &lt;property name="label" value="BODY---BB" /&gt;
+            &lt;/bean&gt;</pre>
+        </div>
+        <pre></pre>
+        <p><strong>People.java</strong></p>
+        <div class="cnblogs_code">
+            <pre>public class People {
+            
+                private Foot foot;
+                private Hand hand;
+            
+                private Body body;
+            
+                public People(){
+            
+                }
+            
+                public People(Foot foot, Hand hand) {
+                super();
+                this.foot = foot;
+                this.hand = hand;
+                }
+            
+                public Foot getFoot() {
+                    return foot;
+                }
+            
+                public void setFoot(Foot foot) {
+                    this.foot = foot;
+                }
+            
+                public Hand getHand() {
+                    return hand;
+                }
+            
+                ...</pre>
+        </div>
+        <p>&nbsp;</p>
+        <p>其余略</p>
+        <h2>6.2 注入集合</h2>
+        <p>可通过配置一组值的方式实现集合注入</p>
+        <p><strong>集合POJO</strong>&nbsp;</p>
+        <div class="cnblogs_code">
+            <pre>@SuppressWarnings("rawtypes")
+            public class CollectionBean {
+            
+            private List list;
+            private Set set;
+            private Map map;
+            private Properties prop;
+            
+            public List getList() {
+                return list;
+            }
+            
+            public void setList(List list) {
+                this.list = list;
+            }
+            
+            public Set getSet() {
+                return set;
+            }
+            
+            public void setSet(Set set) {
+                this.set = set;
+            }
+            
+            public Map getMap() {
+                return map;
+            }
+            
+            public void setMap(Map map) {
+                this.map = map;
+            }
+            
+            public Properties getProp() {
+                return prop;
+            }
+            
+            public void setProp(Properties prop) {
+                this.prop = prop;
+            }
+            
+            }</pre>
+        </div>
+        <p>&nbsp;</p>
+        <p><strong>beans.xml</strong></p>
+        <div class="cnblogs_code">
+            <pre>&lt;bean id="collection" class="org.springfoo.di.bean.CollectionBean"&gt;
+            
+                &lt;property name="list"&gt;
+                    &lt;list&gt;
+                        &lt;value&gt;APPLE&lt;/value&gt;
+                        &lt;value&gt;ORANGE&lt;/value&gt;
+                        &lt;value&gt;PINAPPLE&lt;/value&gt;
+                    &lt;/list&gt;
+                &lt;/property&gt;
+            
+                &lt;property name="set"&gt;
+                    &lt;set&gt;
+                        &lt;value&gt;TABLE&lt;/value&gt;
+                        &lt;value&gt;CHAIR&lt;/value&gt;
+                    &lt;/set&gt;
+                &lt;/property&gt;
+            
+                &lt;property name="map"&gt;
+                    &lt;map&gt;
+                        &lt;entry key="b" value="BEER" /&gt;
+                        &lt;entry key="j" value="JUICE" /&gt;
+                    &lt;/map&gt;
+                &lt;/property&gt;
+            
+                &lt;property name="prop"&gt;
+                    &lt;props&gt;
+                        &lt;prop key="sp"&gt;Single Player&lt;/prop&gt;
+                        &lt;prop key="tp"&gt;Two Player&lt;/prop&gt;
+                    &lt;/props&gt;
+                &lt;/property&gt;
+            &lt;/bean&gt;</pre>
+        </div>
+        <p>&nbsp;</p>
+        <h2>6.3 自动装配</h2>
+        <p><strong>POJO定义</strong></p>
+        <div class="cnblogs_code">
+            <pre>public class AutoWireBean {
+            
+                private String message;
+                private Body body;
+            
+                public String getMessage() {
+                    return message;
+                }
+                public void setMessage(String message) {
+                    this.message = message;
+                }
+                public Body getBody() {
+                    return body;
+                }
+                public void setBody(Body body) {
+                    this.body = body;
+                }
+            }</pre>
+        </div>
+        <p>&nbsp;</p>
+        <p><strong>beans.xml</strong></p>
+        <div class="cnblogs_code">
+            <pre>&lt;bean id="autowire" class="org.springfoo.di.bean.AutoWireBean"
+             autowire="byName" scope="prototype"&gt;
+            
+                &lt;property name="message" value="okok autowire going..."/&gt;
+            
+            &lt;/bean&gt;</pre>
+        </div>
+        <p>&nbsp;</p>
+        <p><strong>autowire类型</strong></p>
+        <ol>
+            <li>byName, 通过属性名称与配置中bean名称配对</li>
+            <li>byType， 通过属性类型与配置中bean类型配对</li>
+            <li>constructor， 通过构造函数中bean类型配对</li>
+        </ol>
+        <p>&nbsp;</p>
+        <h1>七、总结</h1>
+        <p>至此，关于 spring 的核心概念已经介绍完毕，接下来就是如何在实践中深化了。</p>
+        <p>相信只要理解了基础理念，在后续的项目中自然会得心应手，毕竟万变不离其宗。</p>
+    </div>
+
+
+
+</body>
+
+</html>
