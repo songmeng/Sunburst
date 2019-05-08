@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>script标签不能自闭合问题</title>
+</head>
+
+<body>
+    <div>
+        <p>问题描述：自学前端遇到的坑，在html文件中引入&lt;script&gt;标签时不能自闭合，也就是不能使用&lt; <span style="color:#e74c3c">/&gt;</span><span
+                style="color:null">结束标签，必须使用&lt;/script&gt;，页面一直空白原素都加载不出来。</span></p>
+        <p>搜了下原因是：</p>
+        <div style="padding:10px">
+            <span style="background:gainsboro; width: 100%;">
+                &nbsp;if the element is one of the void elements, or if the element is
+                a foreign element, then there may be a single U+002F SOLIDUS character (/). This character has no effect
+                on void elements, but on foreign elements it marks the start tag as self-closing.</span></div>
+        <p>此外不支持自动闭合的标签还有：area, base, br, col, command, embed, hr, img, input, keygen, link, meta, param, source, track,
+            wbr</p>
+    </div>
+</body>
+
+</html>

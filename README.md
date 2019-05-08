@@ -8,6 +8,7 @@ to be a better man,to be a better coder...
 
 * android
     * []()
+    * [DataBinding中如何使用resource IDs(在ViewModule中)](https://github.com/songmeng/Sunburst/issues/25)
     * [安卓虚拟机Failed to install Intel HAXM](https://github.com/songmeng/Sunburst/issues/5)
     * [OkHttp Dispatcher问题](https://github.com/songmeng/Sunburst/issues/6)
     <!-- * [](https://github.com/songmeng/Sunburst/issues/*) -->
@@ -30,9 +31,11 @@ to be a better man,to be a better coder...
     * []()
 * html5
     * []()
+    * [script标签不能自闭合问题](https://github.com/songmeng/Sunburst/issues/27)
     * []()
 * 开发工具
     * []()
+    * [备份和迁移IntelliJ IDEA（Android Studio）自定义的代码块live templates](https://github.com/songmeng/Sunburst/issues/26)
     * [IntelliJ IDEA html文件sql语句提示及背景色设置问题](https://github.com/songmeng/Sunburst/issues/1)
     * []()
 * 工作生活
