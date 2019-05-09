@@ -22,6 +22,10 @@ to be a better man,to be a better coder...
     * [2014-07-25Android SDK及ADT更新访问问题的解决办法](https://github.com/songmeng/Sunburst/issues/15)
     * [2014-07-24Android开发常用工具汇总](https://github.com/songmeng/Sunburst/issues/14)
     * [2014-07-24WebView使用](https://github.com/songmeng/Sunburst/issues/13)
+    * [2014-06-10Android设备的ID](https://github.com/songmeng/Sunburst/issues/12)
+    * [2014-06-10Android中的5种数据存储方式](https://github.com/songmeng/Sunburst/issues/11)
+    * [2013-09-04zXing使用小结](https://github.com/songmeng/Sunburst/issues/10)
+    * [2013-05-08浅谈异步效果ui界面实现方法](https://github.com/songmeng/Sunburst/issues/9)
     * []()
 * javaWeb
     * []()
