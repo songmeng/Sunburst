@@ -1,5 +1,6 @@
-# Sunburst
-to be a better man,to be a better coder...
+<!-- # Sunburst #
+to be a better man,to be a better coder... -->
+<h1>Sunburst&nbsp;&nbsp;<code style="font-size: 14px;font-weight: normal">to be a better man,to be a better coder...</code></h1>
 
 ## Samon's blog
 慢慢将博客园和oschina的博客都移过来，准备之后只在github发布
@@ -45,10 +46,7 @@ to be a better man,to be a better coder...
     * []()
 * 工作生活学习
     * []()
-    * []()
-    * []()
-    * [读书笔记金融股票类(不断更新)]()
-    * [读书笔记](https://github.com/songmeng/Sunburst/issues/29)
+    * [读书笔记金融股票类(不断更新)](https://github.com/songmeng/Sunburst/issues/29)
     * [2019-02-11总结和展望](https://github.com/songmeng/Sunburst/issues/3)
     * [2018-09考驾照总结](https://github.com/songmeng/Sunburst/issues/8)
     * [2018年中生活小结](https://github.com/songmeng/Sunburst/issues/7)
