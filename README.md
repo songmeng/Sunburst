@@ -43,8 +43,12 @@ to be a better man,to be a better coder...
     * [备份和迁移IntelliJ IDEA（Android Studio）自定义的代码块live templates](https://github.com/songmeng/Sunburst/issues/26)
     * [IntelliJ IDEA html文件sql语句提示及背景色设置问题](https://github.com/songmeng/Sunburst/issues/1)
     * []()
-* 工作生活
+* 工作生活学习
     * []()
+    * []()
+    * []()
+    * [读书笔记金融股票类(不断更新)]()
+    * [读书笔记](https://github.com/songmeng/Sunburst/issues/29)
     * [2019-02-11总结和展望](https://github.com/songmeng/Sunburst/issues/3)
     * [2018-09考驾照总结](https://github.com/songmeng/Sunburst/issues/8)
     * [2018年中生活小结](https://github.com/songmeng/Sunburst/issues/7)
