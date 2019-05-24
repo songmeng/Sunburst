@@ -11,6 +11,8 @@ to be a better man,to be a better coder... -->
 
 * android
     * []()
+    <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [MVVM使用的几点思考](https://github.com/songmeng/Sunburst/issues/31)
     * [DataBinding中如何使用resource IDs(在ViewModule中)](https://github.com/songmeng/Sunburst/issues/25)
     * [安卓虚拟机Failed to install Intel HAXM](https://github.com/songmeng/Sunburst/issues/5)
     * [OkHttp Dispatcher问题](https://github.com/songmeng/Sunburst/issues/6)

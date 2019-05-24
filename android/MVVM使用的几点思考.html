@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MVVM使用的几点思考</title>
+</head>
+
+<body>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相较于前几年，安卓真的是成熟了很多，从简单的各种常用库发展都能感受到，比如网络请求http--aFinal/xutils--volley--okhttp--retrofit/RxAndroid。
+        架构也在不断发展mvc--mvp/mvvm。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;做为一个码农，一定要培养自己对新技术保持热情。但是对于技术在商业项目的运用上我认为应该持谨慎态度。尤其是新流行的技术，可以私下研究，商用还是谨慎为上。
+        去年年底，组内决定对现有app整体架构（之前mvc架构）进行重构，对比了mvp和mvvm两种架构之后，主要考虑到mvp接口太多颗粒度不易控制，最后选用了mvvm架构进
+        行重构。以下是几点思考，后续不断更新</p>
+    <ul>
+        <li>对于view层常规的控件处理事件影响不是特别大，但是稍微特殊点的情况有时候为了遵守mvvm的规范，本来简单的事件处理写法上反而变得复杂</li>
+        <p>比如简单的需要在viewmodule调用startActivityForResult()或复杂点的recycleview的item的事件需要用到view层（Activity）的引用Context，单纯把Activity的Context的传过去肯定是不行的，先不说内存泄漏的
+            问题，比较主流的做法是定义一个观察者，在view层（Activity）进行事件处理</p>
+        <code>
+                viewModel.xxxObservable.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() { <br>
+                    &nbsp;&nbsp;@Override<br>
+                    &nbsp;&nbsp;public void onPropertyChanged(Observable sender, int propertyId) {<br>
+                        &nbsp;&nbsp;//do something<br>
+                        &nbsp;&nbsp; <br>
+                        &nbsp;&nbsp;}<br>
+                });<br>
+        </code>    
+        <li>正是因为上面的处理方法，自然就引发了另一个问题：定义了很多的观察者变量，定义更多的 Observable&& 变量，多数是为了监听控件的某些状态,这些变量肯定会造成更多的内存消耗</li>
+        <li>双向绑定真的是把双刃剑--DataBinding</li>
+        <p><strong>DataBinding</strong>是2015年Google提出的一个官方库，坦白说第一次了解了这个库以后，就对DataBinding爱不起来。第一次印象这个库让我想到了后端javaWeb开发的jsp，很像吧，可以在jsp/xml中调用
+            java代码。想想现在html5发展如日中天，jsp的现在的处境不就是DataBinding方式的未来吗?还是返回来说问题：</p>
+        <code>
+                &lt;?xml version="1.0" encoding="utf-8"?&gt;<br>
+                &lt;layout xmlns:app="http://schemas.android.com/apk/res-auto"<br>
+                &nbsp;&nbsp;xmlns:tools="http://schemas.android.com/tools"&gt;<br>
+                    &lt;data&gt;<br>
+                    &lt;variable<br>
+                            &nbsp;&nbsp;name="vm"<br>
+                            &nbsp;&nbsp;type="com.xxxxx.xxxxx.loginViewModel" /&gt;<br>
+                            &lt;/data&gt;<br>
+                            ......<br>                
+                            &lt;TextView<br>
+                            &nbsp;&nbsp;android:layout_width="wrap_content"<br>
+                            &nbsp;&nbsp;android:layout_height="wrap_content"<br>
+                            &nbsp;&nbsp;android:text="<strong>@{vm.user.name}</strong>"<br>
+                            &nbsp;&nbsp;android:textColor="@android:color/black" /&gt;<br>
+        </code>
+        <p>主要有两点第一在xml中使用时代码提示很不友好</p>
+        <p>第二点业务调整时字段改变，比如User实体的name字段变更为fullName，在java实体更改后xml不会自动更新，此条同样适用于在viewModule定义的各种方法</p>
+        <li>有时候业务逻辑判断不得不变得更加分散，感觉简单的事情搞复杂了</li>
+        <p>特别契合的一种场景是对于类recycleview的控件业务逻辑多放在Adapter处理，有很多情况recycleview的item的样式是分很多种，常规的处理是逻辑判断写在一个地方，里面处理各控件的展示效果，这种有个好处是，当
+            业务调整时，逻辑判断统一在这个地方重写就可以了。DataBinding的话要么在xml中处理，这样就把逻辑分散了，分散到了各个控件，后来找了折中的方式，定义新的方法，新的可观察者变量在viewModel处理，在xml中根
+            据观察者变量设置各控件属性状态。</p>
+    </ul>
+
+
+
+</body>
+
+</html>
