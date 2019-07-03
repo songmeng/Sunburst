@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>android项目无法引用library中的jar包问题</title>
+</head>
+
+<body>
+    <h5>问题描述：android项目如果引用有其他的项目moduleLib,moduleLib中如果引用有第三发C.jar，主项目在引用问题描述：android项目如果引用有其他的项目moduleLib可能时会出现无法引用C.jar的问题。
+    </h5>
+    <p>解决方法不复杂，主要是因为不熟悉implementation和api在用法上的区别：</p>
+    <p>implementation：依赖的jar或aar或library仅限模块内部使用</p>
+    <p>api：相关依赖可以在本module被其他module依赖时直接使用</p>
+    <p>说起这个问题，还是因为gradle升级引起的</p>
+    <code>
+            Warning:Configuration 'compile' is obsolete and has been replaced with 'implementation'.
+            It will be removed at the end of 2018</code>
+    <p>感觉这种升级有点简单暴力，太没有大厂的风格了</p>
+    <code>WARNING: DSL element 'DexOptions.incremental' is obsolete and will be removed at the end of 2018</code>
+    <code>WARNING: API 'variant.getJavaCompile()' is obsolete and has been replaced with 'variant.getJavaCompileProvider()'.
+            It will be removed at the end of 2019.。</code>
+</body>
+
+</html>

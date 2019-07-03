@@ -12,6 +12,8 @@ to be a better man,to be a better coder... -->
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [android项目无法引用library中的jar包问题](https://github.com/songmeng/Sunburst/issues/33)
+    * [org.apache.xerces.impl.io:MalformedByteSequenceException Invalid byte 3 of 3-byte UTF-8...](https://github.com/songmeng/Sunburst/issues/32)
     * [MVVM使用的几点思考](https://github.com/songmeng/Sunburst/issues/31)
     * [DataBinding中如何使用resource IDs(在ViewModule中)](https://github.com/songmeng/Sunburst/issues/25)
     * [安卓虚拟机Failed to install Intel HAXM](https://github.com/songmeng/Sunburst/issues/5)
