@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+        <h4>Ubantu18.04环境下下载android-8.1.0_r48源码</h4>
+
+
+
+
+        作为一名程序员怎么可以不 reading the source code ，工欲善其事必先利其器，想要阅读先下载下来再说，下面就介绍下如何在Ubantu18.04环境下下载android-8.1.0_r48源码。
+        <h4>一、 git的安装和配置</h4>
+                  Ubantu18.04下进入终端输入以下命令
+        安装git命令
+        <code>sudo apt-get install git</code>
+        ![20181028112724.png](https://cdn.steemitimages.com/DQmXC2QHKqfsEfq5VzgQ8BrY7zvauWoqbTK97yeF5n51Cvf/20181028112724.png)
+        配置git的用户名user.name
+        <code>git config --global user.name "first name"</code>
+        配置git的邮箱地址user.email
+        <code>git config --global user.email "main@mail.com"</code>
+        
+        <h4>二、 repo的安装和配置</h4>
+        国内的话强烈建议使用镜像https://aosp.tuna.tsinghua.edu.cn/来安装，repo安装命令：
+        <code>git clone https://aosp.tuna.tsinghua.edu.cn/git-repo/</code>
+        <code>chmod a+x git-repo/repo</code>
+        安装完毕需要将repo添加到PATH环境变量，repo配置命令：
+        <code>export PATH=~/git-repo:$PATH</code>
+        <h4>三、 特别设置，由于有墙防止出现unable to access'':Failed to connect to...问题 </h4>
+        <h5>1. .bashrc文件设置</h5>
+        在Ubantu<主文件夹>下设置显示隐藏文件找到并打开 .bashrc 文件，添加如下内容
+        <code>export REPO_URL=’https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/’</code>
+        然后执行如下命令
+        <code>echo " export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/' ">> ~/.bashrc</code>
+        <h5>2. repo文件设置</h5>
+        在 主文件夹->bin->repo 中找到并打开repo文件，搜索REPO_URL将地址修改为镜像地址
+        <code>REPO_URL = 'https://gerrit-google.tuna.tsinghua.edu.cn/git-repo'</code>
+        <h4>四、查看可下载的android源码分支</h4>
+        开始前最好在主文件下新建用于保存android源码的文件夹，比如我的是<主文件夹>/Android/source，在终端中cd进入到此文件夹下执行命令
+        <code>repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest</code>
+        稍等片刻，打开文件进入该目录下看到创建了.repo文件夹，进入看到还创建了manifests、manifests.git等文件，这时候在终端下进入manifests.git文件夹下，执行命令
+        <code>cd .repo/manifests.git/</code>
+        <code>git branch -a</code>
+        稍等片刻，终端可以查看可拉取的源码分支
+        
+        <h4>五、下载android源码到本地</h4>
+        这里我们选择android8.1.0的最高版本android-8.1.0_r48，终端下执行命令
+        <code>repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-8.1.0_r48</code>
+        <code>repo sync</code>
+        下面就是考验网速的时刻了，可能需要花费小半天时间，可以去
+        <code>have a coffee and take a rest.</code>
+
+
+
+</body>
+</html>
