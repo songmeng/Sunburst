@@ -52,6 +52,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 工作生活学习
     * []()
+    * [一周六练健身计划](https://github.com/songmeng/Sunburst/issues/34)
     * [开始健身](https://github.com/songmeng/Sunburst/issues/30)
     * [读书笔记金融股票类(不断更新)](https://github.com/songmeng/Sunburst/issues/29)
     * [2019-02-11总结和展望](https://github.com/songmeng/Sunburst/issues/3)
