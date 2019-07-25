@@ -46,6 +46,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [IDEA Configurations 中“+”号没有Tomcat](https://github.com/songmeng/Sunburst/issues/35)
     * [新工具Visual Studio Code](https://github.com/songmeng/Sunburst/issues/28)
     * [备份和迁移IntelliJ IDEA（Android Studio）自定义的代码块live templates](https://github.com/songmeng/Sunburst/issues/26)
     * [IntelliJ IDEA html文件sql语句提示及背景色设置问题](https://github.com/songmeng/Sunburst/issues/1)
