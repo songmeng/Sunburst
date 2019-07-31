@@ -16,6 +16,19 @@
         src="https://raw.githubusercontent.com/songmeng/Sunburst/master/Images/idea201905061.png">
 
     <h5>html中代码块使用</h5>
+    <p>后来多次测试发现，code标签不太好用，对br不支持，优先考虑使用pre标签</p>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+        &lt;Button <br>
+            android:layout_width="120dp"<br>
+            android:layout_height="wrap_content"<br>
+            android:layout_gravity="center" <br>
+            android:layout_margin="30dp" <br>
+            android:background="@{viewModel.uiStatus.isBtnEnabled ? @drawable/btn_grey_green : @drawable/btn_grey_shape}" <br>
+            android:text="下一步" <br>
+            android:textSize="16sp"&gt;
+        </pre>
+    </div>
     <div style="background:gainsboro;padding: 10px;">
         <code>
                 &lt;Button <br>
