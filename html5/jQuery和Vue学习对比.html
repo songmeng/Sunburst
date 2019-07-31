@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery和Vue学习对比</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<body>
+    <p id="userName">...</p>
+    <p id="user">{{username}}</p>
+
+
+    <p>如果要给某个原素设置一个动态值，比如简单的&lt;p id="userName"&gt;name:&lt;/p&gt;原素,给p原素添加姓名要求效果 name：Jim</p>
+    <strong>最常规的做法是在&lt;script&gt;标签内：</strong>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById("userName").innerHTML = "name：Jim"<br>
+                    &lt;/script&gt;
+        </pre>
+    </div>
+    <p>jquery作为一个经典的JavaScript库，极大地简化了JavaScript编程。它操作原素的方式，其实和常规经典的方式是一模一样，只是在写法上<strong> 简化 </strong>了</p>
+    <strong>使用jquery实现相同的效果的话写法如下：</strong>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+            //在头部引入jquery <br>
+            &lt;script src="https://pre.jquery.com/jquery-2.1.1.min.js"&gt;&lt;/script&gt; <br>
+            &lt;script&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;$("#userName").val() = "name：Jim" <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;$(document).ready( <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    function(){ <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        <strong>$("#userName").html("name：Jim")</strong> <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    } <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;); <br>
+            &lt;/script&gt;
+        </pre>
+    </div>
+    <p>只是一个简单的原素自然是提现不出来简洁性，但是随着页面越来越复杂，简洁性会越来越明显。</p>
+    <strong>做为后来流行的vue，先看简介</strong>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Vue.js（读音 /vjuː/, 类似于 view） 是一套构建用户界面的渐进式框架。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Vue 只关注视图层， 采用自底向上增量开发的设计</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Vue 的目标是通过尽可能简单的 API 实现响应的数据绑定和组合的视图组件。</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;Vue 学习起来非常简单，使用Vue前，您需要了解：HTML、CSS、JavaScript</p>
+    <strong>如果使用vue实现的话，写法为：</strong>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+                //在头部引入Vue <br>
+                &lt;script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"&gt;&lt;/script&gt; <br>
+                //目标原素写法有些许变化 <br>
+                &lt;p id="userName"&gt; <strong>{{username}}</strong>&lt;/p&gt; <br>
+                //赋值方法为：<br>
+                &lt;script&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;new Vue({ <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; el:userName, <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data:{ <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; username:"name：Jim"  <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;})<br>
+                &lt;/script&gt;
+            </pre>
+    </div>
+
+    <strong>简单总结：</strong>
+    <table border="1px">
+        <tr>
+            <th>Name</th>
+            <th>简介</th>
+            <th>异同</th>
+        </tr>
+        <tr>
+            <td>jquery</td>
+            <td>曾经流行，现在也很流行的web前端js库，可是现在无论是国内还是国外他的使用率正在渐渐被其他的js库所代替，随着浏览器厂商对HTML5规范统一遵循以及ECMA6在浏览器端的实现，jquery的使用率将会越来越低
+            </td>
+            <td>jQuery是使用选择器（$）选取DOM对象，对其进行赋值、取值、事件绑定等操作，其实和原生的HTML的区别只在于可以更方便的选取和操作DOM对象，而数据和界面是在一起的。比如需要获取label标签的内容：$("lable").val();,它还是依赖DOM元素的值。
+            </td>
+        </tr>
+        <tr>
+            <td>Vue</td>
+            <td>不得不提的是MVVM架构，从技术角度讲，Vue.js 专注于 MVVM 模型的 ViewModel 层。它通过双向数据绑定把 View 层和 Model
+                层连接了起来，通过对数据的操作就可以完成对页面视图的渲染。当然还有很多其他的mvmm框架如Angular，React都是大同小异，本质上都是基于MVVM的理念。
+                然而vue以他独特的优势简单，快速，组合，紧凑，强大而迅速崛起</td>
+            <td>Vue则是通过Vue对象将数据和View完全分离开来了。对数据进行操作不再需要引用相应的DOM对象，可以说数据和View是分离的，他们通过Vue对象这个vm实现相互的绑定。这就是传说中的MVVM。</td>
+        </tr>
+
+    </table>
+
+    <strong>jquery和Vue的区别：</strong>
+    <ol>
+        <li>jQuery首先要获取到dom对象，然后对dom对象进行进行值的修改等操作</li>
+        <li>Vue是首先把值和js对象进行绑定，然后修改js对象的值，Vue框架就会自动把dom的值就行更新。</li>
+        <li>可以简单的理解为Vue帮我们做了dom操作，我们以后用Vue就需要修改对象的值和做好元素和对
+            象的绑定，Vue这个框架就会自动帮我们做好dom的相关操作</li>
+        <li>这种dom元素跟随JS对象值的变化而变化叫做单向数据绑定，如果JS对象的值也跟随着dom元素的
+            值的变化而变化就叫做双向数据绑定</li>
+    </ol>
+
+    <script>
+        $(document).ready(
+            function () {
+                $("#userName").html("name：Jim")
+            }
+        );
+
+
+        new Vue({
+            el: user,
+            data: {
+                username: "name: Vue"
+            }
+        })
+
+
+
+
+    </script>
+</body>
+
+</html>

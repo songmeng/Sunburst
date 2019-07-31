@@ -42,6 +42,8 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [jQuery和Vue学习对比](https://github.com/songmeng/Sunburst/issues/37)
+    * [前端学习路线及资料汇总(不断补充)](https://github.com/songmeng/Sunburst/issues/36)
     * [script标签不能自闭合问题](https://github.com/songmeng/Sunburst/issues/27)
     * []()
 * 开发工具
