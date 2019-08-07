@@ -1,37 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>bodybuilding part3</title>
 </head>
+
 <body>
-<h3>title</h3>
-<p></p>
-<ul>
-    <li>one</li>
-    <p>description</p>
-    <li>two</li>
-</ul>
+    <h3>title</h3>
+    <p></p>
+    <ul>
+        <li>one</li>
+        <p>description</p>
+        <li>two</li>
+    </ul>
+    <p>begin</p>
+    <p><a target="_blank" rel="noopener noreferrer"
+            href="https://camo.githubusercontent.com/0f00cc492f7596b9b9228c97bf9cdfbe7df0d6fb/68747470733a2f2f692e706f7374696d672e63632f374c6b42764d70622f746f6f6c733230313930373235312e706e67"><img
+                alt=""
+                src="https://camo.githubusercontent.com/0f00cc492f7596b9b9228c97bf9cdfbe7df0d6fb/68747470733a2f2f692e706f7374696d672e63632f374c6b42764d70622f746f6f6c733230313930373235312e706e67"
+                data-canonical-src="https://i.postimg.cc/7LkBvMpb/tools201907251.png" style="max-width:100%;"></a></p>
+
+
+    <p>end</p>
+
+    <hr>
+
+    <input id="weight" type="number" value="">
+    <br />
+    <input id="height" type="number" value="">
+    <button id="calc" onclick="doCalc()">calculator</button>
+    <p id="result"></p>
+    <hr>
+
+    <div style="height: 200px">
+
+    </div>
+
+    <img style="width: 300px" src="https://i.postimg.cc/cJp2ms7K/Ya-Zhou-Biao-Zhun.jpg" alt="yazhou">
+    <img style="width: 300px"  src="https://i.postimg.cc/Px1cVBKS/Guo-Ji-Biao-Zhun.jpg" alt="guoji">
+    <script>
+        function doCalc(){
+            var weight = parseFloat(document.getElementById("weight").value);
+            var height = parseFloat(document.getElementById("height").value);
+            var result = weight/Math.pow(height,2);
+            // document.getElementById("result").innerText += result+'<br/>';
+            document.getElementById("result").innerText += result+'\n';
+        }
+
+    </script>
+
+  
 
 
 
-<h4>Day3 小腿、臀部、胸部</h4>
-<h5>小腿 坐姿负重提踵</h5>
-<p>脚掌前部建议垫1个哑铃片会更有感觉。Hu呼气，缓缓抬起脚后跟，脚尖保持和地面的接触，感受小腿肌肉的拉伸和紧绷，保持1秒。Xi吸气，同时缓缓放下脚后跟。
-    *这个动作可适当提升哑铃重量</p>
-<h5>臀部 俯跪屈膝上举腿</h5>
-<p>Hu呼气，缓缓的把大腿向上提，直到你的大腿提到了最高点，保持1秒。然后Xi吸气，同时缓缓的放下腿，回到与背部成同一条直线的位置。	</p>
-<h5>胸部 哑铃推举</h5>
-<p>躺在瑜伽垫上，膝盖弯曲，双手各握一只哑铃，手臂伸直举在胸部上方。Xi吸气，同时尽可能缓慢的放下哑铃，当你上臂接触地面时，上臂应该和身体两侧成45度。Hu呼气，同时把哑铃用稍快的速度推举到起始位置
-    俯卧撑</p>
-	
-    	
-   
-    
-    
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>

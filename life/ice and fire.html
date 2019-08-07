@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>企业营收大数据统计html页面图表</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="js/jquery.liMarquee.js"></script>
+    <script type="text/javascript" src="js/jquery.cxselect.min.js"></script>
+
+    <link rel="stylesheet" href="css/comon0.css">
+</head>
+
+<body>
+    <div style="background:#000d4a url(images/bg.jpg) center top;">
+        <div class="loading" style="display: none;">
+            <div class="loadbox"> <img src="images/loading.gif"> 页面加载中... </div>
+        </div>
+        <div class="back"></div>
+        <div class="head">
+            <div class="weather"><span id="showTime">2019年8月6日14时57分1秒</span></div>
+            <h1>企业营收大数据统计</h1>
+
+        </div>
+        <script>
+            var t = null;
+            t = setTimeout(time, 1000);/*開始运行*/
+            function time() {
+                clearTimeout(t);/*清除定时器*/
+                dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();
+                var m = dt.getMinutes();
+                var s = dt.getSeconds();
+                document.getElementById("showTime").innerHTML = y + "年" + mt + "月" + day + "日" + h + "时" + m + "分" + s + "秒";
+                t = setTimeout(time, 1000);
+            }
+
+        </script>
+        <div class="mainbox">
+            <ul class="clearfix">
+                <li>
+                    <div class="boxall" style="height:400px;">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall" id="echart5" _echarts_instance_="ec_1565074538871"
+                            style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                            <div
+                                style="position: relative; overflow: hidden; width: 249px; height: 340px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas data-zr-dom-id="zr_0" width="249" height="340"
+                                    style="position: absolute; left: 0px; top: 0px; width: 249px; height: 340px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="boxall" style="height:260px;">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall">
+                            <div class="wraptit">
+                                <span>单号</span><span>金额</span><span>品名</span><span>时间</span>
+                            </div>
+                            <div class="wrap str_wrap str_vertical">
+                                <div class="str_move str_origin" style="top: -219.78px;">
+                                    <ul>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                            </p>
+                                        </li>
+
+                                    </ul>
+                                    <div class="str_move str_move_clone"
+                                        style="top: 100%; bottom: auto; height: 360px;">
+                                        <ul>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="str_move str_move_clone"
+                                        style="bottom: 100%; top: auto; height: 360px;">
+                                        <ul>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p><span>100021415</span><span>199</span><span>手机</span><span>18小时</span>
+                                                </p>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="boxall" style="height:260px;">
+                        <div class="alltitle">标题样式</div>
+
+                        <div class="navboxall" id="echart1" _echarts_instance_="ec_1565074538867"
+                            style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                            <div
+                                style="position: relative; overflow: hidden; width: 249px; height: 200px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas data-zr-dom-id="zr_0" width="249" height="200"
+                                    style="position: absolute; left: 0px; top: 0px; width: 249px; height: 200px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="boxall" style="height:230px">
+                        <div class="clearfix navboxall" style="height: 100%">
+                            <div class="pulll_left num">
+                                <div class="numbt">总体情况<span>(单位：元)</span></div>
+                                <div class="numtxt">19382721 </div>
+                            </div>
+                            <div class="pulll_right zhibiao">
+                                <div class="zb1"><span>标题样式</span>
+                                    <div id="zb1" _echarts_instance_="ec_1565074538872"
+                                        style="-webkit-tap-highlight-color: transparent; user-select: none;">
+                                        <div
+                                            style="position: relative; overflow: hidden; width: 98px; height: 170px; padding: 0px; margin: 0px; border-width: 0px;">
+                                            <canvas data-zr-dom-id="zr_0" width="98" height="170"
+                                                style="position: absolute; left: 0px; top: 0px; width: 98px; height: 170px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="zb2"><span>标题样式</span>
+                                    <div id="zb2" _echarts_instance_="ec_1565074538873"
+                                        style="-webkit-tap-highlight-color: transparent; user-select: none;">
+                                        <div
+                                            style="position: relative; overflow: hidden; width: 98px; height: 170px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
+                                            <canvas data-zr-dom-id="zr_0" width="98" height="170"
+                                                style="position: absolute; left: 0px; top: 0px; width: 98px; height: 170px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="zb3"><span>标题样式</span>
+                                    <div id="zb3" _echarts_instance_="ec_1565074538874"
+                                        style="-webkit-tap-highlight-color: transparent; user-select: none;">
+                                        <div
+                                            style="position: relative; overflow: hidden; width: 98px; height: 170px; padding: 0px; margin: 0px; border-width: 0px;">
+                                            <canvas data-zr-dom-id="zr_0" width="98" height="170"
+                                                style="position: absolute; left: 0px; top: 0px; width: 98px; height: 170px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="boxall" style="height:350px">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall" id="echart4" _echarts_instance_="ec_1565074538870"
+                            style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                            <div
+                                style="position: relative; overflow: hidden; width: 588px; height: 290px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas data-zr-dom-id="zr_0" width="588" height="290"
+                                    style="position: absolute; left: 0px; top: 0px; width: 588px; height: 290px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                            </div>
+                            <div></div>
+                        </div>
+
+                    </div>
+                    <div class="boxall" style="height:340px">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall" id="echart3" _echarts_instance_="ec_1565074538869"
+                            style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                            <div
+                                style="position: relative; overflow: hidden; width: 588px; height: 280px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas data-zr-dom-id="zr_0" width="588" height="280"
+                                    style="position: absolute; left: 0px; top: 0px; width: 588px; height: 280px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="boxall" style="height:300px">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall">
+                            <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">排名</th>
+                                        <th scope="col">公司</th>
+                                        <th scope="col">数量</th>
+                                        <th scope="col">增长率</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td>腾讯科技</td>
+                                        <td>114万<br></td>
+                                        <td>100%<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>2</span></td>
+                                        <td>百度公司</td>
+                                        <td>923823万</td>
+                                        <td>21%</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><span>3</span></td>
+                                        <td>新浪</td>
+                                        <td>1240253万</td>
+                                        <td>12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>4</span></td>
+                                        <td>网易</td>
+                                        <td>1.2亿</td>
+                                        <td>39%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>5</span></td>
+                                        <td>雅虎</td>
+                                        <td>13423万</td>
+                                        <td>9%</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="boxall" style="height: 300px">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall">
+                            <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <th scope="col">排名</th>
+                                        <th scope="col">公司</th>
+                                        <th scope="col">数量</th>
+                                        <th scope="col">增长率</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td>腾讯科技</td>
+                                        <td>114万<br></td>
+                                        <td>100%<br></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>2</span></td>
+                                        <td>百度公司</td>
+                                        <td>923823万</td>
+                                        <td>21%</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><span>3</span></td>
+                                        <td>新浪</td>
+                                        <td>1240253万</td>
+                                        <td>12%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>4</span></td>
+                                        <td>网易</td>
+                                        <td>1.2亿</td>
+                                        <td>39%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span>5</span></td>
+                                        <td>雅虎</td>
+                                        <td>13423万</td>
+                                        <td>9%</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div class="boxall" style="height:320px">
+                        <div class="alltitle">标题样式</div>
+                        <div class="navboxall" id="echart2" _echarts_instance_="ec_1565074538868"
+                            style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;">
+                            <div
+                                style="position: relative; overflow: hidden; width: 249px; height: 260px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas data-zr-dom-id="zr_0" width="249" height="260"
+                                    style="position: absolute; left: 0px; top: 0px; width: 249px; height: 260px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.wrap,.adduser').liMarquee({
+                direction: 'up',/*身上滚动*/
+                runshort: false,/*内容不足时不滚动*/
+                scrollamount: 20/*速度*/
+            });
+        });
+
+    </script>
+
+
+
+
+</body>
+
+</html>
