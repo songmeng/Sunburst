@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Gradle sync failed: The specified Gradle distribution
+        'https://services.gradle.org/distributions/gradle-4.6-all.zip' does not appear to contain a Gradle distribution.
+        Consult IDE log for more details (Help | Show Log) (40 ms)</p>
+    <p>可能是本地找不到对应Gradle版本，自动下载失败的原因。    </p>
+    <p>如果对Gradle没有兼容要求的话，项目根目录gradle-->wrapper-->gradle-wrapper.properties,一般最底一行是gradle版本控制</p>
+    <p>distributionUrl=https\://services.gradle.org/distributions/gradle-4.6-all.zip</p>
+
+</body>
+
+</html>

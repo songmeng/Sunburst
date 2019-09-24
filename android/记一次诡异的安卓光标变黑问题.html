@@ -4,12 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>记一次诡异的安卓光标变黑问题</title>
+    <title>记一次诡异的安卓光标不消失问题</title>
 </head>
 <body>
 
+    <h5>问题描述：如图自上而下有四个输入框，先点击第一个，再点击第二个，然后点击第三个，会造成前两个输入框EditText输入光标不消失，此时光标的真实位置在第三个。</h5>
+    <img style="width: 400px" src="https://i.postimg.cc/Gp3PLFyK/android201909241.png" alt="android">
+    <p>分析可能原因：</p>
+    <p>1.除去截图部分页面较复杂，布局底层为自定义Scrollview实现，输入框弹出隐藏是否影响页面绘制</p>
+    <p>2.Edittext自身的bug，输入法弹框影响</p>
+    <p>3.只有部分手机会出现这种情况，三方ROM定制问题</p>
 
-    
-    
+    <h5>解决方法：不同机型对应不同解决方法可能一种方法就会解决</h5>
+    <p>1.EditText添加属性padding</p>
+    <div style="background:gainsboro;padding: 5px;">
+        <pre>
+        &lt;EditText <br>
+            ... <br>
+            android:paddingLeft="2dp"<br>
+            ...&gt;
+        </pre>
+    </div>
+    <p>2.EditText设置和父背景同样的背景色或透明色</p>
+    <div style="background:gainsboro;padding: 5px;">
+            <pre>
+            &lt;EditText <br>
+                ... <br>
+                android:background="@null"<br>
+                ...&gt;
+            </pre>
+    </div>
+    <p>3.设置光标的颜色值</p>
+    <div style="background:gainsboro;padding: 5px;">
+            <pre>
+            &lt;EditText <br>
+                ... <br>
+                android:textCursorDrawable="@color/.."<br>
+                ...&gt;
+            </pre>
+    </div>
 </body>
+
 </html>
