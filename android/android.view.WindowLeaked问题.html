@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>android.view.WindowLeaked问题</title>
+</head>
+
+<body>
+    <h4>问题描述：</h4>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+            com.******.*****.***** E/WindowManager: android.view.WindowLeaked: Activity com.******.*****.*****.ui.*****Activity has leaked window com.android.internal.policy.PhoneWindow$DecorView{b5e82b4 V.E...... R.....ID 0,0-225,230} that was originally added here
+            at android.view.ViewRootImpl.<init>(ViewRootImpl.java:408)
+                at android.view.WindowManagerGlobal.addView(WindowManagerGlobal.java:299)
+                at android.view.WindowManagerImpl.addView(WindowManagerImpl.java:86)
+                at android.app.Dialog.show(Dialog.java:386)
+                at com.******.*****.*****.ui.*****Activity.do*****(*****Activity.java:385)
+                at com.******.*****.*****.ui.*****Activity.access$1000(*****Activity.java:48)
+                at com.******.*****.*****.ui.*****Activity$7.onClick(*****Activity.java:224)
+        </pre>
+    </div>
+    <p>简单分析：WindowLeaked窗体泄露，一般发生这种情况的原因是，一个页面（Activity）show()了一个Dialog或PopupWindow,这个Dialog必须持有Activity的Context，此时如果你直接关闭Activity就会报上面的错误。
+        原因是Dialog没有依附了，正确的做法是在finish()前先调用Dialog的Dismiss()方法。稳妥的写法是在Activity的onDeatroy()处理
+    </p>
+    <div style="background:gainsboro;padding: 10px;">
+        <pre>
+                @Override
+            protected void onDestroy() {
+                super.onDestroy();
+                if (dialogMy != null && dialogMy.isShowing()){
+                    dialogMy.dismiss();
+                }
+            }
+            </pre>
+    </div>
+    <p>扩展: <a href="https://blog.csdn.net/qq_21586317/article/details/84669150">Dialog 为什么必须使用 Activity 的 Context</a></p>
+    
+    <h4>正常请况下，上面的处理方法完全可以解决问题。不过我们项目中遇到的情况稍复杂点：</h4>
+    <ol>
+        <li>我们是有个公共类来处理一些业务逻辑，多个Activity会调用此类</li>
+        <li>Dialog和此类绑定</li>
+        <li>Activity调用时传入Context，Activity拿不到此Dialog</li>
+    </ol>
+    <p>这种情况明显不适合在各个Activity中处理，只有认真检查代码，力求代码实现更加严谨。</p>
+</body>
+
+</html>
