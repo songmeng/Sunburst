@@ -51,6 +51,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [困扰很久使用idea编写html如何像vscode一样提示代码](https://github.com/songmeng/Sunburst/issues/42)
     * [IDEA html误用Alt+Enter导致编辑页面蒙层问题](https://github.com/songmeng/Sunburst/issues/38)
     * [IDEA Configurations 中“+”号没有Tomcat](https://github.com/songmeng/Sunburst/issues/35)
     * [新工具Visual Studio Code](https://github.com/songmeng/Sunburst/issues/28)
