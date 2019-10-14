@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SQLyog连接MySQL时出现的2058错误解决方法</title>
+</head>
+<body>
+<h4>问题描述：之前安装的是mysql 6.x，SQLyog链接成功，后来mysql删了，又装了其他版本的8.0.x，使用SQLyog出现2058的错误提示</h4>
+<p>分析可能和版本没什么关系，搜索说是mysql密码加密方法改变了</p>
+<h4>解决方法：</h4>
+<p>windows下进入cmd登录mysql -u root -p登录mysql数据库然后执行SQL:</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+        ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+        </pre>
+</div>
+<strong>注意分号结束， password是自己设置的root密码。</strong>
+<p>然后再重新配置SQLyog的连接，就可以成功连接了。</p>
+
+</body>
+</html>

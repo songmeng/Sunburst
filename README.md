@@ -52,6 +52,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [SQLyog连接MySQL时出现的2058错误解决方法](https://github.com/songmeng/Sunburst/issues/44)
     * [困扰很久使用idea编写html如何像vscode一样提示代码](https://github.com/songmeng/Sunburst/issues/42)
     * [IDEA html误用Alt+Enter导致编辑页面蒙层问题](https://github.com/songmeng/Sunburst/issues/38)
     * [IDEA Configurations 中“+”号没有Tomcat](https://github.com/songmeng/Sunburst/issues/35)
@@ -61,6 +62,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 工作生活学习
     * []()
+    * [生活随想（关于基金）](https://github.com/songmeng/Sunburst/issues/45)
     * [一周六练健身计划](https://github.com/songmeng/Sunburst/issues/34)
     * [开始健身](https://github.com/songmeng/Sunburst/issues/30)
     * [读书笔记金融股票类(不断更新)](https://github.com/songmeng/Sunburst/issues/29)
