@@ -39,6 +39,7 @@ to be a better man,to be a better coder... -->
     * []()
 * javaWeb
     * []()
+    * [NoClassDefFoundError fastjson 和 ClassNotFoundException mysql](https://github.com/songmeng/Sunburst/issues/43)
     * [转-Spring的概述](https://github.com/songmeng/Sunburst/issues/24)
     * [转-spring技术核心概念纪要](https://github.com/songmeng/Sunburst/issues/23)
     * [关于执行sql文件乱码问题](https://github.com/songmeng/Sunburst/issues/4)

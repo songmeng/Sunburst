@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NoClassDefFoundError fastjson 和 ClassNotFoundException mysql</title>
+</head>
+<body>
+<h5>问题描述：javaWeb项目编译过程中没什么问题，也可以顺利运行，但在页面中点击执行的时候会报错</h5>
+<p>搜索的结果是jar的导入方式不对，<strong>在servlet中应用到的jar不能用普通的导入方式。</strong>有两种方式解决，只尝试了第一种</p>
+<ul>
+    <li>需要将jar放到web-lib下包引用，右键add as library</li>
+    <li>将需要用到的的jar拷贝至tomcat的lib下</li>
+</ul>
+
+</body>
+</html>
