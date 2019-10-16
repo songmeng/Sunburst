@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jdbc和mybatis和hibernate认识学习</title>
+</head>
+<body>
+    <p>jbbc最简单的理解就是Java提供的一个操作数据库的API。</p>
+    <h4>jdbc操作数据</h4>
+    <ol>
+        <li>使用jdbc编程需要连接数据库，注册驱动和数据库信息</li>
+        <li>操作Connection，打开Statement对象</li>
+        <li>通过Statement执行SQL，返回结果到ResultSet对象</li>
+        <li>使用ResultSet读取数据，然后通过代码转化为具体的POJO对象</li>
+        <li>关闭数据库的相关资源</li>
+    </ol>
+    <h4>jdba缺点分析</h4>
+    <ul>
+        <li>工作量相对较大，每次都要去创建，关闭，获取</li>
+        <li>jdbc编程可能产生的异常进行捕捉处理并正确关闭资源对象关系映射（Object Relational Mapping）简称ORM</li>
+    </ul>
+    <p><strong>ORM模型</strong>就是数据库的表和简单Java对象（Plain Ordinary Java Object, 简称POJO）的映射关系模型</p>
+    <p>ORM模型提供了统一的规则使得数据库通过配置便可轻易的映射到POJO上，常见的有两种<strong>mybatis</strong>和<strong>Hibernate</strong>。</p>
+    <p>jdba和mybatis和hibernate三者关系：JDBC是地基，mybatis&hibernate是两栋外形各自有特点的楼房，楼房之间可以比较，地基就一种。</p>
+    <p>简单说就是mybatis和hibernate是对jdbc的封装。</p>
+    <h4>mybatis</h4>
+    <ol>
+        <li>易于上手和掌握。</li>
+        <li>sql写在xml里，便于统一管理和优化。</li>
+        <li>解除sql与程序代码的耦合。</li>
+        <li>提供映射标签，支持对象与数据库的orm字段关系映射。</li>
+        <li>提供对象关系映射标签，支持对象关系组建维护。</li>
+        <li>提供xml标签，支持编写动态sql</li>
+    </ol>
+    <h4>hibernate</h4>
+    <ol>
+        <li>消除了代码的映射规则，它全部被分离到xml或者注解里面去配置。</li>
+        <li>无需再管理数据库连接，它也配置到XML里面。</li>
+        <li>一个会话中，不要操作多个对象，只要操作Session即可。</li>
+        <li>关闭资源只需要关闭一个Session即可。</li>
+    </ol>
+
+
+</body>
+</html>
