@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Android学习回顾之Handler</title>
+</head>
+<body>
+<h4>Android的单线程模型</h4>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Android手机中,当一个应用程序第一次启动时，Android会同时启动一个对应的主线程（Main Thread），Main Thread主要负责处理与UI相关的事件，包括响应用户的各种操作：点击，滑动，按键，
+并把相关的事件分发到对应的组件进行处理。所以主线程可以理解为UI线程，通常又被叫做UI线程。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于以上<strong>单线程模型</strong>的原则，在开发Android应用时，Android UI操作必须在UI线程中执行，不要阻塞UI线程，Android UI线程并不是线程安全的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果在非UI线程中直接操作UI线程，会抛出异常，<strong>这点与普通java程序不同。</strong></p>
+<div style="background:gainsboro;padding: 5px;">
+    <pre>
+    android.view.ViewRoot$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views，
+    </pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了更方便的使子线程能够和主线程通信，Android引进了消息机制。</p>
+<h4>Android中消息机制</h4>
+<p>先上代码，说起Android的消息机制，不得不提的几个类：</p>
+<ul>
+    <li>Message:消息，其中包含了消息ID，处理对象和处理数据，由MessageQueue统一队列管理，最终由Handler处理；需要传递的消息，可以传递的数据。</li>
+    <li>Handler:（消息发送和处理）负责Message发送和处理；消息辅助类，主要功能向消息池发送各种消息事件（Handler.sendMessage）和处理相应的消息事件（Handler.handleMessage）</li>
+    <li>MessageQueue:消息队列，按照FIFO原则存放消息；消息队列，但是它的内部实现并不是用的队列，实际上是通过一个单链表的数据结构来维护消息列表，因为单链表在插入和删除上比较有优势。主要功能向消息池投递消息（
+        MessageQueue.enqueueMessage）和取走消息池的消息（MessageQueue.next）</li>
+    <li>Looper:（消息循环）消息泵，来处理MessageQueue中的Message；不断循环执行（Looper.loop）,从MessageQueue中读取消息，按分发机制将消息分发给目标处理者。</li>
+</ul>
+
+<h4>消息机制的运行流程：</h4>
+<ol>
+    <li>在子线程执行完耗时操作，当Handler发送消息时，将会调用 <code style="background: gainsboro">MessageQueue.enqueueMessage</code>,向消息队列添加消息。</li>
+    <li>当通过Looper.loop开启循环后，会不断的线程池中读取消息，即调用<code style="background: gainsboro">MessageQueue.next</code>,然后调用目标Handler（即发送该消息的Handler）的<code style="background: gainsboro">dispatchMessage</code>
+    方法传递消息</li>
+    <li>然后返回到Handler所在线程，目标Handler收到消息，调用<code style="background: gainsboro">handlerMessage</code>方法，接收消息，处理消息。</li>
+</ol>
+<p><strong>MessageQueue, Handler和Looper三者之间的关系：</strong>每个线程只能存在一个Looper,Looper是保存在ThreadLocal中的。主线程（UI线程）已经创建了一个Looper,所以在主线程中不需要再创建Looper，
+但在其他线程中需要创建Looper，每个线程中可以有多个Handler，即一个Looper可以处理来自多个Handler的消息。Looper中维护一个MessageQueue，来维护消息队列，消息队列中的Message可以来自不同的Handler。</p>
+<h4>消息机制的源码解析</h4>
+<ol>
+    <li><strong>Looper</strong>想要使用消息机制，首先要创建一个Looper。初始化Looper，无参情况，默认调用<code style="background: gainsboro">prepare(true);</code>--->开启Looper</li>
+    <p><strong>当next()取出下一条消息时，队列中已经没有消息时，next()会无限循环，产生阻塞。等待MessageQueue中加入消息，然后重新唤醒。主线程中不需要自己创建Looper，这是由于在程序启动的时候，系统已经帮我们自动调用了Looper.prepare()
+    方法。查看ActivityThread中的main()方法，代码如下所示：</strong></p>
+    <li><strong>Handler:创建Handler</strong></li>
+    <li><strong>发送消息 post方法，send方法 sendMessageAtTime() enqueueMessage()</strong></li>
+    <li><strong>获取消息 next()</strong></li>
+    <li><strong>分发消息 dispatchMessage()</strong></li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>疑问一，Android是单线程模式，那么所有自己程序中创建的handler，都属于子线程？</p>
+<p>疑问二，主线程已经创建了一个Looper，存不存在需要创建Looper的情况？和疑问一类似</p>
+</body>
+</html>
