@@ -11,6 +11,7 @@ to be a better man,to be a better coder... -->
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [Kotlin：An Annotation argument must be a compile time constant](https://github.com/songmeng/Sunburst/issues/47)
     * [android.view.WindowLeaked问题](https://github.com/songmeng/Sunburst/issues/41)
     * [记一次诡异的安卓光标不消失问题](https://github.com/songmeng/Sunburst/issues/39)
     * [android项目无法引用library中的jar包问题](https://github.com/songmeng/Sunburst/issues/33)

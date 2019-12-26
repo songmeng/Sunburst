@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kotlin An Annotation argument must be a compile time constant</title>
+</head>
+<body>
+<h4>Kotlin An Annotation argument must be a compile time constant</h4>
+<h4>问题描述：在kotlin中使用EasyPermissions遇到的问题，直接上代码</h4>
+
+<pre><div style="background:#DCDCDC;padding: 10px;">
+    <code>
+    val RC_PERMISSION_PERM : Int = 125
+
+    ......
+
+  @AfterPermissionGranted(<strong>RC_PERMISSION_PERM</strong>)
+    internal fun doScanBycheckPermission() {
+        val perms = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (EasyPermissions.hasPermissions(this, *perms)) {
+            val intent = Intent(this@LoginActivity, ScanActivity::class.java)
+            startActivityForResult(intent, Constants.PERMISSION_REQUEST_CODE)
+        } else {
+            EasyPermissions.requestPermissions(this, "App需要相关权限", Constants.RC_PERMISSION_PERM, *perms)
+        }
+
+    }
+    </code>
+    </div></pre>
+
+<p>@AfterPermissionGranted(<strong>RC_PERMISSION_PERM</strong>) 变量<strong>RC_PERMISSION_PERM</strong>报错，提示An Annotation argument must be a compile time constant</p>
+<h4>解决思路：</h4>
+<p>检查val是不可变常量，搜索const val才是真正对应java中的static final，于是添加const关键字，又报错const只能修饰顶级属性即：<strong>Top-level</strong></p>
+
+<pre><div style="background:#DCDCDC;padding: 10px;">
+    <code>
+  const val RC_PERMISSION_PERM : Int = 125
+
+</code>
+</div></pre>
+
+<p>知识点： <strong>Top-level</strong>属性或者方法，就是和class同级的，比如上面的就可以写成</p>
+
+<pre><div style="background:#DCDCDC;padding: 10px;">
+    <code>
+  const val RC_PERMISSION_PERM : Int = 125
+class LoginActivity : Activity(), EasyPermissions.PermissionCallbacks {
+        ......
+
+</code>
+</div></pre>
+
+<p>即变量RC_PERMISSION_PERM和LoginActivity同级，这样在编译成class的时候，会把Top-level的属性和函数创建到以类名+Kt为名的class文件中，Top-level调用的时候类似于调用扩展函数那样，直接调用属性或者函数。</p>
+
+<h4>总结：</h4>
+<p>kotlin中想要实现java中static final，除了需要val关键字外，还需要关键字<strong>const</strong>标识一个常量</p>
+<p>const修饰的val变量相当于java中static final，并且有两点需要注意</p>
+<ol>
+    <li>const只能修饰val常量（不能修饰var）</li>
+    <li>const只能修饰顶级属性</li>
+</ol>
+
+
+
+</body>
+</html>
