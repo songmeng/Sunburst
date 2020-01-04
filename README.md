@@ -11,6 +11,7 @@ to be a better man,to be a better coder... -->
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [JKS 密钥库使用专用格式,建议使用 keytool -importkeystore -srckeystore](https://github.com/songmeng/Sunburst/issues/48)
     * [Kotlin：An Annotation argument must be a compile time constant](https://github.com/songmeng/Sunburst/issues/47)
     * [android.view.WindowLeaked问题](https://github.com/songmeng/Sunburst/issues/41)
     * [记一次诡异的安卓光标不消失问题](https://github.com/songmeng/Sunburst/issues/39)
@@ -54,6 +55,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [Git仓库完整迁移](https://github.com/songmeng/Sunburst/issues/49)
     * [SQLyog连接MySQL时出现的2058错误解决方法](https://github.com/songmeng/Sunburst/issues/44)
     * [困扰很久使用idea编写html如何像vscode一样提示代码](https://github.com/songmeng/Sunburst/issues/42)
     * [IDEA html误用Alt+Enter导致编辑页面蒙层问题](https://github.com/songmeng/Sunburst/issues/38)

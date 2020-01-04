@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Git仓库完整迁移</title>
+</head>
+<body>
+<h4>问题描述：有一项目初期是自己在写，公司Gitlab没有建项目，自己为了方面回顾本地用了git，之后因为公司租住的地方两地方便，将项目上传至了私人github，再之后抠门的公司终于搭建了新的gitlab用于这批项目，
+问题就变成了：如何从github将项目完整迁移至公司git库？</h4>
+
+<p>即：将项目https://github.com/yourName/yourProject.git完整的一切提交记录迁移至http://gitlab.test.cn/android/newProject.git</p>
+
+<ul>
+    <li>将github的项目完整的clone至本地 <pre>git clone –bare https://github.com/yourName/yourProject.git</pre> 本地会生成yourProject.git的文件夹</li>
+    <li>将代码推送至自己的服务器上，这里重点是推送的方式是：镜像的方式 <pre>cd yourProject.git</pre> <pre>git push -mirror http://gitlab.test.cn/android/newProject.git</pre> </li>
+    <li>尝试从新服务器地址clone项目至本地 <pre>git clone http://gitlab.test.cn/android/newProject.git</pre> 本地查看所有的历史记录应该都已经迁移至新服务器</li>
+</ul>
+
+
+
+
+</body>
+</html>
