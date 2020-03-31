@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebView微信H5支付</title>
+</head>
+<body>
+
+
+<h5>问题描述：App内部有支付部分，需要webview打开h5链接，在h5内部支付，总是失败？</h5>
+<p>加载网页后可能出现ERR_UNKNOWN_URL_SCHEME</p>
+<p>分析可能原因：</p>
+<p>打印出网址发现是 <strong>weixin://wap/pay</strong> 开头的,这个肯定是微信的一种协议，搜资料发现解决方案</p>
+
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+           @Override  
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {  
+            // 如下方案可在非微信内部WebView的H5页面中调出微信支付
+            if (url.startsWith("weixin://wap/pay?")) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+                return true;
+            }
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+        </pre>
+</div>
+<p>之后测试发现可以调起支付，之后本着谨慎的原则，仔细检查代码，发现shouldOverrideUrlLoading针对不同android api有不同的写法，于是在shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
+    这个下面也写了一下，没想到发生了预料之外的事</p>
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+@Override
+public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+}
+        </pre>
+</div>
+
+<p>在部分手机点击支付会调用第三方浏览器的提示，最后没办法注释了 <strong>shouldOverrideUrlLoading(WebView view, WebResourceRequest request)</strong>  中的实现，测试没问题</p>
+
+<p>感觉应该有更优的解决法案</p>
+
+<p>参考资料</p>
+<p><a href="https://github.com/Justson/AgentWeb/issues/192">微信支付不需要用户不需要做任何动作，AgentWeb 内部已经对微信支付进行了处理</a></p>
+
+</body>
+</html>

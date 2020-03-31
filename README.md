@@ -11,6 +11,7 @@ to be a better man,to be a better coder... -->
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [webview调起h5微信支付](https://github.com/songmeng/Sunburst/issues/50)
     * [JKS 密钥库使用专用格式,建议使用 keytool -importkeystore -srckeystore](https://github.com/songmeng/Sunburst/issues/48)
     * [Kotlin：An Annotation argument must be a compile time constant](https://github.com/songmeng/Sunburst/issues/47)
     * [android.view.WindowLeaked问题](https://github.com/songmeng/Sunburst/issues/41)
