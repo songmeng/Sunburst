@@ -56,6 +56,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [临时本地存代码Git Stash](https://github.com/songmeng/Sunburst/issues/51)
     * [Git仓库完整迁移](https://github.com/songmeng/Sunburst/issues/49)
     * [SQLyog连接MySQL时出现的2058错误解决方法](https://github.com/songmeng/Sunburst/issues/44)
     * [困扰很久使用idea编写html如何像vscode一样提示代码](https://github.com/songmeng/Sunburst/issues/42)
