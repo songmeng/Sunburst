@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端获取iOS时间出错问题</title>
+</head>
+<body>
+<h4>问题描述：想要实现根据后台数据返回的时间和本地时间对比，实现代码如下：</h4>
+
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+            dataCompare:function (itemTime) {
+                //获取当前时间
+                var currentTime = new Date();
+
+                //自定义时间格式
+                itemTime= itemTime.replace("-","/");//替换字符，变成标准格式 <span style="color: red">此行iOS会报错</span>
+                itemTime= new Date(Date.parse(itemTime));
+
+                console.log()
+                if(currentTime <= itemTime) {
+                    return false;
+                }else{
+                    return true;
+                }
+            },
+        </pre>
+</div>
+
+<p>代码实现思路比较简单，拿到两个时间进行对比，在Android手机没问题，在苹果手机总是返回true，后来查到获取时间在ios端会出现NaN的情况，
+    猜测和这个有关：ios中时间转换不兼容横杆-（new Date("2020-08-13 10:30:00").getTime()）应该变为 new Date("2020-08-13 10:30:00".replace(/-/g,'/')).getTime()。
+所以问题有两个：</p>
+<ol>
+    <li>ios中时间转换不兼容横杆-</li>
+    <li>需要把‘-’换成‘/’，重点是必须用 <span style="font-weight: bold;color: red;">正则执行</span> </li>
+</ol>
+<h4>解决方法：</h4>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+                //自定义时间格式
+                //itemTime= itemTime.replace("-","/");//替换字符，变成标准格式
+                itemTime= itemTime.replace(/-/g,"/");//<span style="color: red">此行修改为</span>
+        </pre>
+</div>
+<p>总结：虽然不是什么大问题，算是兼容性问题，但如果偶然遇见解决起来还是挺恶心的，无从下手，记一下。</p>
+</body>
+</html>
