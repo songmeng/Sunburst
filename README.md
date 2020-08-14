@@ -42,6 +42,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [H5引入js和css防止缓存加v](https://github.com/songmeng/Sunburst/issues/54)
     * [前端获取iOS时间出错问题](https://github.com/songmeng/Sunburst/issues/53)
     * [jQuery和Vue学习对比](https://github.com/songmeng/Sunburst/issues/37)
     * [前端学习路线及资料汇总(不断补充)](https://github.com/songmeng/Sunburst/issues/36)

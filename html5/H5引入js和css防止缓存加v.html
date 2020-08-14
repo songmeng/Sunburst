@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H5引入js和css防止缓存加v</title>
+</head>
+<body>
+<h4>H5引入js和css,客户端会缓存css或js文件，有时候会有问题，改了css样式用户使用时不更新，甚至刷新也不行。</h4>
+<p>其中比较主流的一种方式在js或css后面加上随机数或时间戳，css或js文件改变了版本号，客户端就会重新下载，刷新的话会解决一部分缓存的作用。下面总结了几种写法</p>
+<h4>平时最常用的</h4>
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+           &lt;script type="text/javascript" src="/js/myjs.js?v=2020814"/&gt;
+        </pre>
+</div>
+<p>适合正常发布新版时，不是特别着急的情况。</p>
+<h4>刷新要求高，每次加载都随机情况</h4>
+<p>有几种不同的写法，各有利弊，写法一：</p>
+<div style="background:gainsboro;padding: 5px;">
+    <pre>
+        &lt;script type="text/javascript"/&gt;
+            document.write('&lt;script src="./js/index.js?adv='+Math.random()+'"/&gt;&lt;\/script/&gt;');
+        &lt;/script/&gt;
+    </pre>
+    写法简洁，可以满足大部分场景，缺点是注意document.write写法，必须写在head标签内
+</div>
+<p>写法二：</p>
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+           &lt;script id="script_1">&lt;/script>&lt;script>
+                document.getElementById('script_1').src='./js/index.js?adv='+Math.random();
+            &lt;/script>
+        </pre>
+</div>
+<p>写法三：</p>
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+           &lt;script>
+              window.onload = function () {
+                  var el = document.createElement('script')
+                  var el_html = document.querySelector('html')
+                  var timetemp = new Date().getTime()
+                  el.type = 'text/javascript'
+                  el.src = './index.js?timetemp=' + timetemp
+                  el_html.appendChild(el)
+              }
+            &lt;/script>
+        </pre>
+</div>
+
+
+
+</body>
+</html>
