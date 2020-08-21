@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2>Essential Links<font-awesome-icon icon="user-secret" /></h2>
+    <font-awesome-icon icon="user-secret" />
     <a href="blogList">aaaa</a>
     <ul>
       <li><router-link to="/notes/main" class="description_top">我的笔记 to="/notes/main"</router-link> </li>
