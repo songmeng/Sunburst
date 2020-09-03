@@ -41,12 +41,55 @@
             var fileList = [];
             for (var i = 0, len = files.length; i < len; i++) {
                 // fileList.push(files[i].name);
-                fileList.push(files[i].name+"]["+formatData(files[i].lastModifiedDate));
+
+                let cFile = files[i];
+
+                // fileList.push(files[i].name+"]["+formatData(files[i].lastModifiedDate));
+
+                let reader = new FileReader();//这是核心！！读取操作都是由它完成的
+                reader.readAsText(cFile);
+//readAsText(file,[encoding]):将文件读取为文本，encoding缺省为UTF-8   readAsText(selectedFile,'UTF-8')
+                reader.onload = function(oFREvent){//读取完毕从中取值
+                    var pointsTxt = oFREvent.target.result;
+
+                    console.log("解析成功");
+                    console.log(pointsTxt.substring(100,120));
+                    console.log("提取成功");
+
+                    let jsonObj = {
+                        'title':cFile.name.substring(0,cFile.name.indexOf(".html")),
+                        'ctime' :formatData(cFile.lastModifiedDate),
+                        'type':'1',
+                        'content':formatHtml(pointsTxt)};
+                    // alert(pointsTxt)
+                    fileList.push(jsonObj);
+                    // alert(pointsTxt)
+                    // your code。。。。
+                }
+
+
             }
-            filesDiv.innerHTML = fileList.join('\n');
+
+
+            setTimeout(function () {
+                console.log('done');
+                // filesDiv.innerHTML = fileList.join('\n');
+                // filesDiv.innerHTML = JSON.stringify(fileList);
+                console.log(JSON.stringify(fileList));
+            },1*1000)
+
+            // filesDiv.innerHTML = fileList.join('\n');
             //debugger;
         });
     });
+
+
+    function formatHtml(content) {
+        let start = content.indexOf("<body>") + 6;
+        let end = content.indexOf("</body>");
+
+        return content.substring(start,end).replace(/\r\n/g,"");
+    }
 
 function formatData(str) {
     // let date = new Date('Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)');
@@ -112,5 +155,32 @@ function checkTime(i) {
         }
     }
 
+
+</script>
+<script>
+
+    // testContent();
+
+
+    function testContent() {
+        var testContent = '<body>\n' +
+            '<input type="text" name="fixfolder" value="E:/J2EE"><!--指定文件夹：-->\n' +
+            '<input type="button" value="搜索" onclick="searchFiles()">\n' +
+            '\n' +
+            '<input type="file" onchange="upload(this)" />\n' +
+            '<div style="background: #FF6347">\n' +
+            '    <input type="file" id="file_input" webkitdirectory directory />\n' +
+            '    <p>Files:</p>\n' +
+            '    <pre id="files"></pre>\n' +
+            '</div>\n' +
+            '<table>\n' +
+            '    <tr>\n' +
+            '        <td id="textarea">\n' +
+            '        </td>\n' +
+            '    </tr>\n' +
+            '</table>\n' +
+            '</body>';
+        console.log(formatHtml(testContent));
+    }
 
 </script>
