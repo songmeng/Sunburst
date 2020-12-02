@@ -42,6 +42,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [前端学习总结和项目中问题](https://github.com/songmeng/Sunburst/issues/57)
     * [H5引入js和css防止缓存加v](https://github.com/songmeng/Sunburst/issues/54)
     * [前端获取iOS时间出错问题](https://github.com/songmeng/Sunburst/issues/53)
     * [jQuery和Vue学习对比](https://github.com/songmeng/Sunburst/issues/37)
@@ -81,4 +82,3 @@ to be a better man,to be a better coder... -->
     * [2016-11-02阶段总结](https://github.com/songmeng/Sunburst/issues/2)
     * []()
 
-慢慢将博客园和oschina的博客都移过来，准备之后只在github发布
