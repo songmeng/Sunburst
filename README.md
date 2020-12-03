@@ -71,6 +71,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 工作生活学习
     * []()
+    * [2020-12-02总结与规划](https://github.com/songmeng/Sunburst/issues/53)
     * [2020-08-07随记](https://github.com/songmeng/Sunburst/issues/52)
     * [生活随想（关于基金）](https://github.com/songmeng/Sunburst/issues/45)
     * [一周六练健身计划](https://github.com/songmeng/Sunburst/issues/34)
