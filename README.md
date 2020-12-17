@@ -42,6 +42,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [span重叠问题](https://github.com/songmeng/Sunburst/issues/60)
     * [苹果safari浏览器input兼容性问题](https://github.com/songmeng/Sunburst/issues/59)
     * [前端学习总结和项目中问题](https://github.com/songmeng/Sunburst/issues/57)
     * [H5引入js和css防止缓存加v](https://github.com/songmeng/Sunburst/issues/54)
