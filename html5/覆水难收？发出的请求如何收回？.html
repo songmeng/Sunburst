@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>覆水难收？发出的请求如何收回？</title>
+</head>
+<body>
+<h4>问题描述：在网络比较慢的情况下，订单列表页点击第一个订单进入详情页的时候，请求订单详情接口，网络比较慢，未请求成功退出，点击第二个订单进去详情页，这时候两次请求都成功了，
+    返回数据页面渲染出现问题，因为使用了单页模式两个订单信息混在一起</h4>
+<p>解决思路有两种：</p>
+<ol>
+    <li>常规Html5写法的话（非单页应用模式），不会出现这种问题。</li>
+    <li>单页应用复用页面会出现，这时候退出页面的时候应该取消未完成的请求。</span> </li>
+</ol>
+<p>如果是jquery的方式ajax请求的话，有abort()方法可以直接调用,关键代码</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+    var ajaxRequest = null;
+
+    ajaxRequest = $.ajax({...});
+
+    if (window.history && window.history.pushState) {
+		window.addEventListener("popstate", (e)=> {
+			if (ajaxRequest){
+				ajaxRequest.abort();
+			}
+			console.log('页面要返回了');
+		}, false);
+	}
+        </pre>
+</div>
+
+<h4>但是目前主流的都是vue单页模式开发，网络请求一般采用axios框架，axios也提供了取消请求的方法</h4>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+        let that = this
+        axios.get('http://......', {
+          cancelToken: new CancelToken(function executor(cancle) {
+            // 这个参数 cancle 就是CancelToken构造函数里面自带的取消请求的函数，这里把该函数当参数用
+            that.cancelRequest = cancle
+            console.log(cancle)
+          })
+        }).then(res => {
+          that.items = res.data
+        }).catch(err => {
+          console.log(err)
+        })
+
+        //cancelRequest 是我们在data中定义的属性，用于关联cancle函数，在我们需要取消的地方调用
+        this.cancelRequest();
+
+        </pre>
+</div>
+<p>总结：abort()方法并不影响服务器对接口的响应，只是回调方法不再响应。</p>
+
+<img src="https://i.postimg.cc/W4RB4ypq/20210324162524.png" alt="" style="min-width: 500px"><br/>
+<img src="https://i.postimg.cc/254PLx3c/20210324162705.png" alt="" style="min-width: 500px">
+
+
+</body>
+</html>
