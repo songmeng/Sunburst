@@ -42,6 +42,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [覆水难收？发出的请求如何收回？](https://github.com/songmeng/Sunburst/issues/62)
     * [vue状态管理模式Vuex学习使用](https://github.com/songmeng/Sunburst/issues/61)
     * [span重叠问题](https://github.com/songmeng/Sunburst/issues/60)
     * [苹果safari浏览器input兼容性问题](https://github.com/songmeng/Sunburst/issues/59)
