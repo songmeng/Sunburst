@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bui框架单页模式，dom操作的坑</title>
+</head>
+<body>
+<h4>问题描述：公司一个项目用的框架比较老，是用bui做的，前几天有个需求需要操作整个页面滑动，使用常规跳转(window.location.href)的话没什么问题,使用bui的router
+跳转(bui.load({ url:''});)的话有问题，操作dom无效</h4>
+<p>开始以为是bui生命周期的问题,将操作的步骤置后还是无法操作。不知道什么原因</p>
+<p>解决思路：调试的过程中无意点击了下元素查看，终于发现了点端倪</p>
+    <img style="width:600px;" alt="" src="https://i.postimg.cc/Gmmtq1Ws/20210330163852bui.png">
+
+    <p>原来bui的单页是通过设置新页面position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;的方式覆盖在前一个页面上面达到单页的效果，这样的话只需要独立标识需要操作的dom就可以了。</p>
+    <p>解决方案：操作dom的时候不能使用通用元素的方式获取dom比如：$("main")、$(".bui-page")等公共样式。如果需要的话建立独立的标识比如id:bui-page-one id:bui-page-two。</p>
+
+</body>
+</html>
