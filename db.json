@@ -1,0 +1,20 @@
+{
+  "pages_total": {
+    "home": 11,
+    "android": 5,
+    "html5": 2,
+    "javaWeb": 1,
+    "tools": 2,
+    "life": 2,
+    "beyond": 1
+  },
+  "posts": [
+    {
+      "id": 1,
+      "title": "hello"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
