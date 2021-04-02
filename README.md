@@ -11,6 +11,7 @@ to be a better man,to be a better coder... -->
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [keystore/jks获取SHA1，以及专用格式转换问题](https://github.com/songmeng/Sunburst/issues/65)
     * [webview调起h5微信支付](https://github.com/songmeng/Sunburst/issues/50)
     * [JKS 密钥库使用专用格式,建议使用 keytool -importkeystore -srckeystore](https://github.com/songmeng/Sunburst/issues/48)
     * [Kotlin：An Annotation argument must be a compile time constant](https://github.com/songmeng/Sunburst/issues/47)
@@ -42,6 +43,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [npm还是yarn](https://github.com/songmeng/Sunburst/issues/64)
     * [bui框架单页模式，dom操作的坑](https://github.com/songmeng/Sunburst/issues/63)
     * [覆水难收？发出的请求如何收回？](https://github.com/songmeng/Sunburst/issues/62)
     * [vue状态管理模式Vuex学习使用](https://github.com/songmeng/Sunburst/issues/61)
