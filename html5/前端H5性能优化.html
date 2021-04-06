@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端H5性能优化</title>
+</head>
+<body>
+<h4>优化场景背景</h4>
+<p style="text-indent: 30px">对于用户而言,打开一个网页（pc端/移动端），第一感觉是页面加载速度，然后用户浏览网页进行简单的操作，这时候对用户操作的响应尤为重要，
+    总之说到底就是用户有一个好的体验。什么是好的用户体验呢，最简单的对用户而言足够简洁、足够友好。</p>
+<p style="text-indent: 30px">对于公司而言，站在服务商的角度，用户访问对于页面的请求数，请求所占的带宽都是很客观的资源投入。虽说资源投入必不可少，但是合理的优化确实可以节省相关的资源。</p>
+<h4>优化思路</h4>
+<p style="text-indent: 30px">1.前端的优化思路有很多，从页面的加载过程来看就有很多可以优化的地方，比如脚本的无阻塞加载，优化内联脚本的位置，http的请求数等。</p>
+<p style="text-indent: 30px">2.从具体开发的角度来看，代码方面也有很多优化的切入点，比如JavaScript中的DOM操作优化、CSS选择符优化、图片优化以及HTML的结构优化等。</p>
+<p style="text-indent: 30px">3.其他优化相关：PC优化手段在Mobile侧同样适用，在Mobile侧首屏最好三秒内完成渲染，首屏使用Loading或3s加载完成，为了适用于移动网络首屏资源最好不超过1014kb，Mobile端由于配置参差不齐的原因，除加载外渲染速度也是优化重点。</p>
+<h4>具体优化方法</h4>
+<h5>加载优化</h5>
+<ul>
+    <li>合并CSS、JavaScript</li>
+    <li>合并小图片</li>
+    <li>缓存一切可以缓存的资源</li>
+    <li>使用长Cache，在服务器端设置缓存。</li>
+    <li>使用外联式引用CSS、JavaScript</li>
+    <li>压缩HTML、CSS、JavaScript</li>
+    <li>启动GZip，在服务器端设置</li>
+    <li>启动首页加载</li>
+    <li>使用按需要加载</li>
+    <li>使用滚屏加载</li>
+    <li>通过Media Query加载</li>
+    <li>增加Loading进度条</li>
+    <li>减少Cookie</li>
+    <li>避免重定向</li>
+    <li>异步加载第三方资源</li>
+</ul>
+<h5>脚本优化</h5>
+<ul>
+    <li>减少重绘和回流</li>
+    <li>缓存Dome选择与计算</li>
+    <li>缓存列表length</li>
+    <li>尽量使用事件代理，避免批量绑定事件</li>
+    <li>尽量使用ID选择器</li>
+    <li>使用touchstart、touchend代替click</li>
+</ul>
+<h5>CSS优化</h5>
+<ul>
+    <li>CSS写在头部，JavaScript写在尾部，要么就异步</li>
+    <li>避免图片和iFrame的空 Src</li>
+    <li>尽量避免重设图片大小</li>
+    <li>图片尽量避免使用DataURL</li>
+    <li>不要在HTML标签中写style样式</li>
+    <li>避免CSS表达式</li>
+    <li>移除空的CSS规则</li>
+    <li>正确使用Display属性</li>
+    <li>不要滥用float</li>
+    <li>不要滥用使用Web字体</li>
+    <li>不要声明过多的font-size</li>
+    <li>像素为0时不需要任何单位</li>
+    <li>标准化各种浏览器的前缀</li>
+    <li>避免让选择符看起来像正则表达式</li>
+</ul>
+<h5>渲染优化</h5>
+<ul>
+    <li>HTML使用Viewport适配（移动端适配）</li>
+    <li>减少Dom节点</li>
+    <li>尽量使用CSS3动画</li>
+    <li>合理使用requirestAnimationFrame代替setTimeout</li>
+    <li>适当使用canvas动画</li>
+    <li>Touchmove、Srcoll会导致多次渲染</li>
+    <li>使用CSS3 transitions、CSS3 3D transforms、Opacity、Canvas、webGL、video来渲染CPU</li>
+</ul>
+<h5>图片优化</h5>
+<ul>
+    <li>使用智图压缩图片</li>
+    <li>CSS3、SVG、IconFont代替图片</li>
+    <li>使用Srcset</li>
+    <li>使用webP 优于JPG</li>
+    <li>PNG8优于GIF</li>
+    <li>首次加载不大于1014KB</li>
+    <li>图片不宽于640</li>
+</ul>
+</body>
+</html>

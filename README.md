@@ -43,6 +43,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [前端H5性能优化](https://github.com/songmeng/Sunburst/issues/66)
     * [npm还是yarn](https://github.com/songmeng/Sunburst/issues/64)
     * [bui框架单页模式，dom操作的坑](https://github.com/songmeng/Sunburst/issues/63)
     * [覆水难收？发出的请求如何收回？](https://github.com/songmeng/Sunburst/issues/62)
