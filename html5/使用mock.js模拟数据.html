@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用mock.js模拟数据</title>
+</head>
+<body>
+<p style="text-indent: 20px">前端开发时，有时候后台不能及时做出接口，或一些特殊的字段值场景不易模拟复现，这时候就需要前端自己模拟数据了。</p>
+<h4>mock.js的安装</h4>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+    // 安装mock.js <br>
+       npm install mockjs --save-dev<br>
+    </pre>
+</div>
+<h4>mock.js的简单配置</h4>
+<ul>
+    <li>根目录src文件夹下新建mock文件夹</li>
+    <li>mock文件夹下新建index.js用于存放模拟数据</li>
+    <li>配置相关接口的模拟数据mock/index.js</li>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        let mdata = { <br>
+        code: 200, <br>
+        status: 'success', <br>
+        data:{ <br>
+        name:"小牛", <br>
+        age:"1", <br>
+        sex:"男", <br>
+        desc:"mdata", <br>
+        } <br>
+        }; <br>
+
+        Mock.mock('/mock/getMockData','get',mdata); <br>
+    </pre>
+</div>
+
+
+<li>在main.js中配置mock</li>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+    // The Vue build version to load with the `import` command <br>
+    // (runtime-only or standalone) has been set in webpack.base.conf with an alias. <br>
+    import Vue from 'vue' <br>
+    import App from './App' <br>
+    import router from './router' <br>
+    import axios from 'axios' <br>
+    import store from './vuex/store' //引入store.js <br>
+    import './mock/index.js' //使用mockjs模拟 <br>
+    </pre>
+</div>
+</ul>
+<p>然后调用正常调用接口就可以看到模拟数据了， </p>
+
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+    let url1 = "/mock/getMockData";<br>
+    axios.get(url1).then((response) => {<br>
+    console.log('--11-'+response);<br>
+    console.log(response);<br>
+    }).catch((error) => {<br>
+    console.log(error);<br>
+    })<br>
+    </pre>
+</div>
+
+<p style="text-indent: 20px">可以看到控制台返回：</p>
+<p>
+{
+"data": {
+"code": 200,
+"status": "success",
+"data": {
+"name": "小牛",
+"age": "1",
+"sex": "男",
+"desc": "mdata"
+}
+},
+"status": 200,
+"statusText": "OK",
+"headers": {},
+"config": {
+"url": "/mock/getMockData",
+"method": "get",
+"headers": {
+"Accept": "application/json, text/plain, */*"
+},
+"transformRequest": [
+null
+],
+"transformResponse": [
+null
+],
+"timeout": 0,
+"xsrfCookieName": "XSRF-TOKEN",
+"xsrfHeaderName": "X-XSRF-TOKEN",
+"maxContentLength": -1
+},
+"request": {
+"custom": {
+"events": {},
+"requestHeaders": {
+"Accept": "application/json, text/plain, */*",
+"X-Requested-With": "MockXMLHttpRequest"
+},
+"responseHeaders": {},
+"method": "GET",
+"url": "/mock/getMockData",
+"async": true,
+"options": {
+"url": "/mock/getMockData",
+"type": "GET",
+"body": null
+},
+"timeout": 58
+}
+}
+</p>
+</body>
+</html>
