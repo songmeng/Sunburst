@@ -69,6 +69,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [Redis的安装和使用-windows](https://github.com/songmeng/Sunburst/issues/69)
     * [临时本地存代码Git Stash](https://github.com/songmeng/Sunburst/issues/51)
     * [Git仓库完整迁移](https://github.com/songmeng/Sunburst/issues/49)
     * [SQLyog连接MySQL时出现的2058错误解决方法](https://github.com/songmeng/Sunburst/issues/44)
