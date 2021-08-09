@@ -43,6 +43,7 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [Promise的简单用法](https://github.com/songmeng/Sunburst/issues/70)
     * [使用mock.js模拟数据](https://github.com/songmeng/Sunburst/issues/68)
     * [npm run xxx和yarn run xxx,那么xxx是什么？](https://github.com/songmeng/Sunburst/issues/67)
     * [前端H5性能优化](https://github.com/songmeng/Sunburst/issues/66)
