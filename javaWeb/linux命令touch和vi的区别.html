@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>linux命令touch和vi的区别</title>
+</head>
+<body>
+<strong>touch命令</strong>
+<p><strong>touch命令</strong>有两个功能：</p>
+<ul>
+    <li>一是用于把已存在文件的时间标签更新为系统当前的时间（默认方式），它们的数据将原封不动地保留下来。</li>
+    <li>二是用来创建新的空文件。</li>
+</ul>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+        [root@localhost one]# ll
+        总用量 4
+        -rw-r--r-- 1 root root 53 11月 10 11:02 hello.sh
+        [root@localhost one]# touch hello.sh
+        [root@localhost one]# ll
+        总用量 4
+        -rw-r--r-- 1 root root 53 11月 10 14:54 hello.sh
+        [root@localhost one]#
+
+
+    </pre>
+</div>
+<p>上面执行touch命令后 #时间由11:02变为了14:54 <br/>
+    - 如果fileA存在，使用touch指令可更改这个文件或目录的日期时间，包括存取时间和更改时间；<br/>
+    - 如果fileA不存在，touch指令会在当前目录下新建一个空白文件fileA。</p>
+
+
+
+
+<strong>vi命令</strong>
+<p><strong>vi命令</strong>一般用于打开文件，其实不仅如此：</p>
+<ul>
+    <li>使用 vi 加 文件路径的模式打开文件，如果文件存在则打开现有文件。</li>
+    <li>如果文件不存在则新建文件，并打开，此时在终端最下面一行显示打开的是一个新文件。</li>
+</ul>
+<p>打开现有文件</p>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+[root@localhost one]# vi hello.sh
+    </pre>
+</div>
+<p>此时终端展示文件内容</p>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+# 这是我们的第一个脚本
+echo 'Hello World!'
+~
+~
+~
+~
+~
+"hello.sh" 2L, 53C
+    </pre>
+</div>
+<p>打开文件文件不存在</p>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+[root@localhost one]# vi new.txt
+    </pre>
+</div>
+<p>终端最下面一行显示打开的是一个新文件[New File]</p>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+~
+~
+"new.txt" [New File]
+    </pre>
+</div>
+</body>
+</html>
