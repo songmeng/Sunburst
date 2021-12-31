@@ -84,6 +84,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 工作生活学习
     * []()
+    * [2021-12-31年终小计(不是总结)](https://github.com/songmeng/Sunburst/issues/72)
     * [2020-12-02总结与规划](https://github.com/songmeng/Sunburst/issues/58)
     * [2020-08-07随记](https://github.com/songmeng/Sunburst/issues/52)
     * [生活随想（关于基金）](https://github.com/songmeng/Sunburst/issues/45)
