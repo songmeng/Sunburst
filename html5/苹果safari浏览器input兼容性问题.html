@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>苹果safari浏览器input兼容性问题</title>
+</head>
+<body>
+<div>
+<p>本来用的框架，想要实现的样子是，后来自定义改了下input的样式，在windows上各种浏览器没什么问题</p>
+<img style="width:600px;" alt="" src="https://i.postimg.cc/gkmCJ3xh/height-normal.png">
+<!--<img style="width:600px;" alt="" src="https://postimg.cc/0b6tTkcY">-->
+<!--<img style="width:600px;" alt="" src="https://postimg.cc/147C7ncR">-->
+<br/>
+<p>但是换到苹果的safari浏览器就出问题了</p>
+<img style="width:600px; height:auto;" alt=""
+     src="https://i.postimg.cc/m2j0Fh95/height-actual.jpg">
+<p>解决方法是：在input中添加height:normal,设置具体的数值在safari无效。</p>
+</div>
+</body>
+</html>

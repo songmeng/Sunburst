@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>npm run xxx和yarn run xxx,那么xxx是什么？</title>
+</head>
+<body>
+<p style="text-indent: 30px">一般接触一个新的项目，安装完依赖，运行的时候执行npm run xxx，一般都是npm run dev/npm run build</p>
+<p style="text-indent: 30px">有时候不行，老实看readme文档，命令行稍有区别npm run prod、npm run server、npm run start；如果没有readme呢，虽然这种情况比较少，原理是什么呢，可不可以自己配置呢？</p>
+<p>一顿搜索，还是发现了一点有用的东西，npm run和yarn run都是用来执行项目根目录下package.json中scripts属性下定义的脚本，话不多说show the codes</p>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        // package.json
+        { <br>
+            "scripts": { <br>
+            "dev": "node app.js", <br>
+            "start": "node app.js" <br>
+            } <br>
+        } <br>
+    </pre>
+</div>
+<span>or</span>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        // package.json
+        { <br>
+          "scripts": { <br>
+            "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js", <br>
+            "start": "npm run dev", <br>
+            "build": "node build/build.js" <br>
+          } <br>
+        } <br>
+    </pre>
+</div>
+<span>or</span>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        // package.json
+        { <br>
+            "scripts": {
+            "serve": "vue-cli-service serve",
+            "build": "vue-cli-service build",
+            "test:unit": "vue-cli-service test:unit",
+            "lint": "vue-cli-service lint",
+            "build:preview": "vue-cli-service build --mode preview",
+            "lint:nofix": "vue-cli-service lint --no-fix"
+            }
+        } <br>
+    </pre>
+</div>
+<span>or</span>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        // package.json
+        { <br>
+            "scripts": {
+            "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+            "start": "npm run dev",
+            "unit": "jest --config test/unit/jest.conf.js --coverage",
+            "e2e": "node test/e2e/runner.js",
+            "test": "npm run unit && npm run e2e",
+            "build": "node build/build.js"
+            }
+        }
+    </pre>
+</div>
+<p style="text-indent: 35px">下次遇到新项目可以直接开始了。</p>
+</body>
+</html>

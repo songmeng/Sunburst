@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Promise学习</title>
+
+</head>
+<body>
+<h5>认识Promise对象</h5>
+<p style="text-indent: 30px">Promise是为了解决异步编程而设计的，ES6原生提供了Promise对象。Promise是一个对象，
+    可以理解为是一个容器，里面保存着未来才会结束的事件（通常是一个异步操作）的结果。</p>
+<h5>Promise最大的优点（作用）</h5>
+<p style="text-indent: 30px">在处理“回调地狱”场景时，Promise相对于传统的回调函数+事件更加合理和强大。Promise对象可以将异步操作以
+    同步操作的流程表达出来，避免了层层嵌套的回调函数。对此，Promise对象还提供了统一的接口，使得控制异步操作更加容易。
+</p>
+<p style="text-indent: 30px">既然有优点，顺便提一下Promise的缺点：Promise无法取消，一旦建立它就会立即执行，无法中途取消。第二点是，如果不设置回调函数，Promise内部会抛错，
+不会反应到外部。第三点是当处于pending状态时，无法得知当前的具体进展，是刚刚开始还是即将完成。</p>
+<h5>Promise的基本用法</h5>
+<p style="text-indent: 30px">1.要使用Promise首先创建一个Promise实例，Promise是一个构造函数，它的参数是一个函数function(resolve, reject){},该函数的两个参数resolve和reject也是两个函数。</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+        const promise = new Promise(function(resolve, reject) { <br>
+          // ... your code <br>
+          if (/* 异步操作成功 */){ <br>
+            resolve(value); <br>
+          } else { <br>
+            reject(error); <br>
+          } <br>
+        }); <br>
+        </pre>
+</div>
+
+<p style="text-indent: 30px">2.回调处理，Promise实例生成后，可以用then处理resolved和rejected状态的回调，
+then方法接受两个回调函数作为参数，第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数是Promise对象的状态变为rejected时调用。两个函数是可选的，不一定要提供，
+    他们接受Promise对象传出的值作为参数。</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+            promise.then( <br>
+                function(value) { <br>
+                  // success <br>
+                },
+                function(error) { <br>
+                  // failure <br>
+                }
+            ); <br>
+        </pre>
+</div>
+<p style="text-indent: 30px">3.最常用的使用场景例子，异步网络请求</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+            const getJSON = function(url) { <br>
+              const promise = new Promise(function(resolve, reject){ <br>
+                const handler = function() { <br>
+                  if (this.readyState !== 4) { <br>
+                    return; <br>
+                  } <br>
+                  if (this.status === 200) { <br>
+                    resolve(this.response); <br>
+                  } else { <br>
+                    reject(new Error(this.statusText)); <br>
+                  } <br>
+                }; <br>
+                const client = new XMLHttpRequest(); <br>
+                client.open("GET", url); <br>
+                client.onreadystatechange = handler; <br>
+                client.responseType = "json"; <br>
+                client.setRequestHeader("Accept", "application/json"); <br>
+                client.send(); <br>
+
+              }); <br>
+
+              return promise; <br>
+            }; <br>
+
+            getJSON("/posts.json").then(function(json) { <br>
+              console.log('Contents: ' + json); <br>
+            }, function(error) { <br>
+              console.error('出错了', error); <br>
+            }); <br>
+
+
+            promise.then( <br>
+                function(value) { <br>
+                  // success <br>
+                },
+                function(error) { <br>
+                  // failure <br>
+                }
+            ); <br>
+        </pre>
+</div>
+<h5>异常处理Promise.prototype.catch()</h5>
+<p style="text-indent: 30px">Promise.prototype.catch()方法是.then(null,rejection)或.then(undefined,rejection)的别名，
+用于指定发生错误时的回调函数。show me the code：</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+            // Error: test <br>
+            const promise = new Promise(function(resolve, reject) { <br>
+              throw new Error('test'); <br>
+            }); <br>
+            promise.catch(function(error) { <br>
+              console.log(error); <br>
+            }); <br>
+        </pre>
+</div>
+<h5>特殊的finally()方法Promise.prototype.finally()</h5>
+<p style="text-indent: 30px">finally()方法用于指定不管Promise对象最后的状态如何，都会执行的操作。在下面例子中，不管promise最后的状态，在执行完then或catch指定的回调函数
+以后，都会执行finally方法指定的回调函数。</p>
+<div style="background:gainsboro;padding: 10px;">
+        <pre>
+            promise <br>
+            .then(result => {···}) <br>
+            .catch(error => {···}) <br>
+            .finally(() => {···}); <br>
+        </pre>
+</div>
+
+</body>
+</html>

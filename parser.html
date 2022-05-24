@@ -59,7 +59,8 @@
                     let jsonObj = {
                         'title':cFile.name.substring(0,cFile.name.indexOf(".html")),
                         'ctime' :formatData(cFile.lastModifiedDate),
-                        'type':'1',
+                        'type':'6', //android:1  h5:2  javaweb:3  tools:4  financial:5   life:6
+                        'label':'6', //android:1  h5:2  javaweb:3  tools:4  financial:5   life:6
                         'content':formatHtml(pointsTxt)};
                     // alert(pointsTxt)
                     fileList.push(jsonObj);
@@ -88,7 +89,8 @@
         let start = content.indexOf("<body>") + 6;
         let end = content.indexOf("</body>");
 
-        return content.substring(start,end).replace(/\r\n/g,"");
+        // return content.substring(start,end).replace(/\r\n/g,"");
+        return content.substring(start,end);
     }
 
 function formatData(str) {

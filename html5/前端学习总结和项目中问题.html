@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端学习总结和项目中问题</title>
+</head>
+<body>
+
+
+<div class="tabView">
+    <h5>最开始疑惑的点（重要）</h5>
+    <p style="font-size: 13px;color: #656565;font-weight: bold">
+        <span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：对于float的深入理解，float设置给子元素属性；display:flex设置给父元素属性 </span>
+        <br  > A：解答：flex直接作用于其子元素；float比较复杂，写在子元素属性中，
+        它会去寻找父元素，父元素的父元素中第一个float:static;的值（即非默认值），然后相对于非默认值的父元素float浮动。所以使用时常常会
+        相对于 <strong style="color: #FF6347">body</strong> 浮动，使用时其父元素要保证保留着另起一行的属性，或着设置div style{clear:both;}属性</p>
+
+
+
+    <p style="font-size: 13px;color: #656565;font-weight: bold">
+        <span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：box-sizing: border-box; ??? </span>
+        <br  > A：解答：box-sizing:border-box设置padding时，保证其原有的宽高不变，向内压缩（同android类似）；
+        默认值box-sizing:border-content设置padding时，会在原有宽高基础上，向外扩展边界</p>
+
+
+    <p style="font-size: 13px;color: #656565;font-weight: bold">
+        <span style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：$(window).scroll无效问题。 </span>
+        <br  > A：原因： 如果你的css中：html,body的高度样式如果设置为100%，那么$(window).scroll方法将检测不到正确的滚出高度（0），导致滚动监听事件失效。
+        解决办法：1. html,body{height:auto} 2.获取滑动相关的dom，给dom设置滑动监听方法</p>
+
+
+
+
+    <hr/>
+    <h5>学习问题</h5>
+    <p style="font-size: 13px;color: #656565;font-weight: bold">
+        <span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：如何输出 &amp;lt; &amp;gt;&lt; &gt; &amp;nbsp;???</span>
+        <br  > A：&amp;lt;(&amp; lt;) &amp;gt;(&amp; gt;)</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：select、option 下拉菜单的值如何在表单传输?</span>
+        <br  > A：&lt;a href="homework-lesson_1_2.html#selectDm" target="_self" &gt; select
+        添加name属性后，form会将选中的值传递，以body的形式?? choose=type1 &lt;/a&gt;</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：子选择器，可以本元素和子元素，同时设置吗？</span> <br
+    > A：分开设置吧 本元素{} 本元素&gt;子元素{}</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：float 永远相对于rootview ？？即参照物是浏览器相对于浏览器 &lt;a href="homework-lesson_5.html"&gt;顶部想实现三行：第一行左侧； 第二行右侧； 第三行一左一右 ？？？&lt;/a&gt;</span>
+        <br  > A：给新的行div附上属性 clear:both ,就会在新的行生成新的布局</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：input 限制输入类型，数字，英文？</span> <br
+    > A：</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：如何突破 float: left; 另起一行？&lt;a href="practice_float.html"&gt;即如何让 [level1  第二行] 另起一行？&lt;/a&gt;</span>
+        <br  > A：☆☆☆☆☆A:给新的行div附上属性 clear:both ,就会在新的行生成新的布局</p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold"><span   style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：vue的各个组件是不是可以单独使用？不推荐单独使用？</span>
+        <br  > A：</p>
+    </p>
+
+    <hr/>
+
+    <h5  >项目中问题 &amp; zdd App 练习问题</h5>
+     <p style="font-size: 13px;color: #666;line-height: 1.5">Q:list-style-image 如何设置各自的图标？1.定义多个样式？ 2.理想实现：提炼出来在html设置？</p>
+     <p>Q:如何设置图片、文字水平居中？ height的值等于line-height的值？ </p>
+     <p  >A:无效，可以父控件div中设置 display: flex; align-items: center;</p>
+     <p>Q:向列表中添加数据的方式？？？ 目前了解到ul.appendChild(li); 缺点：在javascript中写 <strong
+             >拼接</strong> 样式</p>
+     <p>此页面的js方法为什么无效 onSelectTabO() ???</p>
+     <p> 参考1：<a   href="https://blog.csdn.net/xueyue616/article/details/105379355/">router-view和component
+        :is的区别</a> <br  > 参考2： <a   href="https://zhuanlan.zhihu.com/p/50524104">router-view和component
+        :is的区别</a></p>
+    <p style="font-size: 13px;color: #656565;font-weight: bold">
+        <span style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：overflow 属性使用问题？想实现<img class="imgMiddle" src="https://i.postimg.cc/zHKGcbFM/overflow-want.png" alt="">
+        总是 <img class="imgMiddle" src="https://i.postimg.cc/cgVJhMww/overflow-now.png" alt=""></span>
+        <br> A：解答：body设置为overflow:hidden; 根div设置为overflow:scroll; 底部设置为position:fixed;固定在底部。思路正确
+        <strong style="font-size: 16px">遗落点：html标签也设置为 overflow:hidden;</strong></p>
+        <p><small> <a href="practice_product.html">另一种思路</a>整体使用display:flex;
+            ，根div设置display:flex;主要是设置flex-direction:column;纵向排列
+            顶部和底部可以设置高度，内容区设置flex: 1;还有几个重要属性overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            height: auto;</small></p>
+
+<!--    <p style="font-size: 13px;color: #656565;font-weight: bold">-->
+<!--        <span style="font-size: 13px;color: #666;line-height: 1.5;font-weight: normal">Q：</span>-->
+<!--        <br> A：</p>-->
+
+    <ul>
+        <li>keep-alive不起作用问题？:include="cashArray" cashArray中的字段["GankHome","GankGirl"]需要和export default { name: "GankHome",
+            <strong>name</strong>属性一致
+        </li>
+        <li><strong>部署</strong>1.Terminal进入vueDemo目录执行命令 npm run build 2.生成dist目录
+            3.复制dist至Apache，运行出问题。需要将static放置根目录，如果是直接放置根目录没事
+        </li>
+
+        <li>flex-shrink: 0;（flex shrink：弯曲收缩）设置此属性，当其他同级组件变大时，不回挤压本组件的宽或高。</li>
+        <li>新标签学习&lt;dl&gt; &lt;dt&gt; &lt;dd&gt;标签</li>
+        <li>eq() 返回带有被选元素的指定索引号的元素</li>
+        <li>self.listGirl = response.data;写法无效？？？ 可以写为vm.$data.listGanHuo = response.data.data;</li>
+        <li>white-space: nowrap;属性，神经 ？</li>
+        <li>伪元素的用法？ ::befor ::after</li>
+    </ul>
+
+    <hr  >
+    <h5>小程序</h5>
+    <ul>
+        <li  >新增页面，has not been registered yet？展示空白页面 在对应js文件中写上：在js文件中写上Page({})就好了</li>
+    </ul>
+
+</div>
+
+
+</body>
+</html>

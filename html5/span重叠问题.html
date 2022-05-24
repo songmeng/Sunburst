@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>span重叠问题</title>
+</head>
+<body>
+<p style="text-indent: 45px">span是h5最常用的标签之一，span属于行内标签，被用来组合文档中的行内元素。一般情况下给span设置margin-top\margin-bottomm没有效果。</p>
+<h5 style="font-weight: bold">问题：最近使用span显示多项规格参数，设置了一种比较特别的样式，带有外边框，一行时没问题，折行时会发生重叠的问题</h5>
+<img src="https://i.postimg.cc/hGvq83QT/201217span.png" alt="">
+<p style="text-indent: 45px">各种搜索设置，比较多的是设置span float:left属性或者设置为行内块级元素display:inline;结果对我的问题不起作用，会出现如图的效果</p>
+<p style="text-indent: 45px">不但没有折行了，还是有重叠</p>
+
+<img src="https://postimg.cc/LJc72DT8" alt="">
+<!--<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/hGvq83QT/201217span.png' border='0' alt='201217span'/></a>-->
+
+<img src="https://i.postimg.cc/jSZb7r2R/20201217span2.png" alt="">
+<p style="text-indent: 45px">写法情况不一样，应用也不可能一致。回到第一张图其实折行和截断文字没有问题，只是 <strong>边距</strong>会有重叠，
+    于是想到虽然给span设置高度不起作用，但是给内部的文字设置行高还是会保留的，试了下确实可以：如图</p>
+<img src="https://i.postimg.cc/Pq7nSz1c/20201217span3.png" alt="">
+<p style="text-indent: 45px">主要代码为
+<pre style="background: darkgrey;padding: 5px;">
+    ... span{
+            ...
+            line-height: .55rem;
+            word-break: break-all;
+    }
+</pre>
+.55rem根据自己的视图大小需要自由设置
+</p>
+</body>
+</html>

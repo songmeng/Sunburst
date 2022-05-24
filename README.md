@@ -5,12 +5,13 @@ to be a better man,to be a better coder... -->
 <!-- <img style="width:755px; height:auto;" alt=""
         src="https://raw.githubusercontent.com/songmeng/Sunburst/master/Images/tool201905221.jpg"> -->
 ## Samon's blog
-
+[更佳观感，请移步至https://songmeng.github.io](https://songmeng.github.io)
 
 
 * android
     * []()
     <!-- * [](https://github.com/songmeng/Sunburst/issues/) -->
+    * [keystore/jks获取SHA1，以及专用格式转换问题](https://github.com/songmeng/Sunburst/issues/65)
     * [webview调起h5微信支付](https://github.com/songmeng/Sunburst/issues/50)
     * [JKS 密钥库使用专用格式,建议使用 keytool -importkeystore -srckeystore](https://github.com/songmeng/Sunburst/issues/48)
     * [Kotlin：An Annotation argument must be a compile time constant](https://github.com/songmeng/Sunburst/issues/47)
@@ -42,6 +43,17 @@ to be a better man,to be a better coder... -->
     * []()
 * html5
     * []()
+    * [Promise的简单用法](https://github.com/songmeng/Sunburst/issues/70)
+    * [使用mock.js模拟数据](https://github.com/songmeng/Sunburst/issues/68)
+    * [npm run xxx和yarn run xxx,那么xxx是什么？](https://github.com/songmeng/Sunburst/issues/67)
+    * [前端H5性能优化](https://github.com/songmeng/Sunburst/issues/66)
+    * [npm还是yarn](https://github.com/songmeng/Sunburst/issues/64)
+    * [bui框架单页模式，dom操作的坑](https://github.com/songmeng/Sunburst/issues/63)
+    * [覆水难收？发出的请求如何收回？](https://github.com/songmeng/Sunburst/issues/62)
+    * [vue状态管理模式Vuex学习使用](https://github.com/songmeng/Sunburst/issues/61)
+    * [span重叠问题](https://github.com/songmeng/Sunburst/issues/60)
+    * [苹果safari浏览器input兼容性问题](https://github.com/songmeng/Sunburst/issues/59)
+    * [前端学习总结和项目中问题](https://github.com/songmeng/Sunburst/issues/57)
     * [H5引入js和css防止缓存加v](https://github.com/songmeng/Sunburst/issues/54)
     * [前端获取iOS时间出错问题](https://github.com/songmeng/Sunburst/issues/53)
     * [jQuery和Vue学习对比](https://github.com/songmeng/Sunburst/issues/37)
@@ -50,6 +62,7 @@ to be a better man,to be a better coder... -->
     * []()
 * javaWeb
     * []()
+    * [linux命令touch和vi的区别](https://github.com/songmeng/Sunburst/issues/71)
     * [jdbc和mybatis和hibernate认识学习](https://github.com/songmeng/Sunburst/issues/46)
     * [NoClassDefFoundError fastjson 和 ClassNotFoundException mysql](https://github.com/songmeng/Sunburst/issues/43)
     * [转-Spring的概述](https://github.com/songmeng/Sunburst/issues/24)
@@ -58,6 +71,7 @@ to be a better man,to be a better coder... -->
     * []()
 * 开发工具
     * []()
+    * [Redis的安装和使用-windows](https://github.com/songmeng/Sunburst/issues/69)
     * [临时本地存代码Git Stash](https://github.com/songmeng/Sunburst/issues/51)
     * [Git仓库完整迁移](https://github.com/songmeng/Sunburst/issues/49)
     * [SQLyog连接MySQL时出现的2058错误解决方法](https://github.com/songmeng/Sunburst/issues/44)
@@ -70,6 +84,8 @@ to be a better man,to be a better coder... -->
     * []()
 * 工作生活学习
     * []()
+    * [2021-12-31年终小计(不是总结)](https://github.com/songmeng/Sunburst/issues/72)
+    * [2020-12-02总结与规划](https://github.com/songmeng/Sunburst/issues/58)
     * [2020-08-07随记](https://github.com/songmeng/Sunburst/issues/52)
     * [生活随想（关于基金）](https://github.com/songmeng/Sunburst/issues/45)
     * [一周六练健身计划](https://github.com/songmeng/Sunburst/issues/34)
@@ -81,4 +97,3 @@ to be a better man,to be a better coder... -->
     * [2016-11-02阶段总结](https://github.com/songmeng/Sunburst/issues/2)
     * []()
 
-慢慢将博客园和oschina的博客都移过来，准备之后只在github发布

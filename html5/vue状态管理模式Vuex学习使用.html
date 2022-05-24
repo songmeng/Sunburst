@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue状态管理模式Vuex学习使用</title>
+</head>
+<body>
+<h4 style="font-weight: bold;">什么是“状态管理模式”？为什么需要“状态管理模式”？</h4>
+<p style="text-indent:45px ">相对于MVC模式，Vue的MVVM开发模式，开发过程中重点只需要放在Module部分，至于View的渲染Vue帮我们做了，相较于MVC确实在某些方面有很大的优势。</p>
+<p style="text-indent:45px ">但是Vue组件式的开发方式也带来了新的问题: <br/> 1.一个状态Module对应多个视图Views<br/> 2.反过来多个视图Views都需要更新同一状态时</p>
+<p style="text-indent:45px ">处理这种情况经典的解决方案是：<strong>单例</strong>，这就引出了Vuex状态管理模式，确切一点是“状态共享”。</p>
+<h4 style="font-weight: bold">vue的状态管理器Vuex</h4>
+<p style="text-indent: 45px">状态管理说到底其实就是数据管理，更确切点是分散到各个组件中的数据。数据是分散的不可控，要想全局控制就需要一个全局的对象去管理，
+    这就引出了Vuex第一个重要的概念是store，也就是仓库。<strong>每个应用仅且仅包含一个store实例。</strong></p>
+<h5 style="font-weight: bold">Vuex中的5个核心概念State、Getter、Mutation、Action、Module</h5>
+<p style="text-indent: 45px">一、首先State，状态管理模式，State就是用来存放状态的容器。也就是说开发中需要的data都在State下。基本用法如下：</p>
+<pre style="background: darkgrey;padding: 5px">
+    //创建仓库
+    new Vuex.Store({
+        state：{
+            uName：1
+        }
+    })
+</pre>
+<p style="text-indent: 45px">将store注册到实例中</p>
+<pre style="background: darkgrey;padding: 5px">
+    //创建仓库
+    new Vue({
+    el:'#app',
+    <strong>store</strong>,
+    components:{},
+    })
+</pre>
+<p style="text-indent: 45px">使用时可以直接使用$store.state.uName访问</p>
+<p style="text-indent: 45px">也可以使用mapState辅助函数，将其映射下来</p>
+<pre style="background: darkgrey;padding: 5px">
+    import {mapState} from 'vuex'
+
+    export default {
+        computed:{
+            ...mapState(['uName'])
+        }
+    }
+</pre>
+<p style="text-indent: 45px">二、Getter</p>
+<p style="text-indent: 45px">有时候我们需要对现有数据进行包装，比如简单的计算、过滤。如果有3个地方用到这个属性，我们就需要把方法copy到三个地方，以后维护也需要逐项修改。当然理想的方式
+可以抽取出来一个共享函数，在三个地方引用这个js文件。但也不是太理想，针对这种情况Vuex的Getter应运而生。</p>
+<p>Getter维护由State派生的一些状态，这些状态随着State状态的变化而变化。Getter中的派生状态在计算后会 <strong>缓存起来</strong>，不会重复计算（比如有十个地方用到Getter，只要state不变只会计算一次）</p>
+<pre style="background: darkgrey;padding: 5px">
+    Vuex.Store({
+  state,
+  getters:{
+    tenTimesCount(state){
+      //Vuex为其注入state对象
+      return state.count * 10;
+
+    }
+  }
+})
+
+</pre>
+<p>使用方式为 调用Getter方法后，使用mapState辅助函数的方式...mapGetters(['tenTimesCount']):{{tenTimesCount}}</p>
+<pre style="background: darkgrey;padding: 5px">
+     import {mapGetters} from 'vuex'
+
+  export default {
+    name: "vuex",
+    data() {
+      return {}
+    },
+    computed: {
+      ...mapGetters(['tenTimesCount'])
+    }
+    }
+</pre>
+<p style="text-indent: 45px">三、Mutation——用于修改store.state中的数据，且只有这一种修改方式。具体用法为：</p>
+<pre style="background: darkgrey;padding: 5px">
+new Vuex.Store({
+  state : {
+     count:1
+  },
+  mutations:{
+    addCount(state,num){
+      state.count += num|1;
+    }
+  }
+})
+//在组件中可以直接使用store.commit调用mutation修改数据store.state
+this.$store.commit('addCount')
+</pre>
+<p style="text-indent: 45px">也可以mapMutation辅助函数的方式</p>
+<pre style="background: darkgrey;padding: 5px">
+    import {mapMutations} from 'vuex'
+    methods: {
+      ...mapMutations(['addCount']),
+      ...mapMutations({
+        increaseCount:'addCount'
+      }),
+    }
+</pre>
+<p style="text-indent: 45px">掌握这三个概念，基本的使用勉强够用了，还有两个概念应对特殊场景和大型项目：Action和Module。
+Action和Mutation类似，只是Action是异步的。如果需要共享的数据特别多，十分庞杂复杂，这时候模块化管理Module是很有用的。</p>
+<p>关于Action和Module，后续学习更新。</p>
+</body>
+</html>
