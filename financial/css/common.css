@@ -5,7 +5,7 @@
     text-decoration: none;
     -webkit-overflow-scrolling: touch;
     -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
+    /*cursor: pointer;*/
     font-family: MyNewFont;
 
 }
@@ -28,12 +28,12 @@ h6 {
 
 
 html {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    /*-webkit-touch-callout: none;*/
+    /*-webkit-user-select: none;*/
+    /*-o-user-select: none;*/
+    /*-moz-user-select: none;*/
+    /*-ms-user-select: none;*/
+    /*user-select: none;*/
 }
 
 img,
@@ -61,11 +61,14 @@ body,
     height: 100%;
     /*overflow: hidden;*/
     background: #f7f7f7;
+    background: #2b2b2b;
+    background: bisque;
     font-size: 15px;
     overflow: auto;
 }
 .wrap{
     /*overflow: auto;*/
+    padding: 5px;
 }
 .wrapChild {
     width: 100%;
@@ -97,7 +100,7 @@ li,span,div{
 
 img{
     width: 80%;
-    margin: auto;
+    margin: auto 10%;
 }
 .red-text{
     color: red;
@@ -105,4 +108,15 @@ img{
 a{
     color: blue;
     text-decoration: underline;
+}
+.zone{
+    border-radius: 12px;
+    border: 0;
+    margin: 10px 1px;
+    padding: 12px 16px;
+    width: auto;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+    -o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
 }
