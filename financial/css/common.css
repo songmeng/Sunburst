@@ -100,7 +100,8 @@ li,span,div{
 
 img{
     width: 80%;
-    margin: auto 10%;
+    margin: 5px 10%;
+    filter: drop-shadow(2px 2px 6px #000a);
 }
 .red-text{
     color: red;
