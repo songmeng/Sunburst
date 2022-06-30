@@ -119,4 +119,6 @@ a{
     -webkit-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%);
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
     -o-box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+    display: flex;
+    flex-direction: column;
 }
