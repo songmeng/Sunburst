@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+
+    <title>红包记录</title>
+    <link rel="stylesheet" href="../css/record.css?v=20201113">
+
+    <script src='../js/vue.js?t=20201030'></script>
+</head>
+<body>
+<div class="wrap" id="vue-app" style="display: none;" :style="{display: 'block'}">
+    <!--  顶部title   -->
+    <div class='topDiv'>
+        <img src="./img/icon_back.png" onclick="javascript:history.back(-1);" style="visibility: hidden">
+        <span>交易练习记录</span>
+        <b class='closeShow' @click="showYears" style="visibility: hidden">{{startTime}}</b>
+    </div>
+    <div class='wrapChild'>
+        <div style="" class="record-top" >
+            <img :src="imgHead" alt="">
+            <span class="name-send">{{userName}}</span>
+
+<!--            <span class="name-send">{{userName}}共{{tabIndex==1?"收到":"发出"}}</span>-->
+<!--            <span class="price">{{priceAll}}</span>-->
+        </div>
+        <div style="display: none" class='bg-type'>
+            <span @click="onTypeChange(1)" :class="tabIndex==1 ? 'common active ' : 'common' ">拓展值</span>
+            <span @click="onTypeChange(2)" :class="tabIndex==2 ? 'common active ' : 'common' ">消费积分</span>
+            <span @click="onTypeChange(3)" :class="tabIndex==3 ? 'common active ' : 'common' ">红包积分</span>
+        </div>
+
+        <div class='category-list' style="margin-top: 10px; flex: 1;">
+            <div class="bg-item" v-for="item in redEnvelopeList" >
+                <div class="item-top">
+                    <span class="item-title">{{item.userName+": " + item.recordDes}}</span>
+                    <span class="item-price">{{ item.createTime }}</span>
+                </div>
+                <div style="display: flex;justify-content: space-between;align-items: center">
+                    <span class="item-time">{{item.remark_panshou}}</span>
+                    <span class="item-time">盘手</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 5px;margin-bottom: 10px;text-align: center;color: #666666;" id = 'jiazai_gd'>
+                {{paging.loadingMessage}}
+            </div>
+            <div style="text-align: center;margin-top: 100px;display: none;" id= "zhangdan_null">
+                <img src="./img/no_datas.png" style="height: 100px" >
+                <div style="margin-top: 5px;color: #ADADAD;">暂无数据</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+    /**
+     * 盘手--  13页开始倒数-- 我的期货交易  13页已下完
+     */
+
+    var vum = new Vue({
+        el: "#vue-app",
+        data: {
+            imgHead:'https://img0.baidu.com/it/u=2884492182,2807595163&fm=253&fmt=auto?w=640&h=372', //头像
+            typeName: '拓展值', //拓展值   消费积分   红包积分
+
+            mobile: '',
+            sign: '',
+            smsCode: '',
+            amount: '',
+            uuid: '',
+            userName: '',
+
+            tabIndex:1,
+
+            countNums:null, //总数
+            showPicker:false,
+            startTime:'全部', //时间范围
+            currentDate: new Date(),
+            columns:[],
+            priceAll:'--',
+
+            paging: {
+                PageIndex: 1,
+                isTrue: true,
+                isLoading: false,
+                startLoading: false,
+                showLoading: false,
+                loadingMessage: "加载中...",
+                MaxRow:null
+            },
+            redEnvelopeList:[
+                {"createTime":"2020--","recordDes":"自我感觉：","remark_panshou":"","userName":"breaker"},
+                {"createTime":"2020--","recordDes":"自我感觉：","remark_panshou":"","userName":"breaker"},
+                {"createTime":"2020--","recordDes":"自我感觉：","remark_panshou":"","userName":"breaker"},
+                {"createTime":"2020--","recordDes":"自我感觉：","remark_panshou":"","userName":"breaker"},
+                {"createTime":"--------","recordDes":"---------------------------","remark_panshou":"-------","userName":"breaker"},
+
+
+
+                {"createTime":"2020-10-18上传 10-16周五","recordDes":"自我感觉：不同的波动幅度下训练结果大不相同，注意自己研究；十个点不要看不上，不要总想着抓“大”趋势","remark_panshou":"破20线的顶分型；破20线的底分型；10十个点左右","userName":"breaker"},
+                {"createTime":"2020-10-15 星期四","recordDes":"自我感觉：做的有点乱，下次可以直接进入当天练习","remark_panshou":"形成模式，按规则来","userName":"breaker"},
+                {"createTime":"2020-10-12","recordDes":"自我感觉：最后两拨都抓住了，下午下来和上去两拨，盘手程序单只做到中午结束好像，盘手自己手动做的菜粕行情类似；不足点：频繁开单，多多练习","remark_panshou":"赚2k多ni镍赚的，震荡的话止盈要小；像个抛物线一样，三浪和五浪最重要；纪律执行的特别严格，股票有时候走不掉","userName":"breaker"},
+                {"createTime":"2020-10-09 星期五","recordDes":"自我感觉：浮躁，多练习，正确的练习总结方法还是相当管用的；3分钟（之前其实1分钟多，确定一个周期）","remark_panshou":"5笔盈利3900；买点买，不要乱做；盈利的单子最好盈利出来；简单的重复的，不断的练习","userName":"breaker"},
+                {"createTime":"2020-09-24","recordDes":"自我感觉：继续练","remark_panshou":"2020-09-24  已经程序化了","userName":"breaker"},
+                {"createTime":"2020-09-24","recordDes":"自我感觉：基本上抓的可以","remark_panshou":"remarkremark","userName":"breaker"},
+            ], //记录列表
+            record:[
+                {"data":"20220618","knowledge":"自动化，测试阶段 5w的初始资金测试"},
+                {"data":"20220627","knowledge":"节点，颈线位，（周线，日线，kdj50下，顶分型 都满足就做空  胜率大，机会少）"},
+
+                {"data":"20220711  07-13","knowledge":"网格交易 （高频？超短线？）2跳止盈6跳止损，豆粕1手赚17块钱，挣辛苦钱"},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+                {"data":"","knowledge":""},
+            ]
+        },
+        mounted() {
+            // this.columns = getYearBetween('2020-01');
+            // this.getUserInfo();
+
+        },
+        methods: {
+            showYears:function(){
+
+            },
+            gotoDetail:function(id) {
+                // window.location.href = "./redEnvelope.html?id="+id;
+            },
+            onTypeChange : function(index) {
+                //方案一：
+                if (!this.paging.isLoading && this.tabIndex != index && !this.paging.startLoading){
+                    this.refresh(index);
+                }
+                //方案二：上拉刷新时待优化
+                // this.ajax.cancel();
+            },
+            refresh(index){
+            },
+            getUserInfo: function(){
+
+            },
+            getAllAmount:function(type){
+
+            },
+            getShareList: function() {
+
+            },
+
+            getGrabList: function() {
+            },
+        },
+    })
+
+
+    function getCookie(key) {
+        var arr1 = document.cookie.split("; ");//由于cookie是通过一个分号+空格的形式串联起来的，所以这里需要先按分号空格截断,变成[name=Jack,pwd=123456,age=22]数组类型；
+        for (var i = 0; i < arr1.length; i++) {
+            var arr2 = arr1[i].split("=");//通过=截断，把name=Jack截断成[name,Jack]数组；
+            if (arr2[0] == key) {
+                return decodeURI(arr2[1]);
+            }
+        }
+    }
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+</script>
