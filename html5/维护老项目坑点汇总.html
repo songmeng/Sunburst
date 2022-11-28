@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>维护老项目坑点汇总</title>
+</head>
+<body>
+<p><strong>bui的单页面应用模式跳转方式</strong></p>
+<p>一种是官方的写法：</p>
+<div style="background:gainsboro;padding: 8px;">
+<pre style="margin: 0">
+//bui跳转
+bui.load({url:pages/xxxx.html,replace:false});
+//正常跳转
+//window.location.href = "/app/#pages/xxxx.html;
+</pre>
+</div>
+<p>坑点，发现原生js的跳转方法路径写成：/#pages/xxxx.html 也可以跳转过去，会进入bui的路由里面，单页应用模式跳转</p>
+
+<p><strong>html2canvas在bui中使用失效的问题</strong></p>
+<p>html2canvas在html dom节点特别多的时候会失效，bui的单页路由模式实现方式原因，会导致DOM节点越来越多，最后解决方法为，在需要截图的页面使用iframe将需要截图的部分在iframe中实现。</p>
+
+
+</body>
+</html>

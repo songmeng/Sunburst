@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+
+    <link rel="stylesheet" href="./css/index.css">
+    <script src='./js/vue.js'></script>
+</head>
+<body>
+<div class="wrap" id="vue-app" style="display: none;" :style="{display: 'block'}">
+    <div class="wrapChild">
+        <span id="gotoShop" style="font-weight: 500;color: #090909;font-size: 14px;position: fixed;top: 12px;left: 35px;display: none">商城</span>
+        <!--  顶部title   -->
+        <div class='topDiv'>
+            <img src="../img/icon_back.png" onclick="return_back()">
+            <span>首页</span>
+            <b class='closeShow'></b>
+        </div>
+
+        <div class="childList" >
+            <div class="itemFans"  v-for="item in listFuns">
+                <!--                <img class="fansHead" :src="item.headimgurl" alt="">-->
+                <div style="flex: 1;border-bottom: 1px solid #f7f7f7;margin: 0 10px;padding-bottom: 10px;">
+                    <div class="itemBetween">
+                        <div class="fansName">{{item.goods_title}}</div>
+                        <div :class="item.wallet_type==2||item.wallet_type==3 ? 'fansTime fansRed':'fansTime'">
+                            <!--                            <span :class="item.wallet_type==2||item.wallet_type==3 ? 'wallet_type_red':'wallet_type'" style="flex-shrink: 0">{{item.wallet_name}}</span>-->
+                            <span :class="getBillClass(item.wallet_type)" style="flex-shrink: 0">{{item.wallet_name}}</span>
+                            <span style="margin-left: 4px">{{item.amount}}</span>
+                        </div>
+                    </div>
+
+                    <div class="itemBetween">
+                        <div class="fansPhone">{{item.ctime}}</div>
+                        <div class="fansPhone">{{item.balance}}</div>
+                    </div>
+                    <div class="fansPhone">描述：{{item.description}}</div>
+                </div>
+            </div>
+            <div style="margin-top: 5px;margin-bottom: 10px;text-align: center;color: #666666;" @click="handleScroll" id = 'jiazai_gd'>
+                {{paging.loadingMessage}}
+            </div>
+            <div style="text-align: center;margin-top: 100px;display: none;" id= "zhangdan_null">
+                <img src="../img/my_duiyuan.png" style="width: 50%;" >
+                <div style="margin-top: 5px;color: #ADADAD;">暂无数据</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+    var vum = new Vue({
+        el: "#vue-app",
+        data: {
+            paging: {
+                PageIndex: "1",
+                PageSize: "10",
+                isTrue: true,
+                showLoading: false,
+                loadingMessage: "加载中..."
+            },
+
+            listFuns: null, //粉丝列表
+        },
+        mounted() {
+            this.getList();
+            //监听滚动
+            var rootV = document.getElementsByClassName('childList')[0];
+            rootV.addEventListener('scroll', () => {
+                this.handleScroll();
+            });
+        },
+        methods: {
+            handleScroll : function() {
+            },
+            getList() {
+            },
+            getBillClass(wallet_type){
+                if (wallet_type==2||wallet_type==3){
+                    return 'wallet_type_red';
+                }else if (wallet_type==5){
+                    return 'wallet_type_blue';
+                }else{
+                    return 'wallet_type';
+                }
+            },
+        },
+    })
+    function return_back(){
+        // window.history.back();
+        window.location.href = "./cardCenter.html";
+    };
+</script>

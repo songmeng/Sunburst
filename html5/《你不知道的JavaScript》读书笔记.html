@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>《你不知道的JavaScript》读书笔记</title>
+</head>
+<body>
+
+<p style="font-weight: bold">提升：提升是指声明会被视为存在于其所出现的作用域的整个范围内。</p>
+<p>但是使用let进行的声明不会在块作用域中进行提升。声明的代码运行之前，声明并不“存在”。</p>
+<div style="background:gainsboro;padding: 10px;">
+    <pre>
+        { <br>
+            console.log(bar); <span style="color:red"> //ReferenceError!</span> <br>
+            let bar = 2; <br>
+        } <br>
+    </pre>
+</div>
+<p>无论通过何种手段将内部函数传递到所在的词法作用域以外，他都会持有对原始定义作用域的引用，无论在何处执行这个函数都会使用闭包。</p>
+
+<div style="background: blue">
+    <div style="display: inline;margin-top: 30px;margin-bottom: 30px">111</div>
+</div>
+</body>
+</html>

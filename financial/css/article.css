@@ -1,0 +1,214 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    font-family: MyNewFont;
+
+}
+img {
+    object-fit: cover;
+    object-position:center;
+}
+a,
+i,
+u,
+em,
+b,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    font-style: normal;
+    color: #333;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+html {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+img,
+div,
+body,
+html,
+ul,
+li,
+a {
+    -webkit-touch-callout: none;
+}
+
+input {
+    -webkit-appearance: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /*overflow-y: auto;*/
+    background: #f7f7f7;
+
+    margin: 0;
+    padding: 0;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    background: #f7f7f7;
+    font-size: 15px;
+    overflow: auto;
+}
+
+.wrapChild {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    /*overflow-y: auto;*/
+}
+
+/* title begin */
+.topDiv {
+    width: 100%;
+    background: #FFFFFF;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*margin-bottom: 10px;*/
+    padding: 10px;
+
+    font-size: 18px;
+    font-family: PingFang SC;
+    font-weight: 500;
+    color: #090909;
+
+    /*position: fixed;*/
+    /*top: 0px;*/
+    /*left: 0;*/
+    box-sizing: border-box;
+    overflow: hidden;
+
+    border-bottom: 1px #f7f7f7 solid;
+
+}
+
+
+.topDiv span {
+    color: #090909;
+    font-size: 17px;
+}
+
+.topDiv b {
+    color: #090909;
+    font-size: 13px;
+}
+
+.topDiv img {
+    /*width: 15px;*/
+    height: 15px;
+
+}
+
+/* title  end*/
+
+.childList {
+    overflow: auto;
+    flex: 1;
+
+}
+
+
+.bgWhite {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 2px 0px rgba(223, 228, 232, 0.97);
+    border-radius: 5px;
+
+    padding: 10px;
+    margin: 0 10px 10px 10px;
+}
+
+
+.itemFans {
+    width: 100%;
+    /*height: 64px;*/
+    /*background: rgba(255, 255, 255, 1);*/
+
+    display: flex;
+    padding: 0;
+    margin: 0px;
+    flex-direction: column;
+}
+
+.itemFans .fansHead {
+    width: 100%;
+    /*height: 36px;*/
+    margin: 0;
+    flex-shrink: 0;
+
+    object-fit: contain;
+
+    background: #f7f7f7;
+    border-radius: 0px;
+}
+
+.itemFans .fansInfo {
+    margin-top: 15px;
+    font-size: 14px;
+    font-family: PingFang SC-中等, PingFang SC;
+    font-weight: normal;
+    color: #666666;
+    line-height: 22px;
+    display: flex;
+    flex-direction: column;
+}
+.itemFans .fansPhoneImg {
+    width: 19px;
+    height: 20px;
+
+    margin-right: 20px;
+    flex-shrink: 0;
+
+    display: inline-block;
+}
+
+.btn_rz{
+    position: fixed;
+    bottom: -12px;
+    left: 2.5%;
+    right: 10px;
+    height: 70px;
+    width: 95%;
+}
