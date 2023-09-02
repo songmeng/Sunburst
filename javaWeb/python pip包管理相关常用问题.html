@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>python pip包管理相关常用问题</title>
+</head>
+<body>
+
+
+<strong>pip模块安装相关问题</strong>
+<p>1.Python的pip安装模块目录</p>
+<ul>
+    <li>再次输入pip install xxxx就会显示此包已经安装的路径了</li>
+    <li>其实所有通过System pip安装的包都在此目录下，如：</li>
+</ul>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+        C:\Users\Admin>pip install numpy
+        Requirement already satisfied: numpy in c:\users\admin\appdata\local\programs\python\python38-32\lib\site-packages (1.24.1)
+    </pre>
+</div>
+<p>即：c:\users\admin\appdata\local\programs\python\python38-32\lib\site-packages</p>
+
+<p>2.如何将模块只安装在项目的venv中</p>
+<ul>
+    <li>手动操作安装，Intellij Idea右下角点击，选择对应的python interpreter环境，手动搜索安装</li>
+    <li>pip命令行安装，注意只安装在所在项目venv中的话，命令行的区别</li>
+</ul>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+        python -m pip install  xxxx
+    </pre>
+</div>
+<p>注意前缀： python -m</p>
+
+<p>3.如何安装xxx.whl文件</p>
+<ul>
+    <li>安装至公共System库:cmd进入.whl文件目录，直接命令行运行安装</li>
+    <li>进一步，只安装在项目的venv中，注意前缀。前提：将.whl文件放置venv文件夹内</li>
+</ul>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+        pip install xxxx.whl
+        python -m pip install xxxx.whl
+    </pre>
+</div>
+<p>4.直接源代码安装，github直接下载项目源码</p>
+<ul>
+    <li>安装至公共System库:cmd进入git源码文件目录，直接命令行运行安装</li>
+    <li>进一步，只安装在项目的venv中，注意前缀。前提：将源码文件放置在venv文件夹内</li>
+</ul>
+<div style="background:black;color:white;padding: 10px;">
+    <pre>
+        python setup.py install
+        python -m setup.py install
+    </pre>
+</div>
+</div>
+</body>
+</html>
