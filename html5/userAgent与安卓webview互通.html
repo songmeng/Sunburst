@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>userAgent与安卓webview互通</title>
+</head>
+
+<body>
+
+<h4 style="padding-left: 20px">问题思考：在开发小程序(微信小程序、支付宝小程序或字节小程序)的时候，使用webview组件时，h5有判断是否小程序环境的需求，通用的的写法是：</h4>
+<div style="background:gainsboro;padding: 5px;">
+        <pre>
+            // 微信小程序环境
+               var ua = navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                    //ios的ua中无miniProgram，但都有MicroMessenger（表示是微信浏览器）
+                    wx.miniProgram.getEnv((res)=>{
+                        if (res.miniprogram) { //在小程序环境
+                            console.log('微信[小程序]环境')
+                        }else{
+                            console.log('微信[公众号]环境')
+                        }
+                    })
+                }else{
+                    console.log('非微信环境')
+                }
+
+            // 判断是否抖音小程序
+            const isTTWebView = navigator.userAgent.toLowerCase().includes("toutiaomicroapp");
+            if(isTTWebView){
+                console.log('在抖音小程序里面')
+            }
+        </pre>
+</div>
+
+<div style="padding-left: 20px">
+  <h4>引申出来的问题是，公司的商城项目产品形态有h5、公众号（h5）、安卓App，其中App有一些模块是混合开发，直接webview嵌入的h5，有时候需要区分app环境，能不能灵活的判断当前h5是否是在App环境？</h4>
+  <div>常规的方法可以是App通过webview跳转h5的时候，url后面夹带参数，h5获取到后写入session或cookie，这种方法也可以，但是需要注意每个跳转h5的入口都要加上参数，不要漏了，再有h5对应的页面也有注意接受存储。</div>
+  <h5>更优的方法：UserAgent</h5>
+    <div>参考各个平台小程序的写法，得到一条思路，app可以写入UserAgent，只需要在配置webSetting方法写一次就可以了，防止遗漏，而且h5不需要强制接受并存储，只需要在使用的时候直接判断就可以了。具体App和h5的实现代码如下：</div>
+    <div style="background:gainsboro;padding: 5px;">
+        <pre>
+            // App写入自己平台的userAgent
+
+            Websettings webSetting = webview.getSettings();
+            ....
+            //  xxxxAndroidApp  xxxx:平台名称  Android：安卓平台也可以是iOS  注意前面有空格
+            webSetting.setUserAgentString(webSetting.getUserAgentString()+" xxxxAndroidApp");
+            ....
+
+            // h5端具体使用时写法
+            const isApp = navigator.userAgent.toLowerCase().includes("xxxxAndroidApp");
+            if(isApp){
+                //与原生互通
+                window.AndroidWebView.showInfoFromJs('{"code":200}');
+            }else{
+                //非App环境
+                layer.open({content:'本功能只支持App,请在App打开！'})
+            }
+        </pre>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
